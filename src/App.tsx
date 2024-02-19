@@ -1,26 +1,29 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import styled from "styled-components";
+import { useAppDispatch, useAppSelector } from "./redux/hooks";
+
+import Components from "./components/components";
+import Utilities from "./utilities/utilities";
+
+
+const StyledApp = styled.div`
+font-family: "Roboto", sans-serif;
+`;
+
 
 function App() {
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <StyledApp className="App">
+      <Components />
+      <Utilities />
+    </StyledApp>
   );
 }
 
 export default App;
+
+
+
+// do zrobienia przyciski przy wylaczaniu reset off 
+// i sos moga dzialc lepiej bo teraz nie lapie tylko ramek ale tez ten napis 
