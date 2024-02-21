@@ -36,24 +36,24 @@ export default function CounterActiveScreen() {
 
 
 
-  // useEffect(() => {
-  //   if (isScreenActive && isCountingDown) {
-  //     const timer = setTimeout(() => {
-  //       dispatch(updateScreenCountDown(countDown - 1000));
-  //       if (countDown === 1000) {
-  //         dispatch(screenTurnOff());
-  //         dispatch(setCurrenBarTop(enumCurrentBarTop.off));
-  //         dispatch(setCurrentScreen(enumCurrentScreen.screenNone));
-  //         dispatch(setCurrentBarBottom(enumCurrentBarBottom.off));
-  //         dispatch(modalTurnOff());
-  //         dispatch(setCurrentModal(enumCurrentModal.modalNone));
-  //         dispatch(setTurnOffBtnsFocus(enumModalTurnOffBtnsFocus.all));
-  //         dispatch(setStopCountingDown());
-  //       }
-  //     }, 1000);
-  //     return () => clearTimeout(timer);
-  //   }
-  // }, [isScreenActive, countDown]);
+  useEffect(() => {
+    if (isScreenActive && isCountingDown) {
+      const timer = setTimeout(() => {
+        dispatch(updateScreenCountDown(countDown - 1000));
+        if (countDown === 1000) {
+          dispatch(screenTurnOff());
+          dispatch(setCurrenBarTop(enumCurrentBarTop.off));
+          dispatch(setCurrentScreen(enumCurrentScreen.screenNone));
+          dispatch(setCurrentBarBottom(enumCurrentBarBottom.off));
+          dispatch(modalTurnOff());
+          dispatch(setCurrentModal(enumCurrentModal.modalNone));
+          dispatch(setTurnOffBtnsFocus(enumModalTurnOffBtnsFocus.all));
+          dispatch(setStopCountingDown());
+        }
+      }, 1000);
+      return () => clearTimeout(timer);
+    }
+  }, [isScreenActive, countDown]);
 
   return null;
 }

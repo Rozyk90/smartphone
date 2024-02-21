@@ -30,7 +30,7 @@ console.log("odpalam tego useeeffecta")
           dispatch(setUser({uid,userEmail,isLogged:true}))
           // ...
         } else {
-          dispatch(setUser({uid:'',userEmail:'',isLogged:true}))
+          dispatch(setUser({uid:'',userEmail:'',isLogged:false}))
 
           // User is signed out
           // ...

@@ -1,16 +1,17 @@
 import * as React from "react";
 import styled from "styled-components";
+import { useState } from "react";
+import { useAppDispatch, useAppSelector } from "../../../../../../redux/hooks";
 
-import FingerprintIcon from "@mui/icons-material/Fingerprint";
 
-import Clock from "../../../../../apps/clock/clock";
 import { enumClockSizes } from "../../../../../apps/clock/clock";
 import Calendar from "../../../../../apps/calendar/calendar";
-import { useAppDispatch } from "../../../../../../redux/hooks";
-import { turnOnMid } from "../../../../../../redux/reducers/test";
-import { useState } from "react";
+import Clock from "../../../../../apps/clock/clock";
+
 import Finger from "./elements/finger";
 import Inputs from "./elements/inputs";
+
+import { updateScreenCountDown } from "../../../../../../redux/reducers/screen";
 
 const StyledScreenBlockActive = styled.div`
   height: 100%;
@@ -32,13 +33,16 @@ const StyledContainerLogin = styled.div`
 `;
 
 export default function ScreenBlockActive() {
+  const [showInputs, setShowInputs] = useState(false);
+  const isLogged = useAppSelector((state) => state.user.isLogged);
+  const shortTime = useAppSelector(state => state.screen.countDownTimerShort)
 
+  const dispatch = useAppDispatch()
 
-
-
-
-
-
+  const showInp = () => {
+    dispatch(updateScreenCountDown(shortTime));
+    setShowInputs(true);
+  };
 
   return (
     <StyledScreenBlockActive>
@@ -49,12 +53,9 @@ export default function ScreenBlockActive() {
         <Calendar />
       </StyledContainerCalendar>
       <StyledContainerLogin>
+        {!isLogged && showInputs && <Inputs />}
 
-
-        <Inputs        />
-
-
-        {/* <Finger/> */}
+        {!showInputs && <Finger onClick={showInp} />}
       </StyledContainerLogin>
     </StyledScreenBlockActive>
   );

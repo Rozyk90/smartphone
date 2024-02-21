@@ -42,8 +42,8 @@ const initialState: screen = {
   currentBarBottom: enumCurrentBarBottom.off,
   isScreenActive: false,
   countDownTimer: 10000,
-  countDownTimerShort: 7000,
-  countDown: 7000,
+  countDownTimerShort: 10000,
+  countDown: 10000,
   isCountingDown:false
 };
 

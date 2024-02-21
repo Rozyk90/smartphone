@@ -12,14 +12,15 @@ const StyledButton = styled(FingerprintIcon)`
   }
 `;
 
-export default function Finger() {
-  const BtnLogin = () => {
-    console.log("klik");
-  };
+interface ButtonProps {
+  onClick: () => void;
+}
+
+export default function Finger(props: ButtonProps) {
   return (
     <StyledButton
       onClick={() => {
-        BtnLogin();
+        props.onClick()
       }}
     />
   );

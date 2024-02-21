@@ -1,18 +1,20 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
+import {
+  useAppSelector,
+  useAppDispatch,
+} from "../../../../../../../redux/hooks";
 import styled from "styled-components";
 import { auth } from "../../../../../../../firebase";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
-  onAuthStateChanged 
 } from "firebase/auth";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
-import { useAppDispatch } from "../../../../../../../redux/hooks";
-import { setUser } from "../../../../../../../redux/reducers/user";
+import { updateScreenCountDown } from "../../../../../../../redux/reducers/screen";
 
 const StyledInputs = styled.div`
   border: 2px solid green;
@@ -24,7 +26,6 @@ const StyledInput = styled(TextField)`
   }
 `;
 export default function Inputs() {
-
   enum enumBtns {
     btnLogin = "login",
     btnRegistration = "registration",
@@ -36,33 +37,40 @@ export default function Inputs() {
   const [pass, setPass] = useState("");
   const [passError, setPassError] = useState("");
 
-  const dispatch = useAppDispatch()
-  
+  const shortTime = useAppSelector((state) => state.screen.countDownTimerShort);
+  const dispatch = useAppDispatch();
+
+  const resetScreenTimer = () => {
+    dispatch(updateScreenCountDown(shortTime));
+  };
+
   const setBtn = (
     event: React.MouseEvent<HTMLElement>,
     newBtn: enumBtns.btnLogin | enumBtns.btnRegistration
   ) => {
+    resetScreenTimer();
     if (newBtn !== null) {
-    resetErrors()
+      resetErrors();
       setSelectedBtn(newBtn);
     }
   };
 
   const changeEmail = (event: any) => {
-    resetErrors()
-
+    resetErrors();
+    resetScreenTimer();
     setEmail(event.target.value);
   };
 
   const changePass = (event: any) => {
-    resetErrors()
+    resetErrors();
+    resetScreenTimer();
     setPass(event.target.value);
   };
 
-  const resetErrors = () =>{
+  const resetErrors = () => {
     setPassError(enumErrors.clear);
     setEmailError(enumErrors.clear);
-  }
+  };
 
   enum enumErrorsCodes {
     emailExists = "auth/email-already-in-use",
@@ -76,40 +84,36 @@ export default function Inputs() {
     existsEmail = "Podany email jest już używany",
     wrongPass = "Wymagana długość to 6 znaków",
     serverError = "Błąd serwera",
-    correctDetails = 'Wprowadz poprawne dane'
+    correctDetails = "Wprowadz poprawne dane",
   }
 
-
-
-const loginAcc = async () =>{
-  signInWithEmailAndPassword(auth, email, pass)
-    .then((userCredential) => {
-      resetErrors()
-      // Signed in 
-      const user = userCredential.user;
-      // ...
-    })
-    .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      setEmailError(enumErrors.correctDetails);
-      setPassError(enumErrors.correctDetails);
-    });
-
-}
-
+  const loginAcc = async () => {
+    resetScreenTimer();
+    signInWithEmailAndPassword(auth, email, pass)
+      .then((userCredential) => {
+        resetErrors();
+        // Signed in
+        const user = userCredential.user;
+        // ...
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        setEmailError(enumErrors.correctDetails);
+        setPassError(enumErrors.correctDetails);
+      });
+  };
 
   const createAcc = async () => {
+    resetScreenTimer();
     createUserWithEmailAndPassword(auth, email, pass)
       .then((userCredential) => {
-        resetErrors()
+        resetErrors();
         // Signed up
         const user = userCredential.user;
         // ...
       })
-      .then(() => {
-
-      })
+      .then(() => {})
       .catch((error) => {
         const errorCode = error.code;
 
@@ -125,33 +129,6 @@ const loginAcc = async () =>{
         }
       });
   };
-
-
-
-    // onAuthStateChanged(auth, (user) => {
-    //   console.log('xxxxx', user)
-    //   if (user) {
-    //     // dispatch(setUser({user}))
-    //     // dispatch(setUser(user));
-    //     // User is signed in, see docs for a list of available properties
-    //     // https://firebase.google.com/docs/reference/js/auth.user
-    //     const defaultUid = "";
-    //     const defaultUserEmail = "";
-        
-    //     const uid = user.uid || defaultUid;
-    //     const userEmail = user.email || defaultUserEmail;
-        
-    //     dispatch(setUser({uid,userEmail}))
-    //     // ...
-    //   } else {
-    //     // User is signed out
-    //     // ...
-    //   }
-    // });
-  
-
-
-
 
   return (
     <>
@@ -186,7 +163,6 @@ const loginAcc = async () =>{
         />
       </StyledInputs>
 
-
       {selectedBtn === enumBtns.btnLogin ? (
         <Button
           onClick={() => {
@@ -204,8 +180,6 @@ const loginAcc = async () =>{
           Stwórz
         </Button>
       )}
-
-  
     </>
   );
 }
