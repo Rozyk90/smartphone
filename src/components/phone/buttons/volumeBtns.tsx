@@ -5,9 +5,9 @@ import { updateScreenCountDown } from "../../../redux/reducers/screen";
 
 const StyledButtonTop1 = styled.div`
   position: absolute;
-  right: -8px;
+  right: -10px;
   top: 120px;
-  width: 3px;
+  width: 5px;
   height: 45px;
   background: #686868;
   border-top-right-radius: 2px;
@@ -16,9 +16,9 @@ const StyledButtonTop1 = styled.div`
 
 const StyledButtonTop2 = styled.div`
   position: absolute;
-  right: -8px;
+  right: -10px;
   top: 165px;
-  width: 3px;
+  width: 5px;
   height: 45px;
   background: #686868;
   border-bottom-right-radius: 2px;

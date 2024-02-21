@@ -25,9 +25,9 @@ import {
 
 const StyledButtonMain = styled.div`
   position: absolute;
-  right: -8px;
+  right: -10px;
   top: 250px;
-  width: 3px;
+  width: 5px;
   height: 40px;
   background: #686868;
   border-top-right-radius: 2px;
