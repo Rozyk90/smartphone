@@ -36,7 +36,7 @@ interface screen {
 }
 
 const initialState: screen = {
-  background: '#B7CDB5',
+  background: 'radial-gradient(circle, rgba(127,142,170,1) 19%, rgba(53,104,150,1) 61%)',
   currentBarTop:enumCurrentBarTop.off,
   currentScreen: enumCurrentScreen.screenNone,
   currentBarBottom: enumCurrentBarBottom.off,

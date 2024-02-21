@@ -3,34 +3,46 @@ import { useState } from "react";
 import {
   useAppSelector,
   useAppDispatch,
-} from "../../../../../../../redux/hooks";
-import styled from "styled-components";
-import { auth } from "../../../../../../../firebase";
+} from "../../../../../../../../redux/hooks";
+import styled, { withTheme } from "styled-components";
+import { auth } from "../../../../../../../../firebase";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
 } from "firebase/auth";
-import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
+
 import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
-import { updateScreenCountDown } from "../../../../../../../redux/reducers/screen";
+import { updateScreenCountDown } from "../../../../../../../../redux/reducers/screen";
 
-const StyledInputs = styled.div`
-  border: 2px solid green;
-`;
+import Input from "./elements/input";
+import ActionBtn from "./elements/actionBtn";
 
-const StyledInput = styled(TextField)`
-  && {
-    margin-top: 50px;
-  }
-`;
+const StyledInputs = styled.div``;
+
+const StyledBtnsGroup = styled(ToggleButtonGroup)``;
+
+enum enumErrorsCodes {
+  emailExists = "auth/email-already-in-use",
+  emailWrong = "auth/invalid-email",
+  missingPass = "auth/missing-password",
+}
+
+enum enumErrors {
+  clear = "",
+  wrongEmail = "Wprowadz poprawny email",
+  existsEmail = "Podany email jest już używany",
+  wrongPass = "Wymagana długość to 6 znaków",
+  serverError = "Błąd serwera",
+  correctDetails = "Wprowadz poprawne dane",
+}
+
+enum enumBtns {
+  btnLogin = "login",
+  btnRegistration = "registration",
+}
+
 export default function Inputs() {
-  enum enumBtns {
-    btnLogin = "login",
-    btnRegistration = "registration",
-  }
-
   const [selectedBtn, setSelectedBtn] = useState(enumBtns.btnLogin);
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState("");
@@ -71,21 +83,6 @@ export default function Inputs() {
     setPassError(enumErrors.clear);
     setEmailError(enumErrors.clear);
   };
-
-  enum enumErrorsCodes {
-    emailExists = "auth/email-already-in-use",
-    emailWrong = "auth/invalid-email",
-    missingPass = "auth/missing-password",
-  }
-
-  enum enumErrors {
-    clear = "",
-    wrongEmail = "Wprowadz poprawny email",
-    existsEmail = "Podany email jest już używany",
-    wrongPass = "Wymagana długość to 6 znaków",
-    serverError = "Błąd serwera",
-    correctDetails = "Wprowadz poprawne dane",
-  }
 
   const loginAcc = async () => {
     resetScreenTimer();
@@ -132,54 +129,38 @@ export default function Inputs() {
 
   return (
     <>
-      <ToggleButtonGroup value={selectedBtn} exclusive onChange={setBtn}>
-        <ToggleButton color="error" value={enumBtns.btnLogin}>
+      <StyledBtnsGroup
+        color="primary"
+        value={selectedBtn}
+        exclusive
+        onChange={setBtn}
+      >
+        <ToggleButton value={enumBtns.btnLogin} sx={{ color: "white" }}>
           Logowanie
         </ToggleButton>
-        <ToggleButton value={enumBtns.btnRegistration}>
+        <ToggleButton value={enumBtns.btnRegistration} sx={{ color: "white" }}>
           Rejestracja
         </ToggleButton>
-      </ToggleButtonGroup>
+      </StyledBtnsGroup>
       <StyledInputs>
-        <StyledInput
-          id="outlined-basic"
-          label="Email"
-          variant="outlined"
-          size="small"
-          color="primary"
+        <Input
           value={email}
-          onChange={changeEmail}
-          helperText={emailError}
-        />
-
-        <StyledInput
-          label="Hasło"
-          variant="outlined"
-          size="small"
-          color="primary"
+          change={changeEmail}
+          error={emailError}
+          label="email"
+        ></Input>
+        <Input
           value={pass}
-          onChange={changePass}
-          helperText={passError}
-        />
+          change={changePass}
+          error={passError}
+          label="hasło"
+        ></Input>
       </StyledInputs>
 
-      {selectedBtn === enumBtns.btnLogin ? (
-        <Button
-          onClick={() => {
-            loginAcc();
-          }}
-        >
-          Zaloguj
-        </Button>
-      ) : (
-        <Button
-          onClick={() => {
-            createAcc();
-          }}
-        >
-          Stwórz
-        </Button>
-      )}
+      <ActionBtn
+        isLogin={selectedBtn === enumBtns.btnLogin}
+        fn={selectedBtn === enumBtns.btnLogin ? loginAcc : createAcc}
+      ></ActionBtn>
     </>
   );
 }

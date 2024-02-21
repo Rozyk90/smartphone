@@ -9,7 +9,7 @@ import Calendar from "../../../../../apps/calendar/calendar";
 import Clock from "../../../../../apps/clock/clock";
 
 import Finger from "./elements/finger";
-import Inputs from "./elements/inputs";
+import Inputs from "./elements/inputs/inputs";
 
 import { updateScreenCountDown } from "../../../../../../redux/reducers/screen";
 
@@ -20,15 +20,12 @@ const StyledScreenBlockActive = styled.div`
 const StyledContainerClock = styled.div`
   padding-top: 100px;
   text-align: center;
-  border: 1px solid green;
 `;
 const StyledContainerCalendar = styled.div`
   text-align: center;
-  border: 1px solid blue;
 `;
 const StyledContainerLogin = styled.div`
   text-align: center;
-  border: 1px solid orange;
   padding-top: 50px;
 `;
 
