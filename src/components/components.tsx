@@ -42,6 +42,7 @@ const StyledBig = styled.div`
 export default function Components() {
   const dispatch = useAppDispatch();
 
+  const currentScreen = useAppSelector((state) => state.screen.currentScreen)
   const isLogged = useAppSelector(state => state.user.isLogged)
   const uid = useAppSelector(state => state.user.uid)
   const isOn = useAppSelector((state) => state.basicStates.isOn);
@@ -82,6 +83,8 @@ export default function Components() {
   return (
     <StyledDesign>
       <StyledHeader>
+    aktualny ekran = {currentScreen}
+    <p></p>
     userID = {uid}
     <p></p>
     zalogowany ?? = {isLogged.toString()}
@@ -96,17 +99,17 @@ export default function Components() {
         <p></p>
         Jest odliczanie - {isCountingDown.toString()}
         <p></p>
-        jest pionowo - {isVertical.toString()}
+        {/* jest pionowo - {isVertical.toString()} */}
         <p></p>
-        ochrona baterii - {isBatteryProtection.toString()}
+        {/* ochrona baterii - {isBatteryProtection.toString()} */}
         <p></p>
-        szybkie ladowanie - {isFastCharging.toString()}
+        {/* szybkie ladowanie - {isFastCharging.toString()} */}
         <p></p>
-        wtyczka wlozona - {isPlugConnected.toString()}
+        {/* wtyczka wlozona - {isPlugConnected.toString()} */}
         <p></p>
-        laduje sie - {isCharging.toString()}
+        {/* laduje sie - {isCharging.toString()} */}
         <p></p>
-        <StyledBig>batery - {batery}</StyledBig>
+        {/* <StyledBig>batery - {batery}</StyledBig> */}
         <p></p>
         <Button variant="contained" onClick={() => rotatePhone()}>
           Obrot

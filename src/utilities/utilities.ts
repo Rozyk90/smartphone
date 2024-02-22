@@ -3,7 +3,7 @@ import { useAppDispatch } from "../redux/hooks";
 
 import { auth } from "../firebase";
 
-import { setUser } from "../redux/reducers/user";
+import { userLogout, userSet } from "../redux/reducers/user";
 import {
     onAuthStateChanged 
   } from "firebase/auth";
@@ -27,10 +27,10 @@ console.log("odpalam tego useeeffecta")
           const uid = user.uid || defaultUid;
           const userEmail = user.email || defaultUserEmail;
           
-          dispatch(setUser({uid,userEmail,isLogged:true}))
+          dispatch(userSet({uid,userEmail,isLogged:true}))
           // ...
         } else {
-          dispatch(setUser({uid:'',userEmail:'',isLogged:false}))
+          dispatch(userLogout())
 
           // User is signed out
           // ...

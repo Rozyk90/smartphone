@@ -1,11 +1,11 @@
-import React, { useEffect } from "react";
-import { useState } from "react";
+import React, { useState } from "react";
+import styled from "styled-components";
+
 import {
   useAppSelector,
   useAppDispatch,
-} from "../../../../../../../../redux/hooks";
-import styled, { withTheme } from "styled-components";
-import { auth } from "../../../../../../../../firebase";
+} from "../../../../../../../redux/hooks";
+import { auth } from "../../../../../../../firebase";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -13,10 +13,10 @@ import {
 
 import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
-import { updateScreenCountDown } from "../../../../../../../../redux/reducers/screen";
+import Input from "./input";
+import ActionBtn from "./actionBtn";
 
-import Input from "./elements/input";
-import ActionBtn from "./elements/actionBtn";
+import { enumCurrentBarBottom, enumCurrentScreen, setCurrentBarBottom, setCurrentScreen, updateScreenCountDown } from "../../../../../../../redux/reducers/screen";
 
 const StyledInputs = styled.div``;
 
@@ -84,18 +84,19 @@ export default function Inputs() {
     setEmailError(enumErrors.clear);
   };
 
+  const editScreen = () =>{
+    dispatch(setCurrentScreen(enumCurrentScreen.screenMain))
+    dispatch(setCurrentBarBottom(enumCurrentBarBottom.on))
+  }
+
   const loginAcc = async () => {
     resetScreenTimer();
     signInWithEmailAndPassword(auth, email, pass)
-      .then((userCredential) => {
+      .then(() => {
         resetErrors();
-        // Signed in
-        const user = userCredential.user;
-        // ...
+        editScreen()
       })
       .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
         setEmailError(enumErrors.correctDetails);
         setPassError(enumErrors.correctDetails);
       });
@@ -104,16 +105,12 @@ export default function Inputs() {
   const createAcc = async () => {
     resetScreenTimer();
     createUserWithEmailAndPassword(auth, email, pass)
-      .then((userCredential) => {
+      .then(() => {
         resetErrors();
-        // Signed up
-        const user = userCredential.user;
-        // ...
+        editScreen()
       })
-      .then(() => {})
       .catch((error) => {
         const errorCode = error.code;
-
         if (errorCode === enumErrorsCodes.emailExists) {
           setEmailError(enumErrors.existsEmail);
         } else if (errorCode === enumErrorsCodes.emailWrong) {
@@ -158,7 +155,9 @@ export default function Inputs() {
       </StyledInputs>
 
       <ActionBtn
-        isLogin={selectedBtn === enumBtns.btnLogin}
+        txt={
+          selectedBtn === enumBtns.btnLogin ? "Zaloguj się" : "Zarejestruj się"
+        }
         fn={selectedBtn === enumBtns.btnLogin ? loginAcc : createAcc}
       ></ActionBtn>
     </>

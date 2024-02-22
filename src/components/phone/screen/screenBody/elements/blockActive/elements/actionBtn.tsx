@@ -18,11 +18,11 @@ const StyledBtn = styled(Button)`
 `;
 
 interface BtnProps {
-  isLogin: boolean;
+  txt: string;
   fn: () => void;
 }
 
-export default function ActionBtn({ isLogin, fn }: BtnProps) {
+export default function ActionBtn({ txt, fn }: BtnProps) {
   return (
     <StyledActionBtn>
       <StyledBtn
@@ -30,7 +30,7 @@ export default function ActionBtn({ isLogin, fn }: BtnProps) {
           fn();
         }}
       >
-        {isLogin ? "Zaloguj się" : "Zarejestruj się"}
+        {txt}
       </StyledBtn>
     </StyledActionBtn>
   );

@@ -4,7 +4,8 @@ import FingerprintIcon from "@mui/icons-material/Fingerprint";
 const StyledButton = styled(FingerprintIcon)`
   border: 2px solid red;
   cursor: pointer;
-  margin-top: 300px;
+  margin-top: 200px;
+  margin-bottom: 50px;
   && {
     color: white;
     height: 60px;
@@ -12,11 +13,11 @@ const StyledButton = styled(FingerprintIcon)`
   }
 `;
 
-interface ButtonProps {
+interface BtnProps {
   onClick: () => void;
 }
 
-export default function Finger(props: ButtonProps) {
+export default function Finger(props: BtnProps) {
   return (
     <StyledButton
       onClick={() => {

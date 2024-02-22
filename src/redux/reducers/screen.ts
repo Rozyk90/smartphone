@@ -14,6 +14,7 @@ export enum enumCurrentScreen {
   screenStartupAnimation = "screenStartupAnimation",
   screenTurnOffAnimation = "screenTurnOffAnimation",
   screenActiveBlocked = "screenActiveBlocked",
+  screenMain = 'screenMain',
 }
 
 export enum enumCurrentBarBottom{

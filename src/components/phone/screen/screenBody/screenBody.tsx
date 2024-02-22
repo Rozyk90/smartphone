@@ -7,6 +7,7 @@ import ScreenNone from "./elements/screenNone";
 import ScreenBlockActive from "./elements/blockActive/screenBlockActive";
 import ScreenStartupAnimation from "./elements/screenStartupAnimation";
 import ScreenTurnOffAnimation from "./elements/screenTurnOffAnimation";
+import ScreenMain from "./elements/screenMain";
 // import ScreenTurnOffBtns from "../modals/elements/modalTurnOffBtns/screenTurnOffBtns";
 
 const StyledScreenBody = styled.div`
@@ -25,6 +26,7 @@ export default function ScreenBody() {
       {currentScreen === enumCurrentScreen.screenStartupAnimation && <ScreenStartupAnimation /> }
       {currentScreen === enumCurrentScreen.screenTurnOffAnimation && <ScreenTurnOffAnimation/>}
       {currentScreen === enumCurrentScreen.screenActiveBlocked && <ScreenBlockActive />}
+      {currentScreen === enumCurrentScreen.screenMain && <ScreenMain />}
     </StyledScreenBody>
   );
 }

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { useAppSelector,useAppDispatch } from "../../../redux/hooks";
+import { useAppSelector, useAppDispatch } from "../../../redux/hooks";
 import { updateScreenCountDown } from "../../../redux/reducers/screen";
 
 const StyledButtonTop1 = styled.div`
@@ -26,24 +26,32 @@ const StyledButtonTop2 = styled.div`
 `;
 
 export default function VolumeBtns() {
-  const {countDownTimer,countDownTimerShort} = useAppSelector(state => state.screen)
-  const isLocked = useAppSelector(state => state.basicStates.isLocked)
-  const dispatch = useAppDispatch()
+  const { countDownTimer, countDownTimerShort } = useAppSelector(
+    (state) => state.screen
+  );
+  const isLocked = useAppSelector((state) => state.basicStates.isLocked);
+  const dispatch = useAppDispatch();
 
-  const updateActiveScreen = () =>{
-    if(isLocked){
-      dispatch(updateScreenCountDown(countDownTimerShort))
-
-    }else{
-      dispatch(updateScreenCountDown(countDownTimer))
-
+  const updateActiveScreen = () => {
+    if (isLocked) {
+      dispatch(updateScreenCountDown(countDownTimerShort));
+    } else {
+      dispatch(updateScreenCountDown(countDownTimer));
     }
-  }
+  };
 
   return (
     <>
-      <StyledButtonTop1 onClick={()=>{updateActiveScreen()}} />
-      <StyledButtonTop2 onClick={()=>{updateActiveScreen()}}/>
+      <StyledButtonTop1
+        onClick={() => {
+          updateActiveScreen();
+        }}
+      />
+      <StyledButtonTop2
+        onClick={() => {
+          updateActiveScreen();
+        }}
+      />
     </>
   );
 }
