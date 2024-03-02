@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 
-import IconSettings from "../../../../icons/settingsIcon";
+import IconSettings from "../../../../../icons/iconSettings";
+import IconGooglePlay from "../../../../../icons/iconGooglePlay";
+import { enumIcons } from "../../../../../icons/iconEnum";
 
 const StyledScreenMain = styled.div`
   border: 2px solid green;
@@ -16,14 +18,34 @@ const StyledIconsMap = styled.div`
   justify-content: center;
   height: 520px;
 `;
-const StyledPlace = styled.div`
-  border: 2px solid orange;
+
+interface PlaceDot {
+  $withDot: boolean;
+  $showDots: boolean;
+}
+
+const StyledPlace = styled.div<PlaceDot>`
   height: 19%;
-  width: 23%;
+  width: 24%;
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
+
+  ${(props) =>
+    props.$withDot &&
+    props.$showDots &&
+    `
+    &:after {
+      content: "";
+      width: 2px;
+      height: 2px;
+      right:0px;
+      bottom:-2px;
+      background-color: #ffffff;
+      position: absolute;
+    }
+  `}
 `;
 
 interface StyledIconProps {
@@ -50,36 +72,39 @@ const StyledDolnyElement = styled.div`
   height: 50px;
 `;
 
+const DotsId = [0, 1, 2, 4, 5, 6, 8, 9, 10, 12, 13, 14, 16, 17, 18];
+
 const ScreenMain: React.FC = () => {
   const [siatka, setSiatka] = useState([
-    [],
-    [],
-    [],
-    ["x"],
-    [],
-    [],
-    [],
-    ["x"],
-    [],
-    [],
-    [],
-    [],
-    [],
-    [],
-    [],
-    [],
-    [],
-    [],
-    [],
-    [],
+    enumIcons.empty,
+    enumIcons.empty,
+    enumIcons.empty,
+    enumIcons.empty,
+    enumIcons.appShop,
+    enumIcons.empty,
+    enumIcons.empty,
+    enumIcons.empty,
+    enumIcons.settings,
+    enumIcons.empty,
+    enumIcons.empty,
+    enumIcons.empty,
+    enumIcons.empty,
+    enumIcons.empty,
+    enumIcons.empty,
+    enumIcons.empty,
+    enumIcons.empty,
+    enumIcons.empty,
+    enumIcons.empty,
+    enumIcons.empty,
   ]);
 
   const [removeFrom, setRemoveFrom] = useState<number | null>(null);
+  const [enumToPut,setEnumToPut] = useState(enumIcons.empty)
   const [shadow, setShadow] = useState<number | null>(null);
 
   const handleStart = (event: React.DragEvent<HTMLDivElement>, id: number) => {
-    // event.dataTransfer.setData("text/plain", id.toString());
     setRemoveFrom(id);
+    setEnumToPut(siatka[id])
   };
 
   const handleDragOver = (
@@ -87,7 +112,7 @@ const ScreenMain: React.FC = () => {
     id: number
   ) => {
     event.preventDefault();
-    if (shadow === null || shadow !== id) {
+    if ((shadow === null || shadow !== id) && removeFrom !== null) {
       setShadow(id);
     }
   };
@@ -99,8 +124,8 @@ const ScreenMain: React.FC = () => {
 
     if (draggedFrom !== null && draggedTo !== null) {
       const updatedSiatka = [...siatka];
-      updatedSiatka[draggedFrom] = [];
-      updatedSiatka[draggedTo] = ["x"];
+      updatedSiatka[draggedFrom] = enumIcons.empty;
+      updatedSiatka[draggedTo] = enumToPut;
 
       setSiatka(updatedSiatka);
       setRemoveFrom(null);
@@ -113,12 +138,14 @@ const ScreenMain: React.FC = () => {
       <StyledIconsMap>
         {siatka.map((pole, id) => (
           <StyledPlace
+            $withDot={DotsId.includes(id)}
+            $showDots={removeFrom !== null}
             key={id}
             id={id + " miejsce"}
             onDragOver={(e) => handleDragOver(e, id)}
             onDrop={(e) => handleDrop(e, id)}
           >
-            {pole.length > 0 && (
+            {siatka[id] === enumIcons.settings && (
               <StyledIcon
                 key={id}
                 draggable
@@ -126,6 +153,16 @@ const ScreenMain: React.FC = () => {
                 $isVisible={id !== removeFrom}
               >
                 <IconSettings />
+              </StyledIcon>
+            )}
+            {siatka[id] === enumIcons.appShop && (
+              <StyledIcon
+                key={id}
+                draggable
+                onDragStart={(e) => handleStart(e, id)}
+                $isVisible={id !== removeFrom}
+              >
+                <IconGooglePlay />
               </StyledIcon>
             )}
             {id === shadow && <StyledShadow />}

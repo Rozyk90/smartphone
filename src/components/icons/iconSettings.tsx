@@ -17,7 +17,7 @@ const StyledIcon = styled.button`
 
 export default function IconSettings() {
   const klik = () => {
-    console.log("klikam w to");
+    console.log("klikam w to ustawienia");
   };
   return (
     <StyledIcon

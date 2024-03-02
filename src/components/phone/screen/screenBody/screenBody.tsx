@@ -4,10 +4,10 @@ import { useAppSelector } from "../../../../redux/hooks";
 
 import { enumCurrentScreen } from "../../../../redux/reducers/screen";
 import ScreenNone from "./elements/screenNone";
-import ScreenBlockActive from "./elements/blockActive/screenBlockActive";
+import ScreenBlockActive from "./elements/screenBlockActive/screenBlockActive";
 import ScreenStartupAnimation from "./elements/screenStartupAnimation";
 import ScreenTurnOffAnimation from "./elements/screenTurnOffAnimation";
-import ScreenMain from "./elements/screenMain";
+import ScreenMain from "./elements/screenMain/screenMain";
 // import ScreenTurnOffBtns from "../modals/elements/modalTurnOffBtns/screenTurnOffBtns";
 
 const StyledScreenBody = styled.div`
