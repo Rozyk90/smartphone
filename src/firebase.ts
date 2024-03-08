@@ -4,12 +4,13 @@
 // const firebaseConfig = {
 //     //...
 //   };
-  
+
 //   const app = initializeApp(firebaseConfig);
 
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getFirestore, collection, getDocs } from 'firebase/firestore/lite';
+// import { getFirestore, collection, getDocs } from "firebase/firestore/lite";
+import { getFirestore, collection, addDoc } from "firebase/firestore";
 import { getAnalytics } from "firebase/analytics";
 import { getAuth } from "firebase/auth";
 // TODO: Add SDKs for Firebase products that you want to use
@@ -24,12 +25,11 @@ const firebaseConfig = {
   storageBucket: "smartphone-4d35f.appspot.com",
   messagingSenderId: "874444688983",
   appId: "1:874444688983:web:ff898d480ed27aded09d12",
-  measurementId: "G-43WD6TKSMR"
+  measurementId: "G-43WD6TKSMR",
 };
 
 // Initialize Firebase
- const app = initializeApp(firebaseConfig);
+const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
-
-const db = getFirestore(app);
+export const db = getFirestore(app);
 const analytics = getAnalytics(app);

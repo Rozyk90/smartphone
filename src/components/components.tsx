@@ -11,6 +11,16 @@ import { phoneRotate } from "../redux/reducers/basicStates";
 import { plugStatus, chargingStatus } from "../redux/reducers/battery";
 import CounterActiveScreen from "./functionalities/counterActiveScreen";
 
+// import { collection, addDoc } from "firebase/firestore";
+import {
+  getFirestore,
+  collection,
+  addDoc,
+  updateDoc,
+  doc,
+} from "firebase/firestore";
+import { db } from "../firebase";
+
 const StyledDesign = styled.div`
   display: flex;
   flex-flow: column;
@@ -34,35 +44,20 @@ const StyledSide = styled.div`
   height: 100%;
 `;
 
-const StyledBig = styled.div`
-  font-size: 50px;
-  color: #8b2e2e;
-`;
-
 export default function Components() {
   const dispatch = useAppDispatch();
 
-  const currentScreen = useAppSelector((state) => state.screen.currentScreen)
-  const isLogged = useAppSelector(state => state.user.isLogged)
-  const uid = useAppSelector(state => state.user.uid)
+  const currentScreen = useAppSelector((state) => state.screen.currentScreen);
+  const isLogged = useAppSelector((state) => state.user.isLogged);
+  const uid = useAppSelector((state) => state.user.uid);
   const isOn = useAppSelector((state) => state.basicStates.isOn);
-  const { isScreenActive,isCountingDown } = useAppSelector((state) => state.screen);
-
-  const isVertical = useAppSelector((state) => state.basicStates.isVertical);
-  const isPlugConnected = useAppSelector(
-    (state) => state.battery.isPlugConnected
+  const { isScreenActive, isCountingDown } = useAppSelector(
+    (state) => state.screen
   );
   const isCharging = useAppSelector((state) => state.battery.isCharging);
-  const batery = useAppSelector((state) => state.battery.battery);
-  const isBatteryProtection = useAppSelector(
-    (state) => state.battery.isBatteryProtection
-  );
-  const isFastCharging = useAppSelector(
-    (state) => state.battery.isFastCharging
-  );
-  const modalIsActive = useAppSelector(state => state.modal.isModalActive)
-
-  const counterDown = useAppSelector(state=>state.screen.countDown)
+  const modalIsActive = useAppSelector((state) => state.modal.isModalActive);
+  const counterDown = useAppSelector((state) => state.screen.countDown);
+  const screenGrid = useAppSelector((state) => state.screen.screenGrid);
 
   const rotatePhone = () => {
     if (isCharging) {
@@ -80,22 +75,32 @@ export default function Components() {
     }
   };
 
+  // const dodaj = async () => {
+  //   const userDocRef = doc(db, "users", uid);
+  //   try {
+  //     await updateDoc(userDocRef, {
+  //       screenGrid,
+  //     });
+  //     console.log("Dokument zaktualizowany pomyślnie");
+  //   } catch (error) {
+  //     console.error("Błąd podczas aktualizacji dokumentu: ", error);
+  //   }
+  // };
+
   return (
     <StyledDesign>
       <StyledHeader>
-    aktualny ekran = {currentScreen}
-    <p></p>
-    userID = {uid}
-    <p></p>
-    zalogowany ?? = {isLogged.toString()}
-    <p></p>
-
+        aktualny ekran = {currentScreen}
+        <p></p>
+        userID = {uid}
+        <p></p>
+        zalogowany ?? = {isLogged.toString()}
+        <p></p>
         jest wlaczony - {isOn.toString()}
-   
         <p></p>
         modal jest aktywny - {modalIsActive.toString()}
-<p></p>
-        ekran aktywny - {isScreenActive.toString()} ---- {counterDown/1000}
+        <p></p>
+        ekran aktywny - {isScreenActive.toString()} ---- {counterDown / 1000}
         <p></p>
         Jest odliczanie - {isCountingDown.toString()}
         <p></p>
@@ -114,6 +119,9 @@ export default function Components() {
         <Button variant="contained" onClick={() => rotatePhone()}>
           Obrot
         </Button>
+        {/* <Button variant="contained" onClick={() => dodaj()}>
+          dodaj
+        </Button> */}
       </StyledHeader>
 
       <StyledMain>

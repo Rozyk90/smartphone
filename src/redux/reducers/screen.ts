@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../store";
+import { enumIcons } from "../../components/icons/enumsIcon";
 
 
 
@@ -26,14 +27,15 @@ export enum enumCurrentBarBottom{
 
 interface screen {
   background: string;
-  currentBarTop:enumCurrentBarTop
+  currentBarTop: enumCurrentBarTop;
   currentScreen: enumCurrentScreen;
-  currentBarBottom:enumCurrentBarBottom;
+  currentBarBottom: enumCurrentBarBottom;
   isScreenActive: boolean;
   countDownTimer: number;
   countDownTimerShort: number;
   countDown: number;
-  isCountingDown:boolean;
+  isCountingDown: boolean;
+  screenGrid: Array<enumIcons>; // Replace YourElementType with the actual type
 }
 
 const initialState: screen = {
@@ -45,7 +47,31 @@ const initialState: screen = {
   countDownTimer: 10000,
   countDownTimerShort: 10000,
   countDown: 10000,
-  isCountingDown:false
+  isCountingDown:false,
+  screenGrid:[    enumIcons.appShop,
+    enumIcons.calendar,
+    enumIcons.clock,
+    enumIcons.settings,
+    enumIcons.empty,
+    enumIcons.empty,
+    enumIcons.empty,
+    enumIcons.empty,
+    enumIcons.empty,
+    enumIcons.empty,
+    enumIcons.empty,
+    enumIcons.empty,
+    enumIcons.empty,
+    enumIcons.empty,
+    enumIcons.empty,
+    enumIcons.empty,
+    enumIcons.empty,
+    enumIcons.empty,
+    enumIcons.empty,
+    enumIcons.empty,
+    enumIcons.empty,
+    enumIcons.empty,
+    enumIcons.empty,
+    enumIcons.empty,]
 };
 
 export const sliceScreen = createSlice({
@@ -76,6 +102,10 @@ export const sliceScreen = createSlice({
     setStopCountingDown:(state)=>{
       state.isCountingDown = false
     },
+    updateScreenGrid:(state,action:PayloadAction<Array<enumIcons>>)=>{
+      state.screenGrid = action.payload
+
+    }
   },
 });
 
@@ -86,7 +116,7 @@ export const {
   setCurrentScreen,
   setCurrentBarBottom,
   setStartCountingDown,
-  setStopCountingDown,
+  setStopCountingDown,updateScreenGrid,
 } = sliceScreen.actions;
 
 export default sliceScreen.reducer;

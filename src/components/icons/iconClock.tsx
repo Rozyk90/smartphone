@@ -1,25 +1,22 @@
 import styled from "styled-components";
 
-import SettingsIcon from "@mui/icons-material/Settings";
+import WatchLaterRoundedIcon from '@mui/icons-material/WatchLaterRounded';
 
 const StyledIcon = styled.button`
   width: 50px;
   height: 50px;
   border: none;
   border-radius: 20px;
-  background: radial-gradient(
-    circle,
-    rgba(41, 58, 101, 1) 30%,
-    rgba(50, 71, 91, 1) 60%
-  );
+  background: rgb(96,85,213);
+background: linear-gradient(175deg, rgba(96,85,213,1) 30%, rgba(63,76,155,1) 60%);
   color: white;
   cursor: pointer;
 
 `;
 
-export default function IconSettings() {
+export default function IconClock() {
   const klik = () => {
-    console.log("klikam w to ustawienia");
+    console.log("klikam w to = zegarek");
   };
   return (
     <StyledIcon
@@ -27,7 +24,7 @@ export default function IconSettings() {
         klik();
       }}
     >
-      <SettingsIcon fontSize="large" />
+      <WatchLaterRoundedIcon fontSize="large" />
     </StyledIcon>
   );
 }

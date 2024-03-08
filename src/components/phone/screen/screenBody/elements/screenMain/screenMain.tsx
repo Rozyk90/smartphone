@@ -1,22 +1,24 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
+import { db } from "../../../../../../firebase";
+import { updateDoc, doc } from "firebase/firestore";
 
-import IconSettings from "../../../../../icons/iconSettings";
-import IconGooglePlay from "../../../../../icons/iconGooglePlay";
-import { enumIcons } from "../../../../../icons/iconEnum";
+import { enumIcons } from "../../../../../icons/enumsIcon";
+import RenderIcon from "./elements/renderIcon";
+import { useAppDispatch, useAppSelector } from "../../../../../../redux/hooks";
+import { updateScreenGrid } from "../../../../../../redux/reducers/screen";
 
 const StyledScreenMain = styled.div`
-  border: 2px solid green;
   padding-top: 20px;
 `;
 
 const StyledIconsMap = styled.div`
-  border: 2px solid pink;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  height: 520px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
+  align-items: stretch;
+  justify-content: stretch;
+  height: 580px;
 `;
 
 interface PlaceDot {
@@ -25,13 +27,10 @@ interface PlaceDot {
 }
 
 const StyledPlace = styled.div<PlaceDot>`
-  height: 19%;
-  width: 24%;
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
-
   ${(props) =>
     props.$withDot &&
     props.$showDots &&
@@ -41,22 +40,11 @@ const StyledPlace = styled.div<PlaceDot>`
       width: 2px;
       height: 2px;
       right:0px;
-      bottom:-2px;
+      bottom:0px;
       background-color: #ffffff;
       position: absolute;
     }
   `}
-`;
-
-interface StyledIconProps {
-  $isVisible: boolean;
-}
-
-const StyledIcon = styled.div<StyledIconProps>`
-  width: 50px;
-  height: 50px;
-  border-radius: 20px;
-  opacity: ${(props) => (props.$isVisible ? 1 : 0.01)};
 `;
 
 const StyledShadow = styled.div`
@@ -67,44 +55,20 @@ const StyledShadow = styled.div`
   border-radius: 20px;
 `;
 
-const StyledDolnyElement = styled.div`
-  border: 2px solid blue;
-  height: 50px;
-`;
-
 const DotsId = [0, 1, 2, 4, 5, 6, 8, 9, 10, 12, 13, 14, 16, 17, 18];
 
 const ScreenMain: React.FC = () => {
-  const [siatka, setSiatka] = useState([
-    enumIcons.empty,
-    enumIcons.empty,
-    enumIcons.empty,
-    enumIcons.empty,
-    enumIcons.appShop,
-    enumIcons.empty,
-    enumIcons.empty,
-    enumIcons.empty,
-    enumIcons.settings,
-    enumIcons.empty,
-    enumIcons.empty,
-    enumIcons.empty,
-    enumIcons.empty,
-    enumIcons.empty,
-    enumIcons.empty,
-    enumIcons.empty,
-    enumIcons.empty,
-    enumIcons.empty,
-    enumIcons.empty,
-    enumIcons.empty,
-  ]);
-
-  const [removeFrom, setRemoveFrom] = useState<number | null>(null);
-  const [enumToPut,setEnumToPut] = useState(enumIcons.empty)
+  const [enumToReplace, setEnumToReplace] = useState(enumIcons.empty);
+  const [replaceFrom, setReplaceFrom] = useState<number | null>(null);
   const [shadow, setShadow] = useState<number | null>(null);
 
+  const grid = useAppSelector((state) => state.screen.screenGrid);
+  const uid = useAppSelector((state) => state.user.uid);
+  const dispatch = useAppDispatch();
+
   const handleStart = (event: React.DragEvent<HTMLDivElement>, id: number) => {
-    setRemoveFrom(id);
-    setEnumToPut(siatka[id])
+    setReplaceFrom(id);
+    setEnumToReplace(grid[id]);
   };
 
   const handleDragOver = (
@@ -112,64 +76,65 @@ const ScreenMain: React.FC = () => {
     id: number
   ) => {
     event.preventDefault();
-    if ((shadow === null || shadow !== id) && removeFrom !== null) {
+    if ((shadow === null || shadow !== id) && replaceFrom !== null) {
       setShadow(id);
     }
   };
 
   const handleDrop = (event: React.DragEvent<HTMLDivElement>, id: number) => {
     event.preventDefault();
-    const draggedFrom = removeFrom;
+
     const draggedTo = id;
+    const placeEnum = grid[id];
 
-    if (draggedFrom !== null && draggedTo !== null) {
-      const updatedSiatka = [...siatka];
-      updatedSiatka[draggedFrom] = enumIcons.empty;
-      updatedSiatka[draggedTo] = enumToPut;
+    if (replaceFrom !== null && draggedTo !== null) {
+      const updatedGrid = [...grid];
 
-      setSiatka(updatedSiatka);
-      setRemoveFrom(null);
+      updatedGrid[replaceFrom] = placeEnum;
+      updatedGrid[draggedTo] = enumToReplace;
+
+      dispatch(updateScreenGrid(updatedGrid));
+      firestoreUpdate(updatedGrid);
+      setEnumToReplace(enumIcons.empty);
+      setReplaceFrom(null);
       setShadow(null);
+    }
+  };
+
+  const firestoreUpdate = async (updatedGrid: Array<enumIcons>) => {
+    const userDocRef = doc(db, "users", uid);
+    try {
+      await updateDoc(userDocRef, {
+        screenGrid: updatedGrid,
+      });
+      console.log("Dokument zaktualizowany pomyślnie");
+    } catch (error) {
+      console.error("Błąd podczas aktualizacji dokumentu: ", error);
     }
   };
 
   return (
     <StyledScreenMain>
       <StyledIconsMap>
-        {siatka.map((pole, id) => (
+        {grid.map((place, id) => (
           <StyledPlace
             $withDot={DotsId.includes(id)}
-            $showDots={removeFrom !== null}
+            $showDots={replaceFrom !== null}
             key={id}
             id={id + " miejsce"}
             onDragOver={(e) => handleDragOver(e, id)}
             onDrop={(e) => handleDrop(e, id)}
           >
-            {siatka[id] === enumIcons.settings && (
-              <StyledIcon
-                key={id}
-                draggable
-                onDragStart={(e) => handleStart(e, id)}
-                $isVisible={id !== removeFrom}
-              >
-                <IconSettings />
-              </StyledIcon>
-            )}
-            {siatka[id] === enumIcons.appShop && (
-              <StyledIcon
-                key={id}
-                draggable
-                onDragStart={(e) => handleStart(e, id)}
-                $isVisible={id !== removeFrom}
-              >
-                <IconGooglePlay />
-              </StyledIcon>
-            )}
+            <RenderIcon
+              id={id}
+              isVissible={id !== replaceFrom}
+              icon={grid[id]}
+              handleStart={(e) => handleStart(e, id)}
+            />
             {id === shadow && <StyledShadow />}
           </StyledPlace>
         ))}
       </StyledIconsMap>
-      <StyledDolnyElement>dolny</StyledDolnyElement>
     </StyledScreenMain>
   );
 };

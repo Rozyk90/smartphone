@@ -10,37 +10,25 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
 } from "firebase/auth";
+import { doc, setDoc } from "firebase/firestore";
+import { db } from "../../../../../../../firebase";
 
 import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import Input from "./input";
 import ActionBtn from "./actionBtn";
+import { enumErrors, enumErrorsCodes, enumBtns } from "./enumsInput";
 
-import { enumCurrentBarBottom, enumCurrentScreen, setCurrentBarBottom, setCurrentScreen, updateScreenCountDown } from "../../../../../../../redux/reducers/screen";
+import {
+  enumCurrentBarBottom,
+  enumCurrentScreen,
+  setCurrentBarBottom,
+  setCurrentScreen,
+  updateScreenCountDown,
+} from "../../../../../../../redux/reducers/screen";
 
 const StyledInputs = styled.div``;
-
 const StyledBtnsGroup = styled(ToggleButtonGroup)``;
-
-enum enumErrorsCodes {
-  emailExists = "auth/email-already-in-use",
-  emailWrong = "auth/invalid-email",
-  missingPass = "auth/missing-password",
-}
-
-enum enumErrors {
-  clear = "",
-  wrongEmail = "Wprowadz poprawny email",
-  existsEmail = "Podany email jest już używany",
-  wrongPass = "Wymagana długość to 6 znaków",
-  serverError = "Błąd serwera",
-  correctDetails = "Wprowadz poprawne dane",
-}
-
-enum enumBtns {
-  btnLogin = "login",
-  btnRegistration = "registration",
-}
 
 export default function Inputs() {
   const [selectedBtn, setSelectedBtn] = useState(enumBtns.btnLogin);
@@ -50,6 +38,7 @@ export default function Inputs() {
   const [passError, setPassError] = useState("");
 
   const shortTime = useAppSelector((state) => state.screen.countDownTimerShort);
+  const screenGrid = useAppSelector((state) => state.screen.screenGrid);
   const dispatch = useAppDispatch();
 
   const resetScreenTimer = () => {
@@ -84,17 +73,17 @@ export default function Inputs() {
     setEmailError(enumErrors.clear);
   };
 
-  const editScreen = () =>{
-    dispatch(setCurrentScreen(enumCurrentScreen.screenMain))
-    dispatch(setCurrentBarBottom(enumCurrentBarBottom.on))
-  }
+  const editScreen = () => {
+    dispatch(setCurrentScreen(enumCurrentScreen.screenMain));
+    dispatch(setCurrentBarBottom(enumCurrentBarBottom.on));
+  };
 
   const loginAcc = async () => {
     resetScreenTimer();
     signInWithEmailAndPassword(auth, email, pass)
       .then(() => {
         resetErrors();
-        editScreen()
+        editScreen();
       })
       .catch((error) => {
         setEmailError(enumErrors.correctDetails);
@@ -102,12 +91,30 @@ export default function Inputs() {
       });
   };
 
+  const createFirestore = async (user: any) => {
+    const uid = user.uid;
+    const email = user.email;
+
+    try {
+      const userDocRef = doc(db, "users", uid);
+
+      const create = await setDoc(userDocRef, {
+        uid,
+        email,
+        screenGrid,
+      });
+    } catch (e) {
+      console.error("Błąd podczas dodawania dokumentu: ", e);
+    }
+  };
+
   const createAcc = async () => {
     resetScreenTimer();
     createUserWithEmailAndPassword(auth, email, pass)
-      .then(() => {
+      .then((userCredential) => {
+        createFirestore(userCredential.user);
         resetErrors();
-        editScreen()
+        editScreen();
       })
       .catch((error) => {
         const errorCode = error.code;
