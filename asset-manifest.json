@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.js": "/smartphone/static/js/main.3abbde66.js",
+    "main.js": "/smartphone/static/js/main.ef7fc1df.js",
     "index.html": "/smartphone/index.html",
-    "main.3abbde66.js.map": "/smartphone/static/js/main.3abbde66.js.map"
+    "main.ef7fc1df.js.map": "/smartphone/static/js/main.ef7fc1df.js.map"
   },
   "entrypoints": [
-    "static/js/main.3abbde66.js"
+    "static/js/main.ef7fc1df.js"
   ]
 }
