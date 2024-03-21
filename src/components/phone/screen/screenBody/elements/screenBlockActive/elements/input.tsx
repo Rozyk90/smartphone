@@ -12,12 +12,6 @@ const StyledInput = styled(TextField)`
     & label.Mui-focused {
       color: white; // Kolor napisu po kliknięciu
     }
-    & .MuiInputLabel-root {
-      color: white; // Kolor etykiety
-      &.Mui-error {
-        color: #c00f0f; // Kolor etykiety z błędem
-      }
-    }
     & .MuiOutlinedInput-root {
       & fieldset {
         border: 2px solid white; // Kolor ramki
@@ -44,6 +38,11 @@ const StyledInput = styled(TextField)`
   }
 `;
 
+const StyledLabel = styled.div`
+  color: white;
+  font-size: large;
+`;
+
 interface InputProps {
   value: string;
   change: (event: React.ChangeEvent<HTMLInputElement>) => void;
@@ -54,9 +53,10 @@ interface InputProps {
 export default function Input({ value, change, error, label }: InputProps) {
   return (
     <StyledInputBox>
+      <StyledLabel>{label}</StyledLabel>
+      <p></p>
       <StyledInput
         id="outlined-basic"
-        label={label}
         {...(label === "hasło" ? { type: "password" } : {})}
         variant="outlined"
         size="small"

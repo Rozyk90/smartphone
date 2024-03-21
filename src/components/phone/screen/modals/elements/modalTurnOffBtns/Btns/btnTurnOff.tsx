@@ -6,23 +6,17 @@ import {
 
 import PowerSettingsNewRoundedIcon from "@mui/icons-material/PowerSettingsNewRounded";
 
+import { resetScreenCountingDownShort } from "../../../../../../../redux/reducers/screenParts/screenGeneral";
+import { setCurrentScreen } from "../../../../../../../redux/reducers/screenParts/screenCenter";
+import { enumCurrentScreen } from "../../../../../../../redux/reducers/screenParts/enumsScreen";
+
 import {
-  enumCurrentBarBottom,
-  enumCurrentBarTop,
-  enumCurrentScreen,
-  setCurrenBarTop,
-  setCurrentBarBottom,
-  setCurrentScreen,
-  setStopCountingDown,
-  updateScreenCountDown,
-} from "../../../../../../../redux/reducers/screen";
-import {
-  enumCurrentModal,
-  setCurrentModal,
   enumModalTurnOffBtnsFocus,
   setTurnOffBtnsFocus,
-  modalTurnOff,
 } from "../../../../../../../redux/reducers/modal";
+
+import useScreen from "../../../../../../../customHooks/useScreen";
+import useModal from "../../../../../../../customHooks/useModal";
 
 const StyledBtn = styled.div<{ visible: string; focused: string }>`
   opacity: ${(props) => (props.visible === "true" ? "1" : "0")};
@@ -54,30 +48,25 @@ const StyledBackgroundIcon = styled.button`
 
 export default function BtnTurnOff() {
   const focus = useAppSelector((state) => state.modal.turnOffBtnsFocus);
-  const shortTime = useAppSelector(state => state.screen.countDownTimerShort)
   const focused = focus === enumModalTurnOffBtnsFocus.off;
   const visible =
     focus === enumModalTurnOffBtnsFocus.off ||
     focus === enumModalTurnOffBtnsFocus.all;
 
   const dispatch = useAppDispatch();
+  const { screenOff } = useScreen();
+  const {modalOff} = useModal()
 
   const click = (e: React.MouseEvent) => {
     e.stopPropagation();
-    dispatch(updateScreenCountDown(shortTime))
+    dispatch(resetScreenCountingDownShort());
 
-    dispatch(setTurnOffBtnsFocus(enumModalTurnOffBtnsFocus.off))
+    dispatch(setTurnOffBtnsFocus(enumModalTurnOffBtnsFocus.off));
 
     if (focused) {
-
+      screenOff()
+      modalOff()
       dispatch(setCurrentScreen(enumCurrentScreen.screenTurnOffAnimation));
-      dispatch(setCurrentModal(enumCurrentModal.modalNone));
-      dispatch(setTurnOffBtnsFocus(enumModalTurnOffBtnsFocus.all))
-      dispatch(setStopCountingDown())
-      dispatch(updateScreenCountDown(0))
-      dispatch(setCurrentBarBottom(enumCurrentBarBottom.off))
-      dispatch(setCurrenBarTop(enumCurrentBarTop.off))
-      dispatch(modalTurnOff())
     }
   };
 

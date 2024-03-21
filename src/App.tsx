@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useAppDispatch, useAppSelector } from "./redux/hooks";
 
 import Components from "./components/components";
-import Utilities from "./utilities/utilities";
+import GroupedEffects from "./globalEffects";
 
 
 const StyledApp = styled.div`
@@ -16,7 +16,7 @@ function App() {
   return (
     <StyledApp className="App">
       <Components />
-      <Utilities />
+      <GroupedEffects />
     </StyledApp>
   );
 }

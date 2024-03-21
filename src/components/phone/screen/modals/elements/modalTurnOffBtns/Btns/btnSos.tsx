@@ -4,12 +4,8 @@ import { useAppSelector,useAppDispatch } from "../../../../../../../redux/hooks"
 
 import { enumModalTurnOffBtnsFocus, setTurnOffBtnsFocus } from "../../../../../../../redux/reducers/modal";
 import {
-  enumCurrentScreen,
-  setCurrentScreen,
-  updateScreenCountDown,
-  setStopCountingDown,
-  screenTurnOff,
-} from "../../../../../../../redux/reducers/screen";
+  resetScreenCountingDownShort,
+} from "../../../../../../../redux/reducers/screenParts/screenGeneral";
 
 
 const StyledBtn = styled.div<{ visible: string; focused: string }>`
@@ -48,16 +44,14 @@ const StyledSOS = styled.div`
 
 
 export default function BtnSos() {
-  const focus = useAppSelector(state => state.modal.turnOffBtnsFocus)
-  const shortTime = useAppSelector(state => state.screen.countDownTimerShort)
-  
+  const focus = useAppSelector(state => state.modal.turnOffBtnsFocus)  
   const focused = focus === enumModalTurnOffBtnsFocus.sos;
   const visible = focus === enumModalTurnOffBtnsFocus.sos || focus === enumModalTurnOffBtnsFocus.all;
  
   const dispatch = useAppDispatch()
   const click = (e: React.MouseEvent) => {
     e.stopPropagation();
-    dispatch(updateScreenCountDown(shortTime));
+    dispatch(resetScreenCountingDownShort());
 
     if(visible){
         dispatch(setTurnOffBtnsFocus(enumModalTurnOffBtnsFocus.sos));

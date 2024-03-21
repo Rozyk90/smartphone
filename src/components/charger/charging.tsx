@@ -10,7 +10,7 @@ export default function Charging() {
   const { isCharging, battery, isFastCharging, isBatteryProtection } =
     useAppSelector((state) => state.battery);
   const { isOn } = useAppSelector((state) => state.basicStates);
-  const {isScreenActive}= useAppSelector(state => state.screen)
+  const {isScreenActive}= useAppSelector(state => state.screen.general)
   useEffect(() => {
     if (isCharging) {
       let timer = TimersCharging.basicCharging;

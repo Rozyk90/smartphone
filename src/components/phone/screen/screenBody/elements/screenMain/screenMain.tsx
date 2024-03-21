@@ -1,12 +1,11 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { db } from "../../../../../../firebase";
-import { updateDoc, doc } from "firebase/firestore";
 
 import { enumIcons } from "../../../../../icons/enumsIcon";
 import RenderIcon from "./elements/renderIcon";
 import { useAppDispatch, useAppSelector } from "../../../../../../redux/hooks";
-import { updateScreenGrid } from "../../../../../../redux/reducers/screen";
+import { updateScreenGrid } from "../../../../../../redux/reducers/screenParts/screenCenter";
+import { setStartCountingDown,setStopCountingDown,resetScreenCountingDownShort } from "../../../../../../redux/reducers/screenParts/screenGeneral";
 
 const StyledScreenMain = styled.div`
   padding-top: 20px;
@@ -30,21 +29,6 @@ const StyledPlace = styled.div<PlaceDot>`
   display: flex;
   align-items: center;
   justify-content: center;
-  position: relative;
-  ${(props) =>
-    props.$withDot &&
-    props.$showDots &&
-    `
-    &:after {
-      content: "";
-      width: 2px;
-      height: 2px;
-      right:0px;
-      bottom:0px;
-      background-color: #ffffff;
-      position: absolute;
-    }
-  `}
 `;
 
 const StyledShadow = styled.div`
@@ -55,26 +39,40 @@ const StyledShadow = styled.div`
   border-radius: 20px;
 `;
 
+
 const DotsId = [0, 1, 2, 4, 5, 6, 8, 9, 10, 12, 13, 14, 16, 17, 18];
+
+const StyledDot = styled.div`
+position: absolute;
+  height: 2px;
+  width: 2px;
+  background: #ffffff;
+  margin-top: 96px;
+  margin-left: 76px;
+`
+
 
 const ScreenMain: React.FC = () => {
   const [enumToReplace, setEnumToReplace] = useState(enumIcons.empty);
   const [replaceFrom, setReplaceFrom] = useState<number | null>(null);
   const [shadow, setShadow] = useState<number | null>(null);
 
-  const grid = useAppSelector((state) => state.screen.screenGrid);
-  const uid = useAppSelector((state) => state.user.uid);
+  const grid = useAppSelector((state) => state.screen.center.screenGrid);
   const dispatch = useAppDispatch();
 
   const handleStart = (event: React.DragEvent<HTMLDivElement>, id: number) => {
     setReplaceFrom(id);
     setEnumToReplace(grid[id]);
+    dispatch(setStopCountingDown())
+    dispatch(resetScreenCountingDownShort())
   };
 
   const handleDragOver = (
     event: React.DragEvent<HTMLDivElement>,
     id: number
   ) => {
+    
+
     event.preventDefault();
     if ((shadow === null || shadow !== id) && replaceFrom !== null) {
       setShadow(id);
@@ -83,6 +81,8 @@ const ScreenMain: React.FC = () => {
 
   const handleDrop = (event: React.DragEvent<HTMLDivElement>, id: number) => {
     event.preventDefault();
+    dispatch(resetScreenCountingDownShort())
+    dispatch(setStartCountingDown())
 
     const draggedTo = id;
     const placeEnum = grid[id];
@@ -94,22 +94,9 @@ const ScreenMain: React.FC = () => {
       updatedGrid[draggedTo] = enumToReplace;
 
       dispatch(updateScreenGrid(updatedGrid));
-      firestoreUpdate(updatedGrid);
       setEnumToReplace(enumIcons.empty);
       setReplaceFrom(null);
       setShadow(null);
-    }
-  };
-
-  const firestoreUpdate = async (updatedGrid: Array<enumIcons>) => {
-    const userDocRef = doc(db, "users", uid);
-    try {
-      await updateDoc(userDocRef, {
-        screenGrid: updatedGrid,
-      });
-      console.log("Dokument zaktualizowany pomyślnie");
-    } catch (error) {
-      console.error("Błąd podczas aktualizacji dokumentu: ", error);
     }
   };
 
@@ -131,7 +118,9 @@ const ScreenMain: React.FC = () => {
               icon={grid[id]}
               handleStart={(e) => handleStart(e, id)}
             />
+
             {id === shadow && <StyledShadow />}
+            {DotsId.includes(id)&&replaceFrom!==null&&<StyledDot/>}
           </StyledPlace>
         ))}
       </StyledIconsMap>

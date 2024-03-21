@@ -3,25 +3,27 @@ import { useState, useEffect, useRef } from "react";
 
 import { useAppSelector, useAppDispatch } from "../../../redux/hooks";
 import {
-  screenTurnOff,
   screenTurnOn,
-  setCurrentBarBottom,
-  enumCurrentBarBottom,
-  setCurrentScreen,
-  enumCurrentScreen,
-  updateScreenCountDown,
-  setCurrenBarTop,
-  enumCurrentBarTop,
+  resetScreenCountingDownShort,
   setStartCountingDown,
-  setStopCountingDown,
-} from "../../../redux/reducers/screen";
+} from "../../../redux/reducers/screenParts/screenGeneral";
+
+import {
+  enumCurrentBarTop,
+  enumCurrentBarBottom,
+  enumCurrentScreen,
+} from "../../../redux/reducers/screenParts/enumsScreen";
+import { setCurrentBarBottom } from "../../../redux/reducers/screenParts/screenBarBottom";
+import { setCurrentScreen } from "../../../redux/reducers/screenParts/screenCenter";
+import { setCurrenBarTop } from "../../../redux/reducers/screenParts/screenBarTop";
 
 import {
   setCurrentModal,
   enumCurrentModal,
   modalTurnOn,
-  modalTurnOff,
 } from "../../../redux/reducers/modal";
+import useScreen from "../../../customHooks/useScreen";
+import useModal from "../../../customHooks/useModal";
 
 const StyledButtonMain = styled.div`
   position: absolute;
@@ -36,43 +38,27 @@ const StyledButtonMain = styled.div`
 `;
 
 export default function MainBtn() {
-  const [doWylaczenia, setDoWylaczenia] = useState(false);
+  const [toTurnOff, setToTurnOff] = useState(false);
+
+  const { isOn } = useAppSelector((state) => state.basicStates);
+  const battery = useAppSelector((state) => state.battery.battery);
+  const { isScreenActive } = useAppSelector((state) => state.screen.general);
 
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const dispatch = useAppDispatch();
-
-  const { isOn } = useAppSelector((state) => state.basicStates);
-  const battery = useAppSelector((state) => state.battery.battery);
-  const { isScreenActive, countDownTimerShort } = useAppSelector(
-    (state) => state.screen
-  );
-
-  const turnOnScreen = () => {
-    dispatch(screenTurnOn());
-    dispatch(setCurrenBarTop(enumCurrentBarTop.on));
-    dispatch(setCurrentScreen(enumCurrentScreen.screenActiveBlocked));
-    dispatch(setCurrentBarBottom(enumCurrentBarBottom.none));
-  };
-
-  const turnOffScreen = () => {
-    dispatch(updateScreenCountDown(0));
-    dispatch(setStopCountingDown())
-    dispatch(screenTurnOff());
-    dispatch(setCurrenBarTop(enumCurrentBarTop.off));
-    dispatch(setCurrentScreen(enumCurrentScreen.screenNone));
-    dispatch(setCurrentBarBottom(enumCurrentBarBottom.off));
-    dispatch(modalTurnOff());
-    dispatch(setCurrentModal(enumCurrentModal.modalNone));
-  };
+  const { screenOff } = useScreen();
+  const { modalOff } = useModal();
 
   const press = () => {
     if (isOn) {
-      dispatch(updateScreenCountDown(countDownTimerShort));
-      dispatch(setStartCountingDown())
-
       if (!isScreenActive) {
-        turnOnScreen();
+        dispatch(resetScreenCountingDownShort());
+        dispatch(setStartCountingDown());
+        dispatch(screenTurnOn());
+        dispatch(setCurrenBarTop(enumCurrentBarTop.on));
+        dispatch(setCurrentScreen(enumCurrentScreen.screenActiveBlocked));
+        dispatch(setCurrentBarBottom(enumCurrentBarBottom.none));
       }
 
       if (isScreenActive) {
@@ -80,35 +66,36 @@ export default function MainBtn() {
           dispatch(setCurrentModal(enumCurrentModal.modalTurnOffBtns));
           dispatch(modalTurnOn());
           dispatch(setCurrentBarBottom(enumCurrentBarBottom.backOnly));
-          dispatch(updateScreenCountDown(countDownTimerShort));
-          setDoWylaczenia(false);
+          dispatch(resetScreenCountingDownShort());
+          setToTurnOff(false);
         }, 1000);
       }
-    } else if(battery>0) {
-      dispatch(setCurrentScreen(enumCurrentScreen.screenStartupAnimation));
+    } else if (battery > 0) {
+      timeoutRef.current = setTimeout(() => {
+        dispatch(setCurrentScreen(enumCurrentScreen.screenStartupAnimation));
+      }, 1000);
     }
   };
 
   const stopPress = () => {
     if (isOn) {
-      if (doWylaczenia) {
-        setDoWylaczenia(false);
-        turnOffScreen();
+      if (toTurnOff) {
+        setToTurnOff(false);
+        screenOff();
+        modalOff();
       } else {
-        setDoWylaczenia(true);
+        setToTurnOff(true);
       }
-      if (timeoutRef.current) {
-        clearTimeout(timeoutRef.current);
-      }
-    }else{
-
+    }
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
     }
   };
 
   useEffect(() => {
     if (isScreenActive && isOn) {
       return () => {
-        setDoWylaczenia(false);
+        setToTurnOff(false);
       };
     }
   }, [isScreenActive]);

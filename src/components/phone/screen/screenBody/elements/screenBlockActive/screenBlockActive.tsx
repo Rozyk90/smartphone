@@ -3,9 +3,7 @@ import styled from "styled-components";
 import { useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../../../../redux/hooks";
 
-import {
-  signOut
-} from "firebase/auth";
+import { signOut } from "firebase/auth";
 import { auth } from "../../../../../../firebase";
 
 import Calendar from "../../../../../apps/calendar/calendar";
@@ -15,7 +13,15 @@ import Finger from "./elements/finger";
 import Inputs from "./elements/inputs";
 
 import { enumClockSizes } from "../../../../../apps/clock/clock";
-import { enumCurrentBarBottom, enumCurrentScreen, setCurrentBarBottom, setCurrentScreen, updateScreenCountDown } from "../../../../../../redux/reducers/screen";
+import { resetScreenCountingDownShort } from "../../../../../../redux/reducers/screenParts/screenGeneral";
+
+import {
+  enumCurrentBarBottom,
+  enumCurrentScreen,
+} from "../../../../../../redux/reducers/screenParts/enumsScreen";
+import { setCurrentBarBottom } from "../../../../../../redux/reducers/screenParts/screenBarBottom";
+import { setCurrentScreen } from "../../../../../../redux/reducers/screenParts/screenCenter";
+
 import { userLogout } from "../../../../../../redux/reducers/user";
 
 const StyledScreenBlockActive = styled.div`
@@ -41,7 +47,6 @@ const StyledContainerLogin = styled.div`
 export default function ScreenBlockActive() {
   const [showInputs, setShowInputs] = useState(false);
   const isLogged = useAppSelector((state) => state.user.isLogged);
-  const shortTime = useAppSelector((state) => state.screen.countDownTimerShort);
 
   const dispatch = useAppDispatch();
 
@@ -51,15 +56,15 @@ export default function ScreenBlockActive() {
   };
 
   const showInp = () => {
-    dispatch(updateScreenCountDown(shortTime));
+    dispatch(resetScreenCountingDownShort());
     setShowInputs(true);
   };
 
-
-  const setMainScreen = () =>{
-    dispatch(setCurrentScreen(enumCurrentScreen.screenMain))
-    dispatch(setCurrentBarBottom(enumCurrentBarBottom.on))
-  }
+  const setMainScreen = () => {
+    dispatch(resetScreenCountingDownShort());
+    dispatch(setCurrentScreen(enumCurrentScreen.screenMain));
+    dispatch(setCurrentBarBottom(enumCurrentBarBottom.on));
+  };
 
   return (
     <StyledScreenBlockActive>
@@ -71,7 +76,7 @@ export default function ScreenBlockActive() {
       </StyledContainerCalendar>
       <StyledContainerLogin>
         {!isLogged && showInputs && <Inputs />}
-        {!showInputs && <Finger onClick={isLogged?setMainScreen:showInp} />}
+        {!showInputs && <Finger onClick={isLogged ? setMainScreen : showInp} />}
         {isLogged && <ActionBtn txt="Wyloguj się" fn={logout} />}
       </StyledContainerLogin>
     </StyledScreenBlockActive>

@@ -1,27 +1,24 @@
 import styled from "styled-components";
-import { useAppDispatch, useAppSelector } from "../../../../../../../redux/hooks";
+import {
+  useAppDispatch,
+  useAppSelector,
+} from "../../../../../../../redux/hooks";
 
 import RotateLeftRoundedIcon from "@mui/icons-material/RotateLeftRounded";
 
-import {
-  enumCurrentScreen,
-  setCurrentScreen,
-  updateScreenCountDown,
-  setStopCountingDown,
-  screenTurnOff,
-  setCurrentBarBottom,
-  enumCurrentBarBottom,
-  setCurrenBarTop,
-  enumCurrentBarTop,
-} from "../../../../../../../redux/reducers/screen";
+import { resetScreenCountingDownShort } from "../../../../../../../redux/reducers/screenParts/screenGeneral";
 import {
   enumCurrentModal,
   enumModalTurnOffBtnsFocus,
-  modalTurnOff,
   setCurrentModal,
   setTurnOffBtnsFocus,
 } from "../../../../../../../redux/reducers/modal";
-import { phoneIsRestarting } from "../../../../../../../redux/reducers/basicStates";
+import useModal from "../../../../../../../customHooks/useModal";
+
+
+import { setCurrentScreen } from "../../../../../../../redux/reducers/screenParts/screenCenter";
+import { enumCurrentScreen } from "../../../../../../../redux/reducers/screenParts/enumsScreen";
+import useScreen from "../../../../../../../customHooks/useScreen";
 
 const StyledBtn = styled.div<{ visible: string; focused: string }>`
   opacity: ${(props) => (props.visible === "true" ? "1" : "0")};
@@ -49,32 +46,27 @@ const StyledBackgroundIcon = styled.button`
   cursor: pointer;
 `;
 
-
-
 export default function BtnReset() {
-  const focus = useAppSelector(state => state.modal.turnOffBtnsFocus)
-  const shortTime = useAppSelector(state => state.screen.countDownTimerShort)
+  const focus = useAppSelector((state) => state.modal.turnOffBtnsFocus);
   const dispatch = useAppDispatch();
   const focused = focus === enumModalTurnOffBtnsFocus.reset;
-  const visible = focus === enumModalTurnOffBtnsFocus.reset || focus === enumModalTurnOffBtnsFocus.all;
+  const visible =
+    focus === enumModalTurnOffBtnsFocus.reset ||
+    focus === enumModalTurnOffBtnsFocus.all;
+
+  const {modalOff} = useModal()
+  const {screenOff} = useScreen()
 
   const click = (e: React.MouseEvent) => {
     e.stopPropagation();
-    dispatch(setTurnOffBtnsFocus(enumModalTurnOffBtnsFocus.reset))
-    dispatch(updateScreenCountDown(shortTime));
-    
+    dispatch(setTurnOffBtnsFocus(enumModalTurnOffBtnsFocus.reset));
+    dispatch(resetScreenCountingDownShort());
+
     if (focused) {
+      // restart phone
+      screenOff()
+      modalOff()
       dispatch(setCurrentScreen(enumCurrentScreen.screenTurnOffAnimation));
-      dispatch(setCurrentModal(enumCurrentModal.modalNone));
-      dispatch(setTurnOffBtnsFocus(enumModalTurnOffBtnsFocus.all))
-      dispatch(updateScreenCountDown(0));
-      dispatch(setStopCountingDown())
-      dispatch(screenTurnOff());
-      dispatch(phoneIsRestarting())
-      dispatch(setCurrentBarBottom(enumCurrentBarBottom.off))
-      dispatch(setCurrenBarTop(enumCurrentBarTop.off))
-      dispatch(modalTurnOff())
-     
       setTimeout(() => {
         dispatch(setCurrentScreen(enumCurrentScreen.screenStartupAnimation));
       }, 7000);

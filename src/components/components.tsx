@@ -20,6 +20,7 @@ import {
   doc,
 } from "firebase/firestore";
 import { db } from "../firebase";
+import useCustomHook from "../customHooks/useFirestore";
 
 const StyledDesign = styled.div`
   display: flex;
@@ -46,18 +47,20 @@ const StyledSide = styled.div`
 
 export default function Components() {
   const dispatch = useAppDispatch();
-
-  const currentScreen = useAppSelector((state) => state.screen.currentScreen);
+  const currentScreen = useAppSelector((state) => state.screen.center.currentScreen);
   const isLogged = useAppSelector((state) => state.user.isLogged);
   const uid = useAppSelector((state) => state.user.uid);
   const isOn = useAppSelector((state) => state.basicStates.isOn);
   const { isScreenActive, isCountingDown } = useAppSelector(
-    (state) => state.screen
+    (state) => state.screen.general
   );
   const isCharging = useAppSelector((state) => state.battery.isCharging);
   const modalIsActive = useAppSelector((state) => state.modal.isModalActive);
-  const counterDown = useAppSelector((state) => state.screen.countDown);
-  const screenGrid = useAppSelector((state) => state.screen.screenGrid);
+  const counterDown = useAppSelector((state) => state.screen.general.countDown);
+
+
+
+
 
   const rotatePhone = () => {
     if (isCharging) {
@@ -75,17 +78,12 @@ export default function Components() {
     }
   };
 
-  // const dodaj = async () => {
-  //   const userDocRef = doc(db, "users", uid);
-  //   try {
-  //     await updateDoc(userDocRef, {
-  //       screenGrid,
-  //     });
-  //     console.log("Dokument zaktualizowany pomyślnie");
-  //   } catch (error) {
-  //     console.error("Błąd podczas aktualizacji dokumentu: ", error);
-  //   }
-  // };
+
+
+  const zrobTo = () => {
+
+  };
+
 
   return (
     <StyledDesign>
@@ -104,24 +102,15 @@ export default function Components() {
         <p></p>
         Jest odliczanie - {isCountingDown.toString()}
         <p></p>
-        {/* jest pionowo - {isVertical.toString()} */}
-        <p></p>
-        {/* ochrona baterii - {isBatteryProtection.toString()} */}
-        <p></p>
-        {/* szybkie ladowanie - {isFastCharging.toString()} */}
-        <p></p>
-        {/* wtyczka wlozona - {isPlugConnected.toString()} */}
-        <p></p>
-        {/* laduje sie - {isCharging.toString()} */}
-        <p></p>
-        {/* <StyledBig>batery - {batery}</StyledBig> */}
-        <p></p>
+   
         <Button variant="contained" onClick={() => rotatePhone()}>
           Obrot
         </Button>
-        {/* <Button variant="contained" onClick={() => dodaj()}>
-          dodaj
-        </Button> */}
+
+        <Button variant="contained" onClick={() => zrobTo()}>
+          do wszystkiego
+        </Button>
+      
       </StyledHeader>
 
       <StyledMain>

@@ -1,11 +1,8 @@
 import styled from "styled-components";
 import Button from "@mui/material/Button";
 
-const StyledActionBtn = styled.div`
-  height: 50px;
-`;
-
 const StyledBtn = styled(Button)`
+margin-top: 20px;
   && {
     color: white;
     transition: 0.5s;
@@ -24,14 +21,12 @@ interface BtnProps {
 
 export default function ActionBtn({ txt, fn }: BtnProps) {
   return (
-    <StyledActionBtn>
-      <StyledBtn
-        onClick={() => {
-          fn();
-        }}
-      >
-        {txt}
-      </StyledBtn>
-    </StyledActionBtn>
+    <StyledBtn
+      onClick={() => {
+        fn();
+      }}
+    >
+      {txt}
+    </StyledBtn>
   );
 }

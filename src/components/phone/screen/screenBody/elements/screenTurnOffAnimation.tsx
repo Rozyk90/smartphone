@@ -3,11 +3,9 @@ import { useAppDispatch } from "../../../../../redux/hooks";
 import styled from "styled-components";
 
 import { phoneTurnOff } from "../../../../../redux/reducers/basicStates";
-import {
-  enumCurrentScreen,
-  setCurrentScreen,
-  screenTurnOff,
-} from "../../../../../redux/reducers/screen";
+import { screenTurnOff } from "../../../../../redux/reducers/screenParts/screenGeneral";
+import { enumCurrentScreen } from "../../../../../redux/reducers/screenParts/enumsScreen";
+import { setCurrentScreen } from "../../../../../redux/reducers/screenParts/screenCenter";
 
 const StyledScreenTrunOffAniamtion = styled.div`
   background: #1b1b1b;
@@ -16,14 +14,13 @@ const StyledScreenTrunOffAniamtion = styled.div`
   color: white;
   font-size: 40px;
   font-weight: 600;
+  height: 400px;
 `;
 
 export default function ScreenTurnOffAnimation() {
   const dispatch = useAppDispatch();
   useEffect(() => {
-    console.log("zaczynam wylaczanie");
     const timer = setTimeout(() => {
-      console.log("to sie robi i elo");
       dispatch(phoneTurnOff());
       dispatch(screenTurnOff());
       dispatch(setCurrentScreen(enumCurrentScreen.screenNone));

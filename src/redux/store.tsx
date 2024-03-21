@@ -3,9 +3,14 @@ import { configureStore,combineReducers  } from '@reduxjs/toolkit'
 
 import basicStates from './reducers/basicStates'
 import sliceBattery from './reducers/battery'
-import sliceScreen from './reducers/screen'
+// import sliceScreen from './reducers/screenParts/screen'
 import sliceModal  from './reducers/modal'
 import sliceUser  from './reducers/user'
+
+import screenBarBottom from './reducers/screenParts/screenBarBottom'
+import screenBarTop from './reducers/screenParts/screenBarTop'
+import screenCenter from './reducers/screenParts/screenCenter'
+import screenGeneral from './reducers/screenParts/screenGeneral'
 
 import {topSliceReducer} from './reducers/test';
 import {midSliceReducer} from './reducers/test';
@@ -17,6 +22,13 @@ const turboSliceReducer = combineReducers({
   top: topSliceReducer,
   mid: midSliceReducer,
   bottom: bottomSliceReducer,
+});
+
+const screen = combineReducers({
+  barTop: screenBarTop,
+  center: screenCenter,
+  barBottom: screenBarBottom,
+  general:screenGeneral
 });
 
 
@@ -32,7 +44,7 @@ export const store = configureStore({
 
     basicStates:basicStates,
     battery:sliceBattery,
-    screen:sliceScreen,
+    screen:screen,
     modal:sliceModal,
     // posts: postsReducer,
     // comments: commentsReducer,

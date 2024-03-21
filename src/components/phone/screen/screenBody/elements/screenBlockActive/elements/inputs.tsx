@@ -19,15 +19,17 @@ import Input from "./input";
 import ActionBtn from "./actionBtn";
 import { enumErrors, enumErrorsCodes, enumBtns } from "./enumsInput";
 
+import { resetScreenCountingDownShort } from "../../../../../../../redux/reducers/screenParts/screenGeneral";
 import {
   enumCurrentBarBottom,
   enumCurrentScreen,
-  setCurrentBarBottom,
-  setCurrentScreen,
-  updateScreenCountDown,
-} from "../../../../../../../redux/reducers/screen";
+} from "../../../../../../../redux/reducers/screenParts/enumsScreen";
+import { setCurrentBarBottom } from "../../../../../../../redux/reducers/screenParts/screenBarBottom";
+import { setCurrentScreen } from "../../../../../../../redux/reducers/screenParts/screenCenter";
 
-const StyledInputs = styled.div``;
+const StyledInputs = styled.div`
+  margin-bottom: 50px;
+`;
 const StyledBtnsGroup = styled(ToggleButtonGroup)``;
 
 export default function Inputs() {
@@ -37,19 +39,15 @@ export default function Inputs() {
   const [pass, setPass] = useState("");
   const [passError, setPassError] = useState("");
 
-  const shortTime = useAppSelector((state) => state.screen.countDownTimerShort);
-  const screenGrid = useAppSelector((state) => state.screen.screenGrid);
+  const screenGrid = useAppSelector((state) => state.screen.center.screenGrid);
   const dispatch = useAppDispatch();
-
-  const resetScreenTimer = () => {
-    dispatch(updateScreenCountDown(shortTime));
-  };
 
   const setBtn = (
     event: React.MouseEvent<HTMLElement>,
     newBtn: enumBtns.btnLogin | enumBtns.btnRegistration
   ) => {
-    resetScreenTimer();
+    dispatch(resetScreenCountingDownShort());
+
     if (newBtn !== null) {
       resetErrors();
       setSelectedBtn(newBtn);
@@ -58,13 +56,15 @@ export default function Inputs() {
 
   const changeEmail = (event: any) => {
     resetErrors();
-    resetScreenTimer();
+    dispatch(resetScreenCountingDownShort());
+
     setEmail(event.target.value);
   };
 
   const changePass = (event: any) => {
     resetErrors();
-    resetScreenTimer();
+    dispatch(resetScreenCountingDownShort());
+
     setPass(event.target.value);
   };
 
@@ -79,7 +79,8 @@ export default function Inputs() {
   };
 
   const loginAcc = async () => {
-    resetScreenTimer();
+    dispatch(resetScreenCountingDownShort());
+
     signInWithEmailAndPassword(auth, email, pass)
       .then(() => {
         resetErrors();
@@ -109,7 +110,8 @@ export default function Inputs() {
   };
 
   const createAcc = async () => {
-    resetScreenTimer();
+    dispatch(resetScreenCountingDownShort());
+
     createUserWithEmailAndPassword(auth, email, pass)
       .then((userCredential) => {
         createFirestore(userCredential.user);

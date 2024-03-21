@@ -5,11 +5,11 @@ import { Button } from "@mui/material";
 import ArrowBackIosRoundedIcon from "@mui/icons-material/ArrowBackIosRounded";
 import CropSquareRoundedIcon from "@mui/icons-material/CropSquareRounded";
 import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
-import {
-  enumCurrentBarBottom,
-  setCurrentBarBottom,
-  updateScreenCountDown,
-} from "../../../../redux/reducers/screen";
+
+import { enumCurrentBarBottom } from "../../../../redux/reducers/screenParts/enumsScreen";
+import { setCurrentBarBottom } from "../../../../redux/reducers/screenParts/screenBarBottom";
+import { resetScreenCountingDownShort } from "../../../../redux/reducers/screenParts/screenGeneral";
+
 import {
   enumCurrentModal,
   enumModalTurnOffBtnsFocus,
@@ -66,25 +66,24 @@ const StyledBarBottomNone = styled.div`
 
 export default function BottomBar() {
   const currentBarBottom = useAppSelector(
-    (state) => state.screen.currentBarBottom
+    (state) => state.screen.barBottom.currentBarBottom
   );
   const currentBtnFocus = useAppSelector(
     (state) => state.modal.turnOffBtnsFocus
   );
-  const shortTime = useAppSelector((state) => state.screen.countDownTimerShort);
 
   const dispatch = useAppDispatch();
 
   const OnlyBackClick = () => {
     if (currentBtnFocus === enumModalTurnOffBtnsFocus.all) {
-      dispatch(updateScreenCountDown(shortTime));
-      dispatch(setCurrentModal(enumCurrentModal.modalNone));
-      dispatch(modalTurnOff())
-      dispatch(setCurrentBarBottom(enumCurrentBarBottom.none))
+      dispatch(resetScreenCountingDownShort());
 
+      dispatch(setCurrentModal(enumCurrentModal.modalNone));
+      dispatch(modalTurnOff());
+      dispatch(setCurrentBarBottom(enumCurrentBarBottom.none));
     } else {
       dispatch(setTurnOffBtnsFocus(enumModalTurnOffBtnsFocus.all));
-      dispatch(updateScreenCountDown(shortTime));
+      dispatch(resetScreenCountingDownShort());
     }
   };
 

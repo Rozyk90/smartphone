@@ -5,7 +5,7 @@ import { enumClockSizes } from "../../../apps/clock/clock";
 import IconList from "../../../functionalities/notificationList";
 import TopBarBattery from "../../../functionalities/battery/topBarBattery";
 import { useAppSelector } from "../../../../redux/hooks";
-import { enumCurrentBarTop } from "../../../../redux/reducers/screen";
+import { enumCurrentBarTop } from "../../../../redux/reducers/screenParts/enumsScreen";
 
 const StyledTopBarOn = styled.div`
   /* background: #00ff55; */
@@ -51,13 +51,12 @@ const StyledBarTopOff = styled.div`
 `;
 
 export default function TopBar() {
-  const currentBarTop = useAppSelector((state) => state.screen.currentBarTop);
-  const isOn = useAppSelector((state) => state.basicStates.isOn);
-
+  const currentBarTop = useAppSelector(
+    (state) => state.screen.barTop.currentBarTop
+  );
   return (
     <>
-
-      {currentBarTop === enumCurrentBarTop.off && <StyledBarTopOff/>}
+      {currentBarTop === enumCurrentBarTop.off && <StyledBarTopOff />}
 
       {currentBarTop === enumCurrentBarTop.on && (
         <StyledTopBarOn>

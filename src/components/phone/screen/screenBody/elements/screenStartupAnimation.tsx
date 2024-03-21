@@ -3,11 +3,24 @@ import { useEffect, useState } from "react";
 import { useAppSelector, useAppDispatch } from "../../../../../redux/hooks";
 
 import AndroidIcon from "@mui/icons-material/Android";
-import {phoneIsRestarting, phoneStopRestarting, phoneTurnOn } from "../../../../../redux/reducers/basicStates";
+import {
+  phoneStopRestarting,
+  phoneTurnOn,
+} from "../../../../../redux/reducers/basicStates";
 
-
-import { screenTurnOn, setCurrentScreen,enumCurrentScreen } from "../../../../../redux/reducers/screen";
-
+import {
+  screenTurnOn,
+  resetScreenCountingDownShort,
+  setStartCountingDown,
+} from "../../../../../redux/reducers/screenParts/screenGeneral";
+import {
+  enumCurrentBarBottom,
+  enumCurrentBarTop,
+  enumCurrentScreen,
+} from "../../../../../redux/reducers/screenParts/enumsScreen";
+import { setCurrentScreen } from "../../../../../redux/reducers/screenParts/screenCenter";
+import { setCurrenBarTop } from "../../../../../redux/reducers/screenParts/screenBarTop";
+import { setCurrentBarBottom } from "../../../../../redux/reducers/screenParts/screenBarBottom";
 
 const StyledStartingScreen = styled.div`
   background: #1b1b1b;
@@ -51,11 +64,9 @@ export default function ScreenStartupAnimation() {
   const [showBottomDescription, setShowBottomDescription] = useState(false);
 
   const dispatch = useAppDispatch();
-  const {isOn } = useAppSelector((state) => state.basicStates);
-  const { currentScreen} = useAppSelector((state) => state.screen);
+  const { currentScreen } = useAppSelector((state) => state.screen.center);
 
   useEffect(() => {
-    console.log("zaczynam uruchamianie telefonu")
     if (enumCurrentScreen.screenStartupAnimation === currentScreen) {
       const timer = setTimeout(() => {
         setShowDescription(true);
@@ -68,10 +79,14 @@ export default function ScreenStartupAnimation() {
       const phoneTurnOnTimeout = setTimeout(() => {
         setShowDescription(true);
         setShowBottomDescription(true);
+        dispatch(resetScreenCountingDownShort());
+        dispatch(setCurrenBarTop(enumCurrentBarTop.on));
         dispatch(setCurrentScreen(enumCurrentScreen.screenActiveBlocked));
-        dispatch(screenTurnOn())
+        dispatch(setCurrentBarBottom(enumCurrentBarBottom.none));
+        dispatch(screenTurnOn());
         dispatch(phoneTurnOn());
-        dispatch(phoneStopRestarting())
+        dispatch(phoneStopRestarting());
+        dispatch(setStartCountingDown());
       }, 5000);
 
       return () => {

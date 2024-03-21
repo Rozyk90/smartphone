@@ -1,28 +1,19 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-// Enum do określenia stanów
-// export enum EnumState {
-//   top = 'top',
-//   mid = 'mid',
-//   bottom = 'bottom',
-// }
 
-// Interfejs opisujący stan
 interface State {
   isActive: boolean;
 }
 
-// Początkowy stan dla każdego slice'a
+
 const initialState: State = {
   isActive: false,
 };
 
-// Tworzymy osobne slicey dla każdego stanu
 const topSlice = createSlice({
   name: "topSlice",
   initialState,
   reducers: {
-    // Akcje i reduktory dla topSlice
     turnOnTop: (state) => {
       state.isActive = true;
     },
@@ -36,7 +27,7 @@ const midSlice = createSlice({
   name: "midSlice",
   initialState,
   reducers: {
-    // Akcje i reduktory dla midSlice
+
     turnOnMid: (state) => {
       state.isActive = true;
     },
@@ -50,7 +41,6 @@ const bottomSlice = createSlice({
   name: "bottomSlice",
   initialState,
   reducers: {
-    // Akcje i reduktory dla bottomSlice
     turnOnBottom: (state) => {
       state.isActive = true;
     },

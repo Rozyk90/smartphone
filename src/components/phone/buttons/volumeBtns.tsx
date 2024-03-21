@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 import { useAppSelector, useAppDispatch } from "../../../redux/hooks";
-import { updateScreenCountDown } from "../../../redux/reducers/screen";
+import { resetScreenCountingDownShort } from "../../../redux/reducers/screenParts/screenGeneral";
 
 const StyledButtonTop1 = styled.div`
   position: absolute;
@@ -26,17 +26,14 @@ const StyledButtonTop2 = styled.div`
 `;
 
 export default function VolumeBtns() {
-  const { countDownTimer, countDownTimerShort } = useAppSelector(
-    (state) => state.screen
-  );
   const isLocked = useAppSelector((state) => state.basicStates.isLocked);
   const dispatch = useAppDispatch();
 
   const updateActiveScreen = () => {
     if (isLocked) {
-      dispatch(updateScreenCountDown(countDownTimerShort));
+      dispatch(resetScreenCountingDownShort());
     } else {
-      dispatch(updateScreenCountDown(countDownTimer));
+      dispatch(resetScreenCountingDownShort());
     }
   };
 
