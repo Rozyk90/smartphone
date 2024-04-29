@@ -57,6 +57,7 @@ export default function Components() {
   const isCharging = useAppSelector((state) => state.battery.isCharging);
   const modalIsActive = useAppSelector((state) => state.modal.isModalActive);
   const counterDown = useAppSelector((state) => state.screen.general.countDown);
+  const {isBatteryProtection} = useAppSelector(state => state.battery)
 
 
 
@@ -102,7 +103,10 @@ export default function Components() {
         <p></p>
         Jest odliczanie - {isCountingDown.toString()}
         <p></p>
-   
+      ochrona baterii = {isBatteryProtection.toString()}
+      <p></p>
+
+
         <Button variant="contained" onClick={() => rotatePhone()}>
           Obrot
         </Button>

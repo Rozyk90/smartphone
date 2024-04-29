@@ -10,6 +10,18 @@ export enum enumCurrentBarTop {
     screenTurnOffAnimation = "screenTurnOffAnimation",
     screenActiveBlocked = "screenActiveBlocked",
     screenMain = 'screenMain',
+    // ==============================================================
+    screenSettings = 'screenSettings',
+    screenSettingsBattery = 'screenSettingsBattery',
+    screenSettingsApps = 'screenSettingsApps',
+    screenSettingsScreen = 'screenSettingsScreen',
+    screenSettingsSounds = 'screenSettingsSounds',
+    screenSettingsBackground = 'screenSettingsBackground',
+    // ==============================================================
+    screenShop = 'screenShop',
+    screenClock = 'screenClock',
+    screenCalendar = 'screenCalendar',
+
   }
   
   export enum enumCurrentBarBottom{

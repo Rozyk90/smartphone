@@ -1,6 +1,10 @@
 import styled from "styled-components";
 
 import SettingsIcon from "@mui/icons-material/Settings";
+import { useAppDispatch } from "../../redux/hooks";
+import { setCurrentScreen } from "../../redux/reducers/screenParts/screenCenter";
+import { enumCurrentScreen } from "../../redux/reducers/screenParts/enumsScreen";
+import { resetScreenCountingDownShort } from "../../redux/reducers/screenParts/screenGeneral";
 
 const StyledIcon = styled.button`
   width: 50px;
@@ -18,13 +22,14 @@ const StyledIcon = styled.button`
 `;
 
 export default function IconSettings() {
-  const klik = () => {
-    console.log("klikam w to ustawienia");
+  const dispatch = useAppDispatch()
+  const fn = () => {
+    dispatch(setCurrentScreen(enumCurrentScreen.screenSettings))
   };
   return (
     <StyledIcon
       onClick={() => {
-        klik();
+        fn();
       }}
     >
       <SettingsIcon fontSize="large" />

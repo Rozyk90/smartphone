@@ -2,49 +2,78 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../store";
 
 interface battery {
-    battery:number
-    isPlugConnected:boolean
-    isCharging:boolean
-    isShowingValue:boolean
-    isFastCharging:boolean
-    isBatteryProtection:boolean
-};
+  battery: number;
+  isPlugConnected: boolean;
+  isCharging: boolean;
+  isShowingValue: boolean;
+  isFastCharging: boolean;
+  isBatteryProtection: boolean;
+  isBatteryDescription: boolean;
+}
 
 const initialState: battery = {
-    battery:50,
-    isPlugConnected:true,
-    isCharging:true,
-    isShowingValue:true,
-    isFastCharging:false,
-    isBatteryProtection:false,
+  battery: 99,
+  isPlugConnected: false,
+  isCharging: false,
+  isShowingValue: true,
+  isFastCharging: false,
+  isBatteryProtection: false,
+  isBatteryDescription: true, // is not ussing right now
 };
 
 export const sliceBattery = createSlice({
   name: "battery",
   initialState,
   reducers: {
-    batteryUpdate:(state,action:PayloadAction<number>)=>{
-        state.battery = action.payload
+    batteryUpdate: (state, action: PayloadAction<number>) => {
+      state.battery = action.payload;
     },
-    plugStatus:(state)=>{
-      state.isPlugConnected = !state.isPlugConnected 
+    plugStatus: (state) => {
+      state.isPlugConnected = !state.isPlugConnected;
     },
-    chargingStatus:(state)=>{
-      state.isCharging = !state.isCharging 
+    chargingStatus: (state) => {
+      state.isCharging = !state.isCharging;
     },
-    showingValueStatus:(state)=>{
-      state.isShowingValue = !state.isShowingValue 
+    // =====================================================
+    batteryProtectionOn: (state) => {
+      state.isBatteryProtection = true;
     },
-    fastChargingStatus:(state)=>{
-      state.isFastCharging = !state.isFastCharging 
+    batteryProtectionOff: (state) => {
+      state.isBatteryProtection = false;
     },
-    batteryProtectionStatus:(state)=>{
-      state.isBatteryProtection = !state.isBatteryProtection 
+    batteryValueOn: (state) => {
+      state.isShowingValue = true;
+    },
+    batteryValueOff: (state) => {
+      state.isShowingValue = false;
+    },
+    batteryFastChargingOn: (state) => {
+      state.isFastCharging = true;
+    },
+    batteryFastChargingOff: (state) => {
+      state.isFastCharging = false;
+    },
+    batteryDescriptionOn: (state) => {
+      state.isBatteryDescription = true;
+    },
+    batteryDescriptionOff: (state) => {
+      state.isBatteryDescription = false;
     },
   },
 });
 
-export const {batteryUpdate,plugStatus,chargingStatus,showingValueStatus,fastChargingStatus,batteryProtectionStatus} = sliceBattery.actions;
+export const {
+  batteryUpdate,
+  plugStatus,
+  chargingStatus,
+  batteryProtectionOn,
+  batteryProtectionOff,
+  batteryValueOn,
+  batteryValueOff,
+  batteryFastChargingOn,
+  batteryFastChargingOff,
+  batteryDescriptionOn,
+  batteryDescriptionOff,
+} = sliceBattery.actions;
 
 export default sliceBattery.reducer;
-

@@ -1,6 +1,12 @@
 import styled from "styled-components";
+import { useAppDispatch } from "../../redux/hooks";
 
 import WatchLaterRoundedIcon from '@mui/icons-material/WatchLaterRounded';
+
+import { enumCurrentScreen } from "../../redux/reducers/screenParts/enumsScreen";
+import { setCurrentScreen } from "../../redux/reducers/screenParts/screenCenter";
+
+import { resetScreenCountingDownShort } from "../../redux/reducers/screenParts/screenGeneral";
 
 const StyledIcon = styled.button`
   width: 50px;
@@ -15,13 +21,14 @@ background: linear-gradient(175deg, rgba(96,85,213,1) 30%, rgba(63,76,155,1) 60%
 `;
 
 export default function IconClock() {
-  const klik = () => {
-    console.log("klikam w to = zegarek");
+  const dispatch = useAppDispatch()
+  const fn = () => {
+    dispatch(setCurrentScreen(enumCurrentScreen.screenClock))
   };
   return (
     <StyledIcon
       onClick={() => {
-        klik();
+        fn();
       }}
     >
       <WatchLaterRoundedIcon fontSize="large" />

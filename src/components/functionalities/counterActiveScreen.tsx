@@ -16,18 +16,18 @@ export default function CounterActiveScreen() {
   const { screenOff } = useScreen();
   const {modalOff} = useModal()
 
-  useEffect(() => {
-    if (isScreenActive && isCountingDown) {
-      const timer = setTimeout(() => {
-        dispatch(updateScreenCountDown(countDown - 1000));
-        if (countDown === 1000) {
-          screenOff();
-          modalOff()
-        }
-      }, 1000);
-      return () => clearTimeout(timer);
-    }
-  }, [isScreenActive, countDown,isCountingDown]);
+  // useEffect(() => {
+  //   if (isScreenActive && isCountingDown) {
+  //     const timer = setTimeout(() => {
+  //       dispatch(updateScreenCountDown(countDown - 1000));
+  //       if (countDown === 1000) {
+  //         screenOff();
+  //         modalOff()
+  //       }
+  //     }, 1000);
+  //     return () => clearTimeout(timer);
+  //   }
+  // }, [isScreenActive, countDown,isCountingDown]);
 
   return null;
 }

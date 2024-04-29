@@ -7,7 +7,7 @@ import GroupedEffects from "./globalEffects";
 
 
 const StyledApp = styled.div`
-font-family: "Roboto", sans-serif;
+  font-family: "Roboto", sans-serif;
 `;
 
 

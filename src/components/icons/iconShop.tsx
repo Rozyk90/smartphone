@@ -1,7 +1,12 @@
 import styled from "styled-components";
 
-import googleplayicon from "./googleplayicon.png";
+
 import LocalMallIcon from "@mui/icons-material/LocalMall";
+import { useAppDispatch } from "../../redux/hooks";
+
+import { enumCurrentScreen } from "../../redux/reducers/screenParts/enumsScreen";
+import { setCurrentScreen } from "../../redux/reducers/screenParts/screenCenter";
+import { resetScreenCountingDownShort } from "../../redux/reducers/screenParts/screenGeneral";
 
 const StyledIcon = styled.button`
   width: 50px;
@@ -20,13 +25,14 @@ const StyledIcon = styled.button`
 `;
 
 export default function IconShop() {
-  const klik = () => {
-    console.log("klikam w to = sklep play");
+  const dispatch = useAppDispatch()
+  const fn = () => {
+    dispatch(setCurrentScreen(enumCurrentScreen.screenShop))
   };
   return (
     <StyledIcon
       onClick={() => {
-        klik();
+        fn();
       }}
     >
       <LocalMallIcon fontSize="large" />

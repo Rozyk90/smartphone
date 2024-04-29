@@ -11,6 +11,12 @@ import useCustomHook from "./customHooks/useFirestore";
 
 export default function GlobalEffects() {
   const screenGrid = useAppSelector((state) => state.screen.center.screenGrid);
+  const {
+    isShowingValue,
+    isFastCharging,
+    isBatteryProtection,
+    isBatteryDescription,
+  } = useAppSelector((state) => state.battery);
   const dispatch = useAppDispatch();
 
   const updateFromFirestore = async (uid: string) => {
@@ -30,7 +36,7 @@ export default function GlobalEffects() {
         const uid = user.uid || defaultUid;
         const userEmail = user.email || defaultUserEmail;
         dispatch(userSet({ uid, userEmail, isLogged: true }));
-        updateFromFirestore(uid);
+        updateFromFirestore(uid);        
         // ...
       } else {
         dispatch(userLogout());
@@ -38,11 +44,17 @@ export default function GlobalEffects() {
     });
   }, [auth]);
 
-  const { firestoreUpdate } = useCustomHook();
+  const { firestorePush } = useCustomHook();
 
   useEffect(() => {
-    firestoreUpdate();
-  }, [screenGrid]);
+    firestorePush();
+  }, [
+    screenGrid,
+    isShowingValue,
+    isFastCharging,
+    isBatteryProtection,
+    isBatteryDescription,
+  ]);
 
   return null;
 }
