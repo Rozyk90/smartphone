@@ -1,9 +1,11 @@
-import React from "react";
-import styled from "styled-components";
-import { useAppDispatch, useAppSelector } from "./redux/hooks";
+import styled, { ThemeProvider } from "styled-components";
 
 import Components from "./components/components";
 import GroupedEffects from "./globalEffects";
+import themeBase from "./themeBase";
+import {enumTheme} from "./themeBase"
+import { useAppSelector } from "./redux/hooks";
+
 
 
 const StyledApp = styled.div`
@@ -11,19 +13,33 @@ const StyledApp = styled.div`
 `;
 
 
-function App() {
 
+const Btn1 = styled.button`
+  background: ${prop =>prop.theme.background};
+
+`
+const Btn2 = styled.button`
+  background: ${prop =>prop.theme.background};
+
+
+`
+
+
+
+function App() {
+  const currentTheme = useAppSelector((state) => state.theme.currentTheme)
+  const darkMode = useAppSelector((state) => state.theme.darkMode)
   return (
     <StyledApp className="App">
-      <Components />
-      <GroupedEffects />
+      <ThemeProvider theme={themeBase[currentTheme][(darkMode?'dark':'light')]}>
+        {currentTheme}
+        <Btn1>Btn</Btn1>
+        <Btn2>Btn</Btn2>
+        <Components />
+        <GroupedEffects />
+      </ThemeProvider>
     </StyledApp>
   );
 }
 
 export default App;
-
-
-
-// do zrobienia przyciski przy wylaczaniu reset off 
-// i sos moga dzialc lepiej bo teraz nie lapie tylko ramek ale tez ten napis 

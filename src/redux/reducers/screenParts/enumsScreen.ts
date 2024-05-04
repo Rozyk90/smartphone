@@ -16,7 +16,7 @@ export enum enumCurrentBarTop {
     screenSettingsApps = 'screenSettingsApps',
     screenSettingsScreen = 'screenSettingsScreen',
     screenSettingsSounds = 'screenSettingsSounds',
-    screenSettingsBackground = 'screenSettingsBackground',
+    screenSettingsTheme = 'screenSettingsTheme',
     // ==============================================================
     screenShop = 'screenShop',
     screenClock = 'screenClock',

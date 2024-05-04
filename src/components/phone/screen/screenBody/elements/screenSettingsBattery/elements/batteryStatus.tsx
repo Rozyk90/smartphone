@@ -1,8 +1,5 @@
 import styled from "styled-components";
-import {
-  useAppDispatch,
-  useAppSelector,
-} from "../../../../../../../redux/hooks";
+import { useAppSelector } from "../../../../../../../redux/hooks";
 
 import {
   TimersCharging,
@@ -16,18 +13,18 @@ const StyledBatteryStatus = styled.div`
 `;
 
 const StyledTime = styled.div`
-  color: #424242;
+  color: ${(props) => props.theme.fonts.primary};
   font-size: 20px;
   font-weight: 600;
 `;
 const StyledTimeDescription = styled.div`
-  color: #424242;
+  color: ${(props) => props.theme.fonts.primary};
   font-size: 15px;
   font-weight: 600;
 `;
 
 const StyledLittleDescription = styled.div`
-  color: #a0a0a0;
+  color: ${(props) => props.theme.fonts.secondary};
   font-size: 12px;
 `;
 
@@ -50,7 +47,7 @@ const StyledBarBorder = styled.div`
   background: rgba(0, 0, 0, 0);
   height: 26px;
   border-radius: 20px;
-  border: 5px solid #f1f1f1;
+  border: 5px solid ${prop=>prop.theme.backgrounds.primary};
   position: relative;
   top: -31px;
   left: -5px;

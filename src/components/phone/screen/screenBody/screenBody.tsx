@@ -12,10 +12,8 @@ import ScreenSettingsBattery from "./elements/screenSettingsBattery/screenSettin
 import ScreenShop from "./elements/screenShop";
 import ScreenClock from "./elements/screenClock";
 import ScreenCalendar from "./elements/screenCalendar";
-import { useEffect } from "react";
-import { resetScreenCountingDownShort } from "../../../../redux/reducers/screenParts/screenGeneral";
 import ScreenSettingsApps from "./elements/screenSettingsApps";
-import ScreenSettingsBackground from "./elements/screenSettingsBackground";
+import ScreenSettingsTheme from "./elements/screenSettingsTheme";
 import ScreenSettingsSounds from "./elements/screenSettingsSounds";
 import ScreenSettingsScreen from "./elements/screenSettingsScreen";
 
@@ -25,26 +23,7 @@ const StyledScreenBody = styled.div`
 
 export default function ScreenBody() {
   const { currentScreen } = useAppSelector((state) => state.screen.center);
-  // const dispatch = useAppDispatch()
 
-  // useEffect(() => {
-  //   const resetTest = () => {
-  //     if (
-  //       currentScreen === enumCurrentScreen.screenNone ||
-  //       currentScreen === enumCurrentScreen.screenStartupAnimation ||
-  //       currentScreen === enumCurrentScreen.screenTurnOffAnimation
-  //     ) {
-  //       return false;
-  //     }else{
-  //       return true
-  //     }
-  //   };
-
-  //   if(resetTest()){
-  //     dispatch(resetScreenCountingDownShort())
-  //   }
-
-  // }, [currentScreen]);
 
   return (
     <StyledScreenBody>
@@ -66,8 +45,8 @@ export default function ScreenBody() {
       {currentScreen === enumCurrentScreen.screenSettingsApps && (
         <ScreenSettingsApps />
       )}
-      {currentScreen === enumCurrentScreen.screenSettingsBackground && (
-        <ScreenSettingsBackground />
+      {currentScreen === enumCurrentScreen.screenSettingsTheme && (
+        <ScreenSettingsTheme />
       )}
       {currentScreen === enumCurrentScreen.screenSettingsSounds && (
         <ScreenSettingsSounds />

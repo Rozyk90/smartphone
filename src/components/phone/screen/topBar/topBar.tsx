@@ -37,9 +37,9 @@ const StyledNotificationsRight = styled.div`
   width: 50%;
 `;
 
-const StyledRightBox = styled.div`
+const StyledRightBox = styled.div<{ $isDarkMode: boolean }>`
   /* background: green; */
-  color: white;
+  color: ${(prop) => prop.theme[prop.$isDarkMode ? 'white' : 'black']};
 `;
 
 const StyledBarTopOff = styled.div`
@@ -51,6 +51,7 @@ const StyledBarTopOff = styled.div`
 `;
 
 export default function TopBar() {
+  const darkMode = useAppSelector(state => state.theme.darkMode)
   const currentBarTop = useAppSelector(
     (state) => state.screen.barTop.currentBarTop
   );
@@ -59,7 +60,7 @@ export default function TopBar() {
       {currentBarTop === enumCurrentBarTop.off && <StyledBarTopOff />}
 
       {currentBarTop === enumCurrentBarTop.on && (
-        <StyledTopBarOn>
+        <StyledTopBarOn >
           <StyledLeftBox>
             <Clock size={enumClockSizes.small} />
           </StyledLeftBox>
@@ -69,7 +70,7 @@ export default function TopBar() {
             </StyledNotificationsLeft>
             <StyledNotificationsRight></StyledNotificationsRight>
           </StyledNotifications>
-          <StyledRightBox>
+          <StyledRightBox $isDarkMode={darkMode}>
             <TopBarBattery />
           </StyledRightBox>
         </StyledTopBarOn>

@@ -10,17 +10,7 @@ import Charger from "./charger/charger";
 import { phoneRotate } from "../redux/reducers/basicStates";
 import { plugStatus, chargingStatus } from "../redux/reducers/battery";
 import CounterActiveScreen from "./functionalities/counterActiveScreen";
-
-// import { collection, addDoc } from "firebase/firestore";
-import {
-  getFirestore,
-  collection,
-  addDoc,
-  updateDoc,
-  doc,
-} from "firebase/firestore";
-import { db } from "../firebase";
-import useCustomHook from "../customHooks/useFirestore";
+import { setDarkModeOff, setDarkModeOn, setTheme } from "../redux/reducers/theme";
 
 const StyledDesign = styled.div`
   display: flex;
@@ -58,8 +48,7 @@ export default function Components() {
   const modalIsActive = useAppSelector((state) => state.modal.isModalActive);
   const counterDown = useAppSelector((state) => state.screen.general.countDown);
   const {isBatteryProtection} = useAppSelector(state => state.battery)
-
-
+  const {darkMode,currentTheme} = useAppSelector(state => state.theme)
 
 
 
@@ -82,7 +71,10 @@ export default function Components() {
 
 
   const zrobTo = () => {
-
+    dispatch(darkMode?setDarkModeOff():setDarkModeOn())
+  };
+  const zrobTo2 = () => {
+    dispatch(setTheme())
   };
 
 
@@ -103,16 +95,21 @@ export default function Components() {
         <p></p>
         Jest odliczanie - {isCountingDown.toString()}
         <p></p>
-      ochrona baterii = {isBatteryProtection.toString()}
+      darkmode = {darkMode.toString()}
+      <p></p>
+      theme = {currentTheme}
       <p></p>
 
 
-        <Button variant="contained" onClick={() => rotatePhone()}>
+        <Button variant="contained"  onClick={() => rotatePhone()}>
           Obrot
         </Button>
 
         <Button variant="contained" onClick={() => zrobTo()}>
           do wszystkiego
+        </Button>
+        <Button variant="contained" onClick={() => zrobTo2()}>
+          zmiana kolorow
         </Button>
       
       </StyledHeader>

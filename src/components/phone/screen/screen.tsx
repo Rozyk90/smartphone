@@ -15,7 +15,8 @@ background: ${prop=>prop.background};
 `;
 
 export default function Screen() {
-  const background = useAppSelector(state => state.screen.general.background)
+  
+  const background = useAppSelector(state => state.theme.background)
   const modalIsActive = useAppSelector(state => state.modal.isModalActive)
   return (
     <StyledScreen background={background}>

@@ -3,9 +3,9 @@ import { configureStore,combineReducers  } from '@reduxjs/toolkit'
 
 import basicStates from './reducers/basicStates'
 import sliceBattery from './reducers/battery'
-// import sliceScreen from './reducers/screenParts/screen'
 import sliceModal  from './reducers/modal'
 import sliceUser  from './reducers/user'
+import sliceTheme from './reducers/theme'
 
 import screenBarBottom from './reducers/screenParts/screenBarBottom'
 import screenBarTop from './reducers/screenParts/screenBarTop'
@@ -40,6 +40,7 @@ export const store = configureStore({
 
 
     user:sliceUser,
+    theme:sliceTheme,
 
 
     basicStates:basicStates,

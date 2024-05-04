@@ -11,13 +11,14 @@ const StyledTitle = styled.div`
   align-items: center;
   gap: 10px;
   margin-top: 20px;
-  color: #454545;
+  color: ${prop => prop.theme.fonts.primary};
   font-size: 20px;
   font-weight: bold;
 `;
 const StyledButton = styled(IconButton)`
   && {
-    color: #454545;
+    color: ${prop => prop.theme.fonts.primary};
+
   }
 `;
 

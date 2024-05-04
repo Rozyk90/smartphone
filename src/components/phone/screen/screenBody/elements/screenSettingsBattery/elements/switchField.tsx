@@ -1,9 +1,9 @@
 import styled from "styled-components";
 import Switch from "@mui/material/Switch";
 
-const StyledElement = styled.button`
+const StyledField = styled.button`
   border: none;
-  background: #fcfcfc;
+  background:  ${prop => prop.theme.backgrounds.secondary};
   min-height: 50px;
   padding-top: 5px;
   padding-bottom: 5px;
@@ -20,13 +20,26 @@ const StyledTxtBox = styled.div`
 `;
 
 const StyledElementTitle = styled.div`
-  color: #000000;
+    color: ${prop => prop.theme.fonts.primary};
+
   font-size: 18px;
 `;
 
 const StyledElementDescription = styled.div`
-  color: #8d8d8d;
+      color: ${prop => prop.theme.fonts.secondary};
+
   font-size: 10px;
+`;
+
+const StyledSwitch = styled(Switch)`
+  & .MuiSwitch-switchBase {
+    &.Mui-checked {
+      color: ${(props) => props.theme.primary};
+    }
+    &.Mui-checked + .MuiSwitch-track {
+      background-color: ${(props) => props.theme.primary};
+    }
+  }
 `;
 
 interface Props {
@@ -42,15 +55,16 @@ export default function SwitchField({
   isActive,
   fn,
 }: Props) {
+
   return (
-    <StyledElement>
+    <StyledField>
       <StyledTxtBox>
         <StyledElementTitle>{title}</StyledElementTitle>
         {description ? (
           <StyledElementDescription>{description}</StyledElementDescription>
         ) : null}
       </StyledTxtBox>
-      <Switch checked={isActive} onChange={fn} />
-    </StyledElement>
+      <StyledSwitch checked={isActive} onChange={fn} />
+    </StyledField>
   );
 }

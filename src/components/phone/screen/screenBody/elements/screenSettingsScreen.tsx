@@ -2,7 +2,8 @@ import styled from "styled-components";
 import SettingsTitle from "./settingsTitle";
 
 const StyledScreen = styled.div`
-      background: #f1f1f1;
+      background: ${prop => prop.theme.backgrounds.primary};
+
   height: 100%;
   max-height: 600px;
   overflow: auto;

@@ -14,16 +14,10 @@ import {
 
 import BatteryStatus from "./elements/batteryStatus";
 import SwitchField from "./elements/switchField";
-
-// import { setCurrentScreen } from "../../../../../../redux/reducers/screenParts/screenCenter";
-// import { enumCurrentScreen } from "../../../../../../redux/reducers/screenParts/enumsScreen";
-// import ArrowBackIosRoundedIcon from "@mui/icons-material/ArrowBackIosRounded";
-// import IconButton from "@mui/material/IconButton";
-
 import SettingsTitle from "../settingsTitle";
 
 const StyledScreenBattery = styled.div`
-  background: #f1f1f1;
+  background: ${prop => prop.theme.backgrounds.primary};
   height: 100%;
   max-height: 600px;
   overflow: auto;
@@ -34,21 +28,6 @@ const StyledScreenBattery = styled.div`
   padding-right: 10px;
 `;
 
-// const StyledTitle = styled.div`
-//   display: flex;
-//   align-items: center;
-//   gap: 10px;
-//   margin-top: 20px;
-//   color: #454545;
-//   font-size: 20px;
-//   font-weight: bold;
-// `;
-// const StyledButton = styled(IconButton)`
-//   && {
-//     color: #454545;
-//   }
-// `;
-
 export default function ScreenSettingsBattery() {
   const {
     isBatteryProtection,
@@ -58,10 +37,6 @@ export default function ScreenSettingsBattery() {
   } = useAppSelector((state) => state.battery);
 
   const dispatch = useAppDispatch();
-
-  // const backBtn = () =>{
-  //   dispatch(setCurrentScreen(enumCurrentScreen.screenSettings))
-  // }
 
   const batteryProtection = () => {
     isBatteryProtection
@@ -108,19 +83,11 @@ export default function ScreenSettingsBattery() {
         funkcja Always On Display jest wyłączona lub niewyswietlana.`,
       isActive: isBatteryDescription,
       fn: batteryDescription,
-    }
+    },
   ];
 
   return (
     <StyledScreenBattery>
-
-      {/* <StyledTitle>
-        <StyledButton onClick={backBtn} size="small">
-          <ArrowBackIosRoundedIcon fontSize="small" />
-        </StyledButton>
-        Bateria
-      </StyledTitle> */}
-
       <SettingsTitle title="Bateria" />
 
       <BatteryStatus />

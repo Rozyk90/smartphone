@@ -1,7 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface state {
-  background: string;
   isScreenActive: boolean;
   countDownTimer: number;
   countDownTimerShort: number;
@@ -10,8 +9,6 @@ interface state {
 }
 
 const initialState: state = {
-  background:
-    "radial-gradient(circle, rgba(127,142,170,1) 19%, rgba(53,104,150,1) 61%)",
   isScreenActive: false,
   countDownTimer: 10000,
   countDownTimerShort: 10000,

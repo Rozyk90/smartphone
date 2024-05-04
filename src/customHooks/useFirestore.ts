@@ -19,7 +19,6 @@ const useFirestoreUpdate = () => {
             isBatteryProtection,
             isBatteryDescription
           }
-
         });
         console.log("Dokument zaktualizowany pomyślnie");
       } catch (error) {

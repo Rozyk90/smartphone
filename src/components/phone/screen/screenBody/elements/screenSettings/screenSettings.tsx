@@ -1,12 +1,10 @@
 import styled from "styled-components";
-import BtnBattery from "./elements/btnBattery";
-import BtnScreen from "./elements/btnScreen";
-import BtnSound from "./elements/btnSound";
-import BtnApps from "./elements/btnApps";
-import BtnBackground from "./elements/btnBackground";
+
+import Btn from "./elements/card";
+import { cards } from "./elements/cards";
 
 const StyledSettings = styled.div`
-  background: #f1f1f1;
+  background: ${(prop) => prop.theme.backgrounds.primary};
   height: 100%;
   max-height: 600px;
   overflow: auto;
@@ -32,7 +30,7 @@ const StyledSettingsTitle = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  color: #474747;
+  color: ${(prop) => prop.theme.fonts.primary};
   font-size: 2.5rem;
 `;
 
@@ -40,11 +38,16 @@ export default function ScreenSettings() {
   return (
     <StyledSettings>
       <StyledSettingsTitle>Ustawienia</StyledSettingsTitle>
-      <BtnBattery />
-      <BtnScreen />
-      <BtnSound />
-      <BtnApps />
-      <BtnBackground />
+      {cards.map((card) => (
+        <Btn
+          key={card.title}
+          title={card.title}
+          description={card.description}
+          Icon={card.Icon}
+          iconBG={card.iconBG}
+          enumScreen={card.enumScreen}
+        />
+      ))}
     </StyledSettings>
   );
 }
