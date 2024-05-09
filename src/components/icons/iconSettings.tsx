@@ -1,12 +1,11 @@
 import styled from "styled-components";
+import { useAppDispatch } from "../../redux/hooks";
+import { enumCurrentScreen } from "../../redux/reducers/screenParts/enumsScreen";
+import { setCurrentScreen } from "../../redux/reducers/screenParts/screenCenter";
 
 import SettingsIcon from "@mui/icons-material/Settings";
-import { useAppDispatch } from "../../redux/hooks";
-import { setCurrentScreen } from "../../redux/reducers/screenParts/screenCenter";
-import { enumCurrentScreen } from "../../redux/reducers/screenParts/enumsScreen";
-import { resetScreenCountingDownShort } from "../../redux/reducers/screenParts/screenGeneral";
 
-const StyledIcon = styled.button`
+const StyledIcon = styled.button<{ $isButton: boolean }>`
   width: 50px;
   height: 50px;
   border: none;
@@ -17,17 +16,23 @@ const StyledIcon = styled.button`
     rgba(50, 71, 91, 1) 60%
   );
   color: white;
-  cursor: pointer;
-
+  cursor: ${(prop) => (prop.$isButton ? "pointer" : "default")};
 `;
 
-export default function IconSettings() {
-  const dispatch = useAppDispatch()
+export default function IconSettings({
+  isButton = true,
+}: {
+  isButton?: boolean;
+}) {
+  const dispatch = useAppDispatch();
   const fn = () => {
-    dispatch(setCurrentScreen(enumCurrentScreen.screenSettings))
+    if (isButton) {
+      dispatch(setCurrentScreen(enumCurrentScreen.screenSettings));
+    }
   };
   return (
     <StyledIcon
+      $isButton={isButton}
       onClick={() => {
         fn();
       }}

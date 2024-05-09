@@ -6,7 +6,7 @@ import ScreenNone from "./elements/screenNone";
 import ScreenBlockActive from "./elements/screenBlockActive/screenBlockActive";
 import ScreenStartupAnimation from "./elements/screenStartupAnimation";
 import ScreenTurnOffAnimation from "./elements/screenTurnOffAnimation";
-import ScreenMain from "./elements/screenMain/screenMain";
+import ScreenMain from "./elements/screenMain";
 import ScreenSettings from "./elements/screenSettings/screenSettings";
 import ScreenSettingsBattery from "./elements/screenSettingsBattery/screenSettingsBattery";
 import ScreenShop from "./elements/screenShop";

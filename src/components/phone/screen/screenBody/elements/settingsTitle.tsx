@@ -18,7 +18,6 @@ const StyledTitle = styled.div`
 const StyledButton = styled(IconButton)`
   && {
     color: ${prop => prop.theme.fonts.primary};
-
   }
 `;
 

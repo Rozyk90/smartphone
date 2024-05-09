@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 
-import { enumIcons } from "../../../../../icons/enumsIcon";
-import RenderIcon from "./elements/renderIcon";
-import { useAppDispatch, useAppSelector } from "../../../../../../redux/hooks";
-import { updateScreenGrid } from "../../../../../../redux/reducers/screenParts/screenCenter";
-import { setStartCountingDown,setStopCountingDown,resetScreenCountingDownShort } from "../../../../../../redux/reducers/screenParts/screenGeneral";
+import { enumIcons } from "../../../../icons/enumsIcon";
+import RenderIcon from "../../../../icons/renderIcon";
+import { useAppDispatch, useAppSelector } from "../../../../../redux/hooks";
+import { updateScreenGrid } from "../../../../../redux/reducers/screenParts/screenCenter";
+import { setStartCountingDown,setStopCountingDown,resetScreenCountingDownShort } from "../../../../../redux/reducers/screenParts/screenGeneral";
 
 const StyledScreenMain = styled.div`
   padding-top: 20px;
@@ -50,7 +50,6 @@ position: absolute;
   margin-top: 96px;
   margin-left: 76px;
 `
-
 
 const ScreenMain: React.FC = () => {
   const [enumToReplace, setEnumToReplace] = useState(enumIcons.empty);

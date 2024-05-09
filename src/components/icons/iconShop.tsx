@@ -1,14 +1,11 @@
 import styled from "styled-components";
-
-
-import LocalMallIcon from "@mui/icons-material/LocalMall";
 import { useAppDispatch } from "../../redux/hooks";
-
 import { enumCurrentScreen } from "../../redux/reducers/screenParts/enumsScreen";
 import { setCurrentScreen } from "../../redux/reducers/screenParts/screenCenter";
-import { resetScreenCountingDownShort } from "../../redux/reducers/screenParts/screenGeneral";
 
-const StyledIcon = styled.button`
+import LocalMallIcon from "@mui/icons-material/LocalMall";
+
+const StyledIcon = styled.button<{ $isButton: boolean }>`
   width: 50px;
   height: 50px;
   border: none;
@@ -20,17 +17,19 @@ const StyledIcon = styled.button`
     rgba(220, 41, 97, 1) 60%
   );
   color: white;
-  cursor: pointer;
-
+  cursor: ${(prop) => (prop.$isButton ? "pointer" : "default")};
 `;
 
-export default function IconShop() {
-  const dispatch = useAppDispatch()
+export default function IconShop({ isButton = true }: { isButton?: boolean }) {
+  const dispatch = useAppDispatch();
   const fn = () => {
-    dispatch(setCurrentScreen(enumCurrentScreen.screenShop))
+    if (isButton) {
+      dispatch(setCurrentScreen(enumCurrentScreen.screenShop));
+    }
   };
   return (
     <StyledIcon
+      $isButton={isButton}
       onClick={() => {
         fn();
       }}

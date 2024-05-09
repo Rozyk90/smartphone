@@ -3,7 +3,6 @@ enum enumTheme {
   themeBlackWhite = "blackWhite",
 }
 
-
 const themeBase = {
   [enumTheme.themeBasic]: {
     dark: {
@@ -46,11 +45,6 @@ const themeBase = {
       },
     },
   },
-
-
-
-
-
 
   [enumTheme.themeBlackWhite]: {
     dark: {
