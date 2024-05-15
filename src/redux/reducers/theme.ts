@@ -5,18 +5,21 @@ enum enumTheme {
   themeBlackWhite = 'blackWhite'
 }
 
-
+interface BGprops {
+  group: "gradients" | "photos";
+  id: number;
+}
 
 interface theme {
   darkMode: boolean;
-  background: string;
+  background: BGprops;
   currentTheme: enumTheme;
 }
 
 const initialState: theme = {
   darkMode: false,
   background:
-    "radial-gradient(circle, rgba(127,142,170,1) 19%, rgba(53,104,150,1) 61%)",
+  {group:'gradients',id:0},
   currentTheme: enumTheme.themeBasic,
 };
 
@@ -32,11 +35,14 @@ export const sliceTheme = createSlice({
     },
     setTheme:(state) =>{
       state.currentTheme = enumTheme.themeBlackWhite
-    }
+    },
+    setBg: (state, action: PayloadAction<BGprops>) => {
+      state.background = action.payload;
+    },
   },
 });
 
-export const { setDarkModeOn, setDarkModeOff,setTheme } = sliceTheme.actions;
+export const { setDarkModeOn, setDarkModeOff,setTheme,setBg } = sliceTheme.actions;
 
 export default sliceTheme.reducer;
 

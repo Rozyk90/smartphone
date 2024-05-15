@@ -1,0 +1,30 @@
+// import { getStorage, ref, getDownloadURL } from "firebase/storage";
+
+// const [imageUrl, setImageUrl] = useState<string | null>(null);
+
+
+
+// useEffect(() => {
+//   // Tworzenie referencji do pliku
+//   const storage = getStorage();
+//   const storageRef = ref(storage);
+//   const imagesRef = ref(storageRef, 'images');
+//   const fileName = 'dog-1.jpg';
+//   const spaceRef = ref(imagesRef, fileName);
+
+//   // Pobieranie adresu URL dla pliku
+//   getDownloadURL(spaceRef)
+//     .then((url) => {
+//       // Ustawianie adresu URL jako tła
+//       setImageUrl(url);
+//     })
+//     .catch((error) => {
+//       // Obsługa błędów pobierania pliku
+//       console.error('Błąd pobierania pliku:', error);
+//     });
+
+// }, []);
+
+
+
+// pobiera zdjecia z firebase/Storage

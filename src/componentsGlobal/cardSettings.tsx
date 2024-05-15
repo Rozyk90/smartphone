@@ -1,16 +1,16 @@
 import styled from "styled-components";
 
-import { useAppDispatch } from "../../../../../../../redux/hooks";
-import { setCurrentScreen } from "../../../../../../../redux/reducers/screenParts/screenCenter";
-import { enumCurrentScreen } from "../../../../../../../redux/reducers/screenParts/enumsScreen";
-import { CardProp } from "./cards";
+import { useAppDispatch } from "../redux/hooks";
+import { setCurrentScreen } from "../redux/reducers/screenParts/screenCenter";
+import { enumCurrentScreen } from "../redux/reducers/screenParts/enumsScreen";
+import { CardProp } from "../components/phone/screen/screenBody/elements/screenSettings/elements/cards";
 
 const StyledCard = styled.button`
   border: none;
   background: ${prop => prop.theme.backgrounds.secondary};
   height: 60px;
   min-height: 60px;
-  border-radius: 10px;
+  border-radius: 16px;
   padding-left: 20px;
   display: flex;
   align-items: center;
@@ -47,7 +47,6 @@ const StyledSubtitle = styled.div`
   font-size: 0.6rem;
   display: flex;
   align-items: center;
-  gap: 6px;
 `;
 
 const StyledDot = styled.div`
@@ -55,9 +54,15 @@ const StyledDot = styled.div`
   height: 5px;
   width: 5px;
   border-radius: 50%;
+  margin: 0px 4px;
 `;
 
-export default function Card({
+const StyledBox = styled.div`
+  display: flex;
+  align-items: center;
+`
+
+export default function CardSettings({
   title,
   description,
   iconBG,
@@ -80,10 +85,10 @@ export default function Card({
         <StyledSubtitle>
           {description.map((txt, id) => {
             return (
-              <>
+              <StyledBox key={id}>
                 {id !== 0 && <StyledDot />}
                 {txt}
-              </>
+              </StyledBox>
             );
           })}
         </StyledSubtitle>

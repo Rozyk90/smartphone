@@ -6,7 +6,7 @@ import ArrowBackIosRoundedIcon from "@mui/icons-material/ArrowBackIosRounded";
 import CropSquareRoundedIcon from "@mui/icons-material/CropSquareRounded";
 import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
 
-import { enumCurrentBarBottom } from "../../../../redux/reducers/screenParts/enumsScreen";
+import { enumCurrentBarBottom, enumCurrentScreen } from "../../../../redux/reducers/screenParts/enumsScreen";
 import { setCurrentBarBottom } from "../../../../redux/reducers/screenParts/screenBarBottom";
 import { resetScreenCountingDownShort } from "../../../../redux/reducers/screenParts/screenGeneral";
 
@@ -17,6 +17,7 @@ import {
   setCurrentModal,
   setTurnOffBtnsFocus,
 } from "../../../../redux/reducers/modal";
+import { setCurrentScreen } from "../../../../redux/reducers/screenParts/screenCenter";
 
 const StyledBottomActive = styled.div`
   border-bottom-left-radius: 20px;
@@ -87,6 +88,10 @@ export default function BottomBar() {
     }
   };
 
+  const MainScreen = () =>{
+    dispatch(setCurrentScreen(enumCurrentScreen.screenMain))
+  }
+
   return (
     <>
       {currentBarBottom === enumCurrentBarBottom.off && <StyledBottomBarOff />}
@@ -99,7 +104,7 @@ export default function BottomBar() {
           <StyledButton>
             <StyledIcon fontSize="small" />
           </StyledButton>
-          <StyledButton>
+          <StyledButton onClick={()=>MainScreen()}>
             <CropSquareRoundedIcon fontSize="small" />
           </StyledButton>
           <StyledButton>

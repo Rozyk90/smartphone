@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import Btn from "./elements/card";
+import CardSettings from "../../../../../../componentsGlobal/cardSettings";
 import { cards } from "./elements/cards";
 
 const StyledSettings = styled.div`
@@ -38,9 +38,9 @@ export default function ScreenSettings() {
   return (
     <StyledSettings>
       <StyledSettingsTitle>Ustawienia</StyledSettingsTitle>
-      {cards.map((card) => (
-        <Btn
-          key={card.title}
+      {cards.map((card,id) => (
+        <CardSettings
+          key={card.title + id}
           title={card.title}
           description={card.description}
           Icon={card.Icon}

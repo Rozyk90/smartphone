@@ -1,8 +1,13 @@
 import styled from "styled-components";
-import SettingsTitle from "./settingsTitle";
+
+
+import SettingsTitle from "../../../../../componentsGlobal/settingsTitle";
+import { useAppDispatch } from "../../../../../redux/hooks";
+import { setCurrentScreen } from "../../../../../redux/reducers/screenParts/screenCenter";
+import { enumCurrentScreen } from "../../../../../redux/reducers/screenParts/enumsScreen";
 
 const StyledApps = styled.div`
-  background: ${prop => prop.theme.backgrounds.primary};
+  background: ${(prop) => prop.theme.backgrounds.primary};
 
   height: 100%;
   max-height: 600px;
@@ -12,18 +17,19 @@ const StyledApps = styled.div`
   flex-direction: column;
   padding-left: 10px;
   padding-right: 10px;
-
-`
-
+`;
 
 export default function ScreenSettingsApps() {
 
-  
-  
-    return (
-      <StyledApps>
-        <SettingsTitle title="Aplikacje"/>
-      </StyledApps>
-    );
-  }
-  
+  const dispatch = useAppDispatch()
+  const backBtn = () => {
+    dispatch(setCurrentScreen(enumCurrentScreen.screenSettings))
+  };
+
+
+  return (
+    <StyledApps>
+      <SettingsTitle title="Aplikacje" fnToDo={backBtn} />
+    </StyledApps>
+  );
+}

@@ -13,7 +13,7 @@ import ScreenShop from "./elements/screenShop";
 import ScreenClock from "./elements/screenClock";
 import ScreenCalendar from "./elements/screenCalendar";
 import ScreenSettingsApps from "./elements/screenSettingsApps";
-import ScreenSettingsTheme from "./elements/screenSettingsTheme";
+import ScreenSettingsTheme from "./elements/screenSettingsTheme/screenSettingsTheme";
 import ScreenSettingsSounds from "./elements/screenSettingsSounds";
 import ScreenSettingsScreen from "./elements/screenSettingsScreen";
 

@@ -20,14 +20,12 @@ const StyledTxtBox = styled.div`
 `;
 
 const StyledElementTitle = styled.div`
-    color: ${prop => prop.theme.fonts.primary};
-
+  color: ${prop => prop.theme.fonts.primary};
   font-size: 18px;
 `;
 
 const StyledElementDescription = styled.div`
-      color: ${prop => prop.theme.fonts.secondary};
-
+  color: ${prop => prop.theme.fonts.secondary};
   font-size: 10px;
 `;
 
