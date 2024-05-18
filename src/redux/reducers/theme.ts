@@ -1,9 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-enum enumTheme {
-  themeBasic = "basicTheme",
-  themeBlackWhite = 'blackWhite'
-}
+import { enumTheme } from "../../theme/theme";
 
 interface BGprops {
   group: "gradients" | "photos";
@@ -33,8 +30,8 @@ export const sliceTheme = createSlice({
     setDarkModeOff: (state) => {
       state.darkMode = false
     },
-    setTheme:(state) =>{
-      state.currentTheme = enumTheme.themeBlackWhite
+    setTheme:(state, action: PayloadAction<enumTheme>) =>{
+      state.currentTheme = action.payload
     },
     setBg: (state, action: PayloadAction<BGprops>) => {
       state.background = action.payload;
@@ -42,7 +39,7 @@ export const sliceTheme = createSlice({
   },
 });
 
-export const { setDarkModeOn, setDarkModeOff,setTheme,setBg } = sliceTheme.actions;
+export const { setDarkModeOn, setDarkModeOff,setTheme,setBg, } = sliceTheme.actions;
 
 export default sliceTheme.reducer;
 

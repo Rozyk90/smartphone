@@ -3,7 +3,7 @@ import Switch from "@mui/material/Switch";
 
 const StyledField = styled.button`
   border: none;
-  background:  ${prop => prop.theme.backgrounds.secondary};
+  background:  ${prop => prop.theme.colors.background};
   min-height: 50px;
   padding-top: 5px;
   padding-bottom: 5px;
@@ -32,10 +32,10 @@ const StyledElementDescription = styled.div`
 const StyledSwitch = styled(Switch)`
   & .MuiSwitch-switchBase {
     &.Mui-checked {
-      color: ${(props) => props.theme.primary};
+      color: ${(props) => props.theme.colors.primary};
     }
     &.Mui-checked + .MuiSwitch-track {
-      background-color: ${(props) => props.theme.primary};
+      background-color: ${(props) => props.theme.colors.primary};
     }
   }
 `;

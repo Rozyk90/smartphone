@@ -2,12 +2,11 @@ import styled from "styled-components";
 
 import { useAppDispatch } from "../redux/hooks";
 import { setCurrentScreen } from "../redux/reducers/screenParts/screenCenter";
-import { enumCurrentScreen } from "../redux/reducers/screenParts/enumsScreen";
 import { CardProp } from "../components/phone/screen/screenBody/elements/screenSettings/elements/cards";
 
 const StyledCard = styled.button`
   border: none;
-  background: ${prop => prop.theme.backgrounds.secondary};
+  background: ${prop => prop.theme.colors.background};
   height: 60px;
   min-height: 60px;
   border-radius: 16px;

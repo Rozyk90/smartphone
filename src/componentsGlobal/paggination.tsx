@@ -13,7 +13,7 @@ const StyledPagination = styled.div`
 const StyledBtnLeft = styled(ArrowBackIosRoundedIcon)<{ $isActive: boolean }>`
   width: 5px;
   height: 5px;
-  color: ${({ theme, $isActive }) => ($isActive ? theme.primary : theme.off)};
+  color: ${({ theme, $isActive }) => ($isActive ? theme.colors.primary : theme.off)};
   cursor: ${({ $isActive }) => ($isActive ? "pointer" : "default")};
 `;
 const StyledBtnRight = styled(ArrowForwardIosRoundedIcon)<{
@@ -21,13 +21,13 @@ const StyledBtnRight = styled(ArrowForwardIosRoundedIcon)<{
 }>`
   width: 5px;
   height: 5px;
-  color: ${({ theme, $isActive }) => ($isActive ? theme.primary : theme.off)};
+  color: ${({ theme, $isActive }) => ($isActive ? theme.colors.primary : theme.off)};
   cursor: ${({ $isActive }) => ($isActive ? "pointer" : "default")};
 `;
 
 const StyledPageDot = styled.div<{ $isActive: boolean }>`
   background: ${({ theme, $isActive }) =>
-    $isActive ? theme.primary : theme.off};
+    $isActive ? theme.colors.primary : theme.off};
   width: 6px;
   height: 6px;
   border-radius: 50%;

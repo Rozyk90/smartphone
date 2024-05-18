@@ -3,7 +3,7 @@ import { useAppSelector } from "../redux/hooks";
 
 const StyledCardTitle = styled.button`
   border: none;
-  background: ${(prop) => prop.theme.backgrounds.secondary};
+  background: ${(prop) => prop.theme.colors.background};
   height: 60px;
   min-height: 60px;
   border-radius: 16px;

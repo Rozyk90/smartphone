@@ -5,7 +5,7 @@ import TopBar from "./topBar/topBar";
 import ScreenBody from "./screenBody/screenBody";
 import BottomBar from "./bottomBar/bottomBar";
 import Modals from "./modals/modals";
-import { backgrounds } from "../../../themeBase";
+import backgrounds from "../../../theme/backgrounds";
 
 interface StyledBGprops {
   $group: "gradients" | "photos";

@@ -1,11 +1,14 @@
 import styled from "styled-components";
 import React, { useState, useEffect } from "react";
-import { useAppDispatch } from "../../../../../../../redux/hooks";
-import theme, { setBg } from "../../../../../../../redux/reducers/theme";
-
+import {
+  useAppDispatch,
+  useAppSelector,
+} from "../../../../../../../redux/hooks";
+import { setBg } from "../../../../../../../redux/reducers/theme";
 import SettingsTitle from "../../../../../../../componentsGlobal/settingsTitle";
 import Paggination from "../../../../../../../componentsGlobal/paggination";
-import { backgrounds } from "../../../../../../../themeBase";
+import backgrounds from "../../../../../../../theme/backgrounds";
+import ScreenBG from "./screens/screenBG";
 
 const StyledThemeBackgrounds = styled.div`
   background: ${(prop) => prop.theme.backgrounds.primary};
@@ -31,23 +34,6 @@ const StyledScreens = styled.div`
   margin: 10px 0px;
 `;
 
-interface StyledBGprops {
-  $group: "gradients" | "photos";
-  $id: number;
-}
-
-const StyledScreen = styled.button<StyledBGprops>`
-  cursor: pointer;
-  border: none;
-  min-width: 60px;
-  height: 120px;
-  border-radius: 10px;
-  background: ${({ $group, $id }) =>
-    $group === "gradients"
-      ? backgrounds.gradients[$id].content
-      : `url(${backgrounds.photos[$id].content}) center/cover`};
-`;
-
 export default function ThemeBackgrounds({
   setBackgrounds,
 }: {
@@ -55,6 +41,7 @@ export default function ThemeBackgrounds({
 }) {
   const [pageGradients, setPageGradients] = useState(1);
   const [pagePhotos, setPagePhotos] = useState(1);
+  const { darkMode } = useAppSelector((state) => state.theme);
   const dispatch = useAppDispatch();
 
   const nextPageColors = () => {
@@ -94,13 +81,12 @@ export default function ThemeBackgrounds({
     const range = setRange(page);
     const screens = arr.slice(range.start, range.end);
     const render = screens.map((bg) => (
-      <StyledScreen
-        onClick={() => {
-          setNewBg({ group: bg.group, id: bg.id });
-        }}
+      <ScreenBG
         key={bg.id}
-        $group={bg.group}
-        $id={bg.id}
+        group={bg.group}
+        id={bg.id}
+        darkMode={darkMode}
+        setNewBg={() => setNewBg({ group: bg.group, id: bg.id })}
       />
     ));
     return render;

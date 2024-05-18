@@ -73,9 +73,6 @@ export default function Components() {
   const zrobTo = () => {
     dispatch(darkMode?setDarkModeOff():setDarkModeOn())
   };
-  const zrobTo2 = () => {
-    dispatch(setTheme())
-  };
 
 
   return (
@@ -108,9 +105,7 @@ export default function Components() {
         <Button variant="contained" onClick={() => zrobTo()}>
           do wszystkiego
         </Button>
-        <Button variant="contained" onClick={() => zrobTo2()}>
-          zmiana kolorow
-        </Button>
+ 
       
       </StyledHeader>
 
