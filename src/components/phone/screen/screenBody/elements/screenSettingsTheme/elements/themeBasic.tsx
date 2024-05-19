@@ -26,7 +26,7 @@ export default function ThemeBasic({ setBackgrounds, setColors }: Props) {
       <SettingsTitle title="Tapeta i styl" fnToDo={backBtn} />
       <ScreenPreview />
       <CardTitle title="Zmień tapety" fnToDo={setBackgrounds} />
-      <CardTitle title="Paleta kolorów" fnToDo={setColors} />
+      <CardTitle title="Palety kolorów" fnToDo={setColors} />
     </>
   );
 }

@@ -11,6 +11,7 @@ import theme, { setTheme } from "../../../../../../../redux/reducers/theme";
 import ScreenCalculator from "./screens/screenCalculator";
 import SwitchField from "../../../../../../../componentsGlobal/switchField";
 import { useState } from "react";
+import ScreenSettings from "./screens/screenSettings";
 
 const StyledThemeColors = styled.div``;
 
@@ -83,7 +84,7 @@ export default function ThemeColors({ setColors }: { setColors: () => void }) {
 
       <StyledScreens>
         <ScreenCalculator />
-        <ScreenCalculator />
+        <ScreenSettings/>
       </StyledScreens>
       <StyledSwitchBox>
         <SwitchField

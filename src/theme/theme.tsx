@@ -17,7 +17,7 @@ const colors = {
     name: enumTheme.themeBasic,
     primary: "#367aff",
     onPrimary: "#fcfcfc",
-    background: "#3b4b5e",
+    background: "#698ebb",
   },
   [enumTheme.themeRed]: {
     name: enumTheme.themeRed,

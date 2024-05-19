@@ -11,17 +11,15 @@ const StyledPagination = styled.div`
 `;
 
 const StyledBtnLeft = styled(ArrowBackIosRoundedIcon)<{ $isActive: boolean }>`
-  width: 5px;
-  height: 5px;
-  color: ${({ theme, $isActive }) => ($isActive ? theme.colors.primary : theme.off)};
+  color: ${({ theme, $isActive }) =>
+    $isActive ? theme.colors.primary : theme.off};
   cursor: ${({ $isActive }) => ($isActive ? "pointer" : "default")};
 `;
 const StyledBtnRight = styled(ArrowForwardIosRoundedIcon)<{
   $isActive: boolean;
 }>`
-  width: 5px;
-  height: 5px;
-  color: ${({ theme, $isActive }) => ($isActive ? theme.colors.primary : theme.off)};
+  color: ${({ theme, $isActive }) =>
+    $isActive ? theme.colors.primary : theme.off};
   cursor: ${({ $isActive }) => ($isActive ? "pointer" : "default")};
 `;
 
