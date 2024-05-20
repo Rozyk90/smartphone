@@ -5,7 +5,6 @@ const StyledClock = styled.div``;
 
 const StyledClockSmall = styled.div`
   font-size: 12px;
-  color: white;
 `;
 const StyledClockLarge = styled.div`
   font-size: 45px;

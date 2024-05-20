@@ -1,9 +1,11 @@
 import styled from "styled-components";
 import { useAppDispatch } from "../../redux/hooks";
-import { enumCurrentScreen } from "../../redux/reducers/screenParts/enumsScreen";
+import { enumCurrentBarBottom, enumCurrentBarTop, enumCurrentScreen } from "../../redux/reducers/screenParts/enumsScreen";
 import { setCurrentScreen } from "../../redux/reducers/screenParts/screenCenter";
 
 import SettingsIcon from "@mui/icons-material/Settings";
+import { setCurrenBarTop } from "../../redux/reducers/screenParts/screenBarTop";
+import { setCurrentBarBottom } from "../../redux/reducers/screenParts/screenBarBottom";
 
 const StyledIcon = styled.button<{ $isButton: boolean }>`
   width: 50px;
@@ -28,6 +30,8 @@ export default function IconSettings({
   const fn = () => {
     if (isButton) {
       dispatch(setCurrentScreen(enumCurrentScreen.screenSettings));
+      dispatch(setCurrenBarTop(enumCurrentBarTop.bgPrimary))
+      dispatch(setCurrentBarBottom(enumCurrentBarBottom.bgPrimary))
     }
   };
   return (

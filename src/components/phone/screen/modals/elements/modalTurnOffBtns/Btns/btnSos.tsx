@@ -10,7 +10,7 @@ import {
 
 const StyledBtn = styled.div<{ visible: string; focused: string }>`
   opacity: ${(props) => (props.visible==='true' ? "1" : "0")};
-  color: white;
+  color: ${prop=>prop.theme.white};
   display: flex;
   flex-direction: column;
   align-items: center;

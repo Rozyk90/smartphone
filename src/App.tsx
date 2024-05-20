@@ -11,12 +11,12 @@ const StyledApp = styled.div`
 
 
 function App() {
-  const {theme} = useTheme()
+  const {getTheme} = useTheme()
 
 
   return (
     <StyledApp className="App">
-      <ThemeProvider theme={theme}>
+      <ThemeProvider theme={getTheme}>
         <Components />
         <GroupedEffects />
       </ThemeProvider>

@@ -4,7 +4,6 @@ import SmsIcon from '@mui/icons-material/Sms';
 import PhoneMissedIcon from '@mui/icons-material/PhoneMissed';
 
 const StyledNotificationList = styled.div`
-    color: white;
     display: flex;
     gap: 5px;
 `

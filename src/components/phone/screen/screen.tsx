@@ -30,8 +30,8 @@ export default function Screen() {
     <StyledScreen $group={background.group} $id={background.id}>
       <TopBar />
       <ScreenBody />
-      {modalIsActive && <Modals />}
       <BottomBar />
+      {modalIsActive && <Modals />}
     </StyledScreen>
   );
 }

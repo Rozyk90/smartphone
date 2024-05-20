@@ -80,9 +80,9 @@ export default function ScreenStartupAnimation() {
         setShowDescription(true);
         setShowBottomDescription(true);
         dispatch(resetScreenCountingDownShort());
-        dispatch(setCurrenBarTop(enumCurrentBarTop.on));
+        dispatch(setCurrenBarTop(enumCurrentBarTop.transparent));
         dispatch(setCurrentScreen(enumCurrentScreen.screenActiveBlocked));
-        dispatch(setCurrentBarBottom(enumCurrentBarBottom.none));
+        dispatch(setCurrentBarBottom(enumCurrentBarBottom.transparent));
         dispatch(screenTurnOn());
         dispatch(phoneTurnOn());
         dispatch(phoneStopRestarting());

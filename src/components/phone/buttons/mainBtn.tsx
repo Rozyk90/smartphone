@@ -56,16 +56,15 @@ export default function MainBtn() {
         dispatch(resetScreenCountingDownShort());
         dispatch(setStartCountingDown());
         dispatch(screenTurnOn());
-        dispatch(setCurrenBarTop(enumCurrentBarTop.on));
+        dispatch(setCurrenBarTop(enumCurrentBarTop.transparent));
         dispatch(setCurrentScreen(enumCurrentScreen.screenActiveBlocked));
-        dispatch(setCurrentBarBottom(enumCurrentBarBottom.none));
+        dispatch(setCurrentBarBottom(enumCurrentBarBottom.transparent));
       }
 
       if (isScreenActive) {
         timeoutRef.current = setTimeout(() => {
           dispatch(setCurrentModal(enumCurrentModal.modalTurnOffBtns));
           dispatch(modalTurnOn());
-          dispatch(setCurrentBarBottom(enumCurrentBarBottom.backOnly));
           dispatch(resetScreenCountingDownShort());
           setToTurnOff(false);
         }, 1000);

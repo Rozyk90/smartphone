@@ -47,8 +47,9 @@ export default function Components() {
   const isCharging = useAppSelector((state) => state.battery.isCharging);
   const modalIsActive = useAppSelector((state) => state.modal.isModalActive);
   const counterDown = useAppSelector((state) => state.screen.general.countDown);
-  const {isBatteryProtection} = useAppSelector(state => state.battery)
-  const {darkMode,currentTheme} = useAppSelector(state => state.theme)
+  const {isBatteryProtection} = useAppSelector(state => state.battery);
+  const {darkMode,currentTheme} = useAppSelector(state => state.theme);
+  const topBar = useAppSelector(state => state.screen.barTop.currentBarTop);
 
 
 
@@ -95,6 +96,8 @@ export default function Components() {
       darkmode = {darkMode.toString()}
       <p></p>
       theme = {currentTheme}
+      <p></p>
+      top bar - {topBar}
       <p></p>
 
 

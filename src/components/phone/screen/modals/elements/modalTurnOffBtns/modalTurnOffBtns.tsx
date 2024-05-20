@@ -1,6 +1,10 @@
 import styled from "styled-components";
 
 import { useAppDispatch, useAppSelector } from "../../../../../../redux/hooks";
+
+import { Button } from "@mui/material";
+import ArrowBackIosRoundedIcon from "@mui/icons-material/ArrowBackIosRounded";
+
 import {
   enumCurrentModal,
   enumModalTurnOffBtnsFocus,
@@ -28,12 +32,14 @@ const StyledPhoneTurnOffModal = styled.div`
   align-items: center;
   justify-content: center;
   gap: 30px;
+  border: 1px solid red;
+  position: relative;
 `;
 
 const StyledDescription = styled.div`
   margin-top: 5px;
   position: absolute;
-  color: #bebebe;
+  color: ${(prop) => prop.theme.white};
   font-size: 11px;
 `;
 
@@ -50,19 +56,24 @@ const StyledScreenBtn = styled.button`
   height: 600px;
 `;
 
+const StyledButton = styled(Button)`
+  && {
+    position: absolute;
+    bottom: 10px;
+    right: 20px;
+    color: ${(prop) => prop.theme.white};
+    border-radius: 20px;
+    height: 24px;
+  }
+`;
+
 export default function ModalTurnOffBtns() {
   const focus = useAppSelector((state) => state.modal.turnOffBtnsFocus);
-
-  const countDownTimerShort = useAppSelector(
-    (state) => state.screen.general.countDownTimerShort
-  );
   const dispatch = useAppDispatch();
 
   const clickScreen = () => {
     dispatch(resetScreenCountingDownShort());
-
     dispatch(setTurnOffBtnsFocus(enumModalTurnOffBtnsFocus.all));
-    dispatch(setCurrentBarBottom(enumCurrentBarBottom.none));
     if (focus === enumModalTurnOffBtnsFocus.all) {
       dispatch(setCurrentModal(enumCurrentModal.modalNone));
       dispatch(modalTurnOff());
@@ -88,6 +99,10 @@ export default function ModalTurnOffBtns() {
             : enumDescription.reset}
         </StyledDescription>
       )}
+
+      <StyledButton onClick={()=>{clickScreen();}}>
+        <ArrowBackIosRoundedIcon fontSize="small" />
+      </StyledButton>
     </StyledPhoneTurnOffModal>
   );
 }

@@ -4,7 +4,7 @@ import { lightModeTheme, darkModeTheme, colors } from "../theme/theme";
 const useTheme = () => {
   const { currentTheme, darkMode } = useAppSelector((state) => state.theme);
 
-  const theme = () => {
+  const getTheme = () => {
     if (darkMode) {
       return { ...darkModeTheme, colors: colors[currentTheme] };
     } else {
@@ -12,7 +12,7 @@ const useTheme = () => {
     }
   };
 
-  return { theme };
+  return { getTheme };
 };
 
 export default useTheme;

@@ -6,32 +6,44 @@ import ArrowBackIosRoundedIcon from "@mui/icons-material/ArrowBackIosRounded";
 import CropSquareRoundedIcon from "@mui/icons-material/CropSquareRounded";
 import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
 
-import { enumCurrentBarBottom, enumCurrentScreen } from "../../../../redux/reducers/screenParts/enumsScreen";
+import {
+  enumCurrentBarBottom,
+  enumCurrentBarTop,
+  enumCurrentScreen,
+} from "../../../../redux/reducers/screenParts/enumsScreen";
 import { setCurrentBarBottom } from "../../../../redux/reducers/screenParts/screenBarBottom";
 import { resetScreenCountingDownShort } from "../../../../redux/reducers/screenParts/screenGeneral";
 
-import {
-  enumCurrentModal,
-  enumModalTurnOffBtnsFocus,
-  modalTurnOff,
-  setCurrentModal,
-  setTurnOffBtnsFocus,
-} from "../../../../redux/reducers/modal";
 import { setCurrentScreen } from "../../../../redux/reducers/screenParts/screenCenter";
+import { setCurrenBarTop } from "../../../../redux/reducers/screenParts/screenBarTop";
 
-const StyledBottomActive = styled.div`
+const StyledBarBottom = styled.div<{
+  $barBg: enumCurrentBarBottom;
+}>`
   border-bottom-left-radius: 20px;
   border-bottom-right-radius: 20px;
   height: 28px;
   display: flex;
   justify-content: center;
   gap: 15px;
-  border: 1px solid red; // do skasowania !!!!!!!!!!!!!!!!!!!!!!
+
+  background: ${(props) => {
+    switch (props.$barBg) {
+      case enumCurrentBarBottom.off:
+        return props.theme.backgrounds.off;
+      case enumCurrentBarBottom.bgPrimary:
+        return props.theme.backgrounds.primary;
+      case enumCurrentBarBottom.transparent:
+        return "none";
+      default:
+        return "none";
+    }
+  }};
 `;
 
 const StyledButton = styled(Button)`
   && {
-    color: white;
+    color: ${(prop) => prop.theme.fonts.primary};
     border-radius: 20px;
     height: 24px;
   }
@@ -41,25 +53,8 @@ const StyledIcon = styled(MenuRoundedIcon)`
   transform: rotate(90deg);
 `;
 
-const StyledBottomBarOff = styled.div`
-  border: 1px solid red; // do skasowania !!!!!!!!!!!!!!!!!!!!!!
-  background: #1b1b1b;
-  border-bottom-left-radius: 20px;
-  border-bottom-right-radius: 20px;
-  height: 28px;
-`;
-
-const StyledBarBottomBack = styled.div`
-  border: 1px solid red; // do skasowania !!!!!!!!!!!!!!!!!!!!!!
-  background: #1b1b1b;
-  border-bottom-left-radius: 20px;
-  border-bottom-right-radius: 20px;
-  height: 28px;
-  padding-left: 200px;
-`;
-
-const StyledBarBottomNone = styled.div`
-  border: 1px solid red; // do skasowania !!!!!!!!!!!!!!!!!!!!!!
+const StyledBarBottomOff = styled.div`
+  background: ${(prop) => prop.theme.backgrounds.off};
   border-bottom-left-radius: 20px;
   border-bottom-right-radius: 20px;
   height: 28px;
@@ -69,56 +64,32 @@ export default function BottomBar() {
   const currentBarBottom = useAppSelector(
     (state) => state.screen.barBottom.currentBarBottom
   );
-  const currentBtnFocus = useAppSelector(
-    (state) => state.modal.turnOffBtnsFocus
-  );
 
   const dispatch = useAppDispatch();
 
-  const OnlyBackClick = () => {
-    if (currentBtnFocus === enumModalTurnOffBtnsFocus.all) {
-      dispatch(resetScreenCountingDownShort());
-
-      dispatch(setCurrentModal(enumCurrentModal.modalNone));
-      dispatch(modalTurnOff());
-      dispatch(setCurrentBarBottom(enumCurrentBarBottom.none));
-    } else {
-      dispatch(setTurnOffBtnsFocus(enumModalTurnOffBtnsFocus.all));
-      dispatch(resetScreenCountingDownShort());
-    }
+  const MainScreen = () => {
+    dispatch(setCurrentScreen(enumCurrentScreen.screenMain));
+    dispatch(setCurrenBarTop(enumCurrentBarTop.transparent));
+    dispatch(setCurrentBarBottom(enumCurrentBarBottom.transparent));
   };
-
-  const MainScreen = () =>{
-    dispatch(setCurrentScreen(enumCurrentScreen.screenMain))
-  }
 
   return (
     <>
-      {currentBarBottom === enumCurrentBarBottom.off && <StyledBottomBarOff />}
-      {currentBarBottom === enumCurrentBarBottom.none && (
-        <StyledBarBottomNone />
-      )}
+      {currentBarBottom === enumCurrentBarBottom.off && <StyledBarBottomOff />}
 
-      {currentBarBottom === enumCurrentBarBottom.on && (
-        <StyledBottomActive>
+      {(currentBarBottom === enumCurrentBarBottom.transparent ||
+        currentBarBottom === enumCurrentBarBottom.bgPrimary) && (
+        <StyledBarBottom $barBg={currentBarBottom}>
           <StyledButton>
             <StyledIcon fontSize="small" />
           </StyledButton>
-          <StyledButton onClick={()=>MainScreen()}>
+          <StyledButton onClick={() => MainScreen()}>
             <CropSquareRoundedIcon fontSize="small" />
           </StyledButton>
           <StyledButton>
             <ArrowBackIosRoundedIcon fontSize="small" />
           </StyledButton>
-        </StyledBottomActive>
-      )}
-
-      {currentBarBottom === enumCurrentBarBottom.backOnly && (
-        <StyledBarBottomBack>
-          <StyledButton onClick={() => OnlyBackClick()}>
-            <ArrowBackIosRoundedIcon fontSize="small" />
-          </StyledButton>
-        </StyledBarBottomBack>
+        </StyledBarBottom>
       )}
     </>
   );

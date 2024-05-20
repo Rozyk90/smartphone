@@ -63,7 +63,7 @@ export default function ScreenBlockActive() {
   const setMainScreen = () => {
     dispatch(resetScreenCountingDownShort());
     dispatch(setCurrentScreen(enumCurrentScreen.screenMain));
-    dispatch(setCurrentBarBottom(enumCurrentBarBottom.on));
+    dispatch(setCurrentBarBottom(enumCurrentBarBottom.transparent));
   };
 
   return (

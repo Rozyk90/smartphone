@@ -2,13 +2,14 @@ import styled from "styled-components";
 
 import Clock from "../../../apps/clock/clock";
 import { enumClockSizes } from "../../../apps/clock/clock";
-import IconList from "../../../functionalities/notificationList";
+import IconList from "./notificationList";
 import TopBarBattery from "../../../functionalities/battery/topBarBattery";
 import { useAppSelector } from "../../../../redux/hooks";
 import { enumCurrentBarTop } from "../../../../redux/reducers/screenParts/enumsScreen";
 
-const StyledTopBarOn = styled.div`
-  /* background: #00ff55; */
+const StyledTopBar = styled.div<{
+  $barBg: enumCurrentBarTop;
+}>`
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
   height: 28px;
@@ -16,51 +17,55 @@ const StyledTopBarOn = styled.div`
   gap: 5px;
   align-items: center;
   padding: 0px 15px;
-  border: 1px solid red; // do skasowania !!!!!!!!!!!!!!!!!!!!!!
+  color: ${(prop) => prop.theme.fonts.primary};
+  background: ${(props) => {
+    switch (props.$barBg) {
+      case enumCurrentBarTop.off:
+        return props.theme.backgrounds.off;
+      case enumCurrentBarTop.bgPrimary:
+        return props.theme.backgrounds.primary;
+      case enumCurrentBarTop.transparent:
+        return "none";
+      default:
+        return "none";
+    }
+  }};
 `;
 
-const StyledLeftBox = styled.div`
-  /* background: orange; */
-`;
+const StyledLeftBox = styled.div``;
 const StyledNotifications = styled.div`
-  /* background: pink; */
   width: 100%;
   display: flex;
 `;
 
 const StyledNotificationsLeft = styled.div`
-  /* background: greenyellow; */
   width: 50%;
 `;
 const StyledNotificationsRight = styled.div`
-  /* background: #2fffee; */
   width: 50%;
 `;
 
-const StyledRightBox = styled.div<{ $isDarkMode: boolean }>`
-  /* background: green; */
-  color: ${(prop) => prop.theme[prop.$isDarkMode ? 'white' : 'black']};
-`;
+const StyledRightBox = styled.div``;
 
 const StyledBarTopOff = styled.div`
-  background: #1b1b1b;
+  background: ${(prop) => prop.theme.backgrounds.off};
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
   height: 28px;
-  border: 1px solid orange; // do skasowania !!!!!!!!!!!!!!!!!!!!!!
 `;
 
 export default function TopBar() {
-  const darkMode = useAppSelector(state => state.theme.darkMode)
   const currentBarTop = useAppSelector(
     (state) => state.screen.barTop.currentBarTop
   );
+
   return (
     <>
       {currentBarTop === enumCurrentBarTop.off && <StyledBarTopOff />}
 
-      {currentBarTop === enumCurrentBarTop.on && (
-        <StyledTopBarOn >
+      {(currentBarTop === enumCurrentBarTop.transparent ||
+        currentBarTop === enumCurrentBarTop.bgPrimary) && (
+        <StyledTopBar $barBg={currentBarTop}>
           <StyledLeftBox>
             <Clock size={enumClockSizes.small} />
           </StyledLeftBox>
@@ -70,10 +75,10 @@ export default function TopBar() {
             </StyledNotificationsLeft>
             <StyledNotificationsRight></StyledNotificationsRight>
           </StyledNotifications>
-          <StyledRightBox $isDarkMode={darkMode}>
+          <StyledRightBox>
             <TopBarBattery />
           </StyledRightBox>
-        </StyledTopBarOn>
+        </StyledTopBar>
       )}
     </>
   );

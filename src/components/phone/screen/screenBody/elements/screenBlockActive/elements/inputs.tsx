@@ -75,7 +75,7 @@ export default function Inputs() {
 
   const editScreen = () => {
     dispatch(setCurrentScreen(enumCurrentScreen.screenMain));
-    dispatch(setCurrentBarBottom(enumCurrentBarBottom.on));
+    dispatch(setCurrentBarBottom(enumCurrentBarBottom.transparent));
   };
 
   const loginAcc = async () => {
