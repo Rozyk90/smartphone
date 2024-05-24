@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import backgrounds from "../../../../../../../../theme/backgrounds";
+import backgrounds from "../../../../../../../theme/backgrounds";
 
 interface StyledBGprops {
   $darkMode: boolean;

@@ -1,9 +1,13 @@
 import styled from "styled-components";
 import { useState } from "react";
 
-import ThemeBasic from "./elements/themeBasic";
-import ThemeBackgrounds from "./elements/themeBackgrounds";
-import ThemeColors from "./elements/themeColors";
+import Title from "../../../../../../globalComponents/title";
+import ScreenPreview from "./screens/screenPreview";
+import CardTitle from "../../../../../../globalComponents/cardTitle";
+import { useAppDispatch,useAppSelector } from "../../../../../../redux/hooks";
+import { setCurrentScreen } from "../../../../../../redux/reducers/screenParts/screenCenter";
+import { enumCurrentScreen } from "../../../../../../redux/reducers/screenParts/enumsScreen";
+import { reversingBoardPush } from "../../../../../../redux/reducers/screenParts/screenGeneral";
 
 const StyledTheme = styled.div`
   background: ${(prop) => prop.theme.backgrounds.primary};
@@ -18,21 +22,24 @@ const StyledTheme = styled.div`
 `;
 
 export default function ScreenTheme() {
-  const [showBackgrounds, setShowBackgrounds] = useState(false);
-  const [showColors, setShowColors] = useState(false);
+  const currentScreen = useAppSelector(state => state.screen.center.currentScreen)
+  const dispatch = useAppDispatch();
+
+  const openBG = () => {
+    dispatch(reversingBoardPush(currentScreen))
+    dispatch(setCurrentScreen(enumCurrentScreen.screenSettingsThemeBG));
+  };
+  const openColors = () => {
+    dispatch(reversingBoardPush(currentScreen))
+    dispatch(setCurrentScreen(enumCurrentScreen.screenSettingsThemeColors));
+  };
 
   return (
     <StyledTheme>
-      {!showBackgrounds && !showColors && (
-        <ThemeBasic
-          setBackgrounds={() => setShowBackgrounds(true)}
-          setColors={() => setShowColors(true)}
-        />
-      )}
-      {showBackgrounds && (
-        <ThemeBackgrounds setBackgrounds={() => setShowBackgrounds(false)} />
-      )}
-      {showColors && <ThemeColors setColors={() => setShowColors(false)} />}
+      <Title title="Tapeta i styl"/>
+      <ScreenPreview />
+      <CardTitle title="Zmień tapety" fnToDo={openBG} />
+      <CardTitle title="Palety kolorów" fnToDo={openColors} />
     </StyledTheme>
   );
 }

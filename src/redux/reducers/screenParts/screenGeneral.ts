@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { enumCurrentScreen } from "./enumsScreen";
 
 interface state {
   isScreenActive: boolean;
@@ -6,6 +7,7 @@ interface state {
   countDownTimerShort: number;
   countDown: number;
   isCountingDown: boolean;
+  reversingBoard: enumCurrentScreen[];
 }
 
 const initialState: state = {
@@ -14,6 +16,7 @@ const initialState: state = {
   countDownTimerShort: 10000,
   countDown: 10000,
   isCountingDown: false,
+  reversingBoard: [],
 };
 
 export const screenGeneralSlice = createSlice({
@@ -35,13 +38,22 @@ export const screenGeneralSlice = createSlice({
     setStopCountingDown: (state) => {
       state.isCountingDown = false;
     },
-    resetScreenCountingDownShort: (state) =>{
-      state.countDown = 10000
+    resetScreenCountingDownShort: (state) => {
+      state.countDown = 10000;
     },
-    stopCountingDown: (state) =>{
-      state.countDown = 0
-      state.isCountingDown = false
-    }
+    stopCountingDown: (state) => {
+      state.countDown = 0;
+      state.isCountingDown = false;
+    },
+    reversingBoardPush: (state, action: PayloadAction<enumCurrentScreen>) => {
+      state.reversingBoard = [...state.reversingBoard, action.payload];
+    },
+    reversingBoardPop: (state) => {
+      state.reversingBoard.pop();
+    },
+    reversingBoardClear: (state) => {
+      state.reversingBoard = [];
+    },
   },
 });
 
@@ -52,7 +64,10 @@ export const {
   setStartCountingDown,
   setStopCountingDown,
   resetScreenCountingDownShort,
-  stopCountingDown
+  stopCountingDown,
+  reversingBoardPush,
+  reversingBoardPop,
+  reversingBoardClear,
 } = screenGeneralSlice.actions;
 
 export default screenGeneralSlice.reducer;

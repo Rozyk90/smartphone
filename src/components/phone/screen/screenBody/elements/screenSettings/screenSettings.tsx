@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import CardSettings from "../../../../../../componentsGlobal/cardSettings";
+import CardSettings from "../../../../../../globalComponents/cardSettings";
 import { cards } from "./elements/cards";
 
 const StyledSettings = styled.div`

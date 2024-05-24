@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useAppSelector } from "../../../../../../../../redux/hooks";
+import { useAppSelector } from "../../../../../../../redux/hooks";
 import BackspaceOutlinedIcon from "@mui/icons-material/BackspaceOutlined";
 
 const StyledCalculator = styled.div<{ $darkMode: boolean }>`
@@ -112,8 +112,8 @@ export default function ScreenCalculator() {
 
       <StyledCalcBtnsArea>
         <StyledCalcBtnC>C</StyledCalcBtnC>
-        {BtnsArr.map((txt) => (
-          <StyledCalcBtn>{txt}</StyledCalcBtn>
+        {BtnsArr.map((txt,id) => (
+          <StyledCalcBtn key={id}>{txt}</StyledCalcBtn>
         ))}
         <StyledCalcBtnEqual>=</StyledCalcBtnEqual>
       </StyledCalcBtnsArea>

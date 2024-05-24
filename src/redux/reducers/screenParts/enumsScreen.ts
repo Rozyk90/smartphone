@@ -17,6 +17,8 @@ export enum enumCurrentScreen {
   screenSettingsScreen = "screenSettingsScreen",
   screenSettingsSounds = "screenSettingsSounds",
   screenSettingsTheme = "screenSettingsTheme",
+  screenSettingsThemeBG = "screenSettingsThemeBG",
+  screenSettingsThemeColors = "screenSettingsThemeColors",
   // ==============================================================
   screenShop = "screenShop",
   screenClock = "screenClock",

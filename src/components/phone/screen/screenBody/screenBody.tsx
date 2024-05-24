@@ -15,7 +15,9 @@ import ScreenCalendar from "./elements/screenCalendar";
 import ScreenSettingsApps from "./elements/screenSettingsApps";
 import ScreenSettingsTheme from "./elements/screenSettingsTheme/screenSettingsTheme";
 import ScreenSettingsSounds from "./elements/screenSettingsSounds";
-import ScreenSettingsScreen from "./elements/screenSettingsScreen";
+import ScreenSettingsScreen from "./elements/screenSettingsScreen/screenSettingsScreen";
+import SettingsThemeBG from "./elements/screenSettingsTheme/themeBackgrounds";
+import SettingsThemeColors from "./elements/screenSettingsTheme/themeColors";
 
 const StyledScreenBody = styled.div`
   height: 600px;
@@ -23,7 +25,6 @@ const StyledScreenBody = styled.div`
 
 export default function ScreenBody() {
   const { currentScreen } = useAppSelector((state) => state.screen.center);
-
 
   return (
     <StyledScreenBody>
@@ -45,16 +46,26 @@ export default function ScreenBody() {
       {currentScreen === enumCurrentScreen.screenSettingsApps && (
         <ScreenSettingsApps />
       )}
+
+      {/* =============================================================== */}
       {currentScreen === enumCurrentScreen.screenSettingsTheme && (
         <ScreenSettingsTheme />
       )}
+      {currentScreen === enumCurrentScreen.screenSettingsThemeBG && (
+        <SettingsThemeBG />
+      )}
+      {currentScreen === enumCurrentScreen.screenSettingsThemeColors && (
+        <SettingsThemeColors />
+      )}
+
+      {/* =============================================================== */}
+
       {currentScreen === enumCurrentScreen.screenSettingsSounds && (
         <ScreenSettingsSounds />
       )}
       {currentScreen === enumCurrentScreen.screenSettingsScreen && (
         <ScreenSettingsScreen />
       )}
-
       {currentScreen === enumCurrentScreen.screenShop && <ScreenShop />}
       {currentScreen === enumCurrentScreen.screenClock && <ScreenClock />}
       {currentScreen === enumCurrentScreen.screenCalendar && <ScreenCalendar />}

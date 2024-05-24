@@ -38,6 +38,7 @@ const StyledSide = styled.div`
 export default function Components() {
   const dispatch = useAppDispatch();
   const currentScreen = useAppSelector((state) => state.screen.center.currentScreen);
+  const reversingBoard = useAppSelector(state => state.screen.general.reversingBoard)
   const isLogged = useAppSelector((state) => state.user.isLogged);
   const uid = useAppSelector((state) => state.user.uid);
   const isOn = useAppSelector((state) => state.basicStates.isOn);
@@ -47,8 +48,8 @@ export default function Components() {
   const isCharging = useAppSelector((state) => state.battery.isCharging);
   const modalIsActive = useAppSelector((state) => state.modal.isModalActive);
   const counterDown = useAppSelector((state) => state.screen.general.countDown);
-  const {isBatteryProtection} = useAppSelector(state => state.battery);
-  const {darkMode,currentTheme} = useAppSelector(state => state.theme);
+  const {isBatteryProtection,isBatteryDescription} = useAppSelector(state => state.battery);
+  const {darkMode,currentTheme,darkModeAuto} = useAppSelector(state => state.theme);
   const topBar = useAppSelector(state => state.screen.barTop.currentBarTop);
 
 
@@ -81,19 +82,17 @@ export default function Components() {
       <StyledHeader>
         aktualny ekran = {currentScreen}
         <p></p>
-        userID = {uid}
-        <p></p>
-        zalogowany ?? = {isLogged.toString()}
-        <p></p>
+     arr - {reversingBoard.map(x=>x.toString()+'   ')}
+   <p></p>
         jest wlaczony - {isOn.toString()}
         <p></p>
-        modal jest aktywny - {modalIsActive.toString()}
-        <p></p>
-        ekran aktywny - {isScreenActive.toString()} ---- {counterDown / 1000}
-        <p></p>
-        Jest odliczanie - {isCountingDown.toString()}
-        <p></p>
+    
+   
       darkmode = {darkMode.toString()}
+      <p></p>
+      darkmodeauto = {darkModeAuto.toString()}
+      <p></p>
+      opis baterii = {isBatteryDescription.toString()}
       <p></p>
       theme = {currentTheme}
       <p></p>

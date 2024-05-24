@@ -1,8 +1,9 @@
 import styled from "styled-components";
 
-import { useAppDispatch } from "../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { setCurrentScreen } from "../redux/reducers/screenParts/screenCenter";
 import { CardProp } from "../components/phone/screen/screenBody/elements/screenSettings/elements/cards";
+import { reversingBoardPush } from "../redux/reducers/screenParts/screenGeneral";
 
 const StyledCard = styled.button`
   border: none;
@@ -68,8 +69,10 @@ export default function CardSettings({
   Icon,
   enumScreen,
 }: CardProp) {
+  const currentScreen = useAppSelector(state => state.screen.center.currentScreen)
   const dispatch = useAppDispatch();
   const fn = () => {
+    dispatch(reversingBoardPush(currentScreen))
     dispatch(setCurrentScreen(enumScreen));
   };
 

@@ -1,7 +1,7 @@
 import styled, { ThemeProvider } from "styled-components";
 
 import Components from "./components/components";
-import GroupedEffects from "./globalEffects";
+import GlobalEffects from "./globalEffects/globalEffects";
 
 import useTheme from "./customHooks/useTheme";
 
@@ -9,16 +9,14 @@ const StyledApp = styled.div`
   font-family: "Roboto", sans-serif;
 `;
 
-
 function App() {
-  const {getTheme} = useTheme()
-
+  const { getTheme } = useTheme();
 
   return (
     <StyledApp className="App">
       <ThemeProvider theme={getTheme}>
         <Components />
-        <GroupedEffects />
+        <GlobalEffects />
       </ThemeProvider>
     </StyledApp>
   );

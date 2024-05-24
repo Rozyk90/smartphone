@@ -9,12 +9,14 @@ interface BGprops {
 
 interface theme {
   darkMode: boolean;
+  darkModeAuto: boolean;
   background: BGprops;
   currentTheme: enumTheme;
 }
 
 const initialState: theme = {
   darkMode: false,
+  darkModeAuto: false,
   background:
   {group:'gradients',id:0},
   currentTheme: enumTheme.themeBasic,
@@ -30,6 +32,12 @@ export const sliceTheme = createSlice({
     setDarkModeOff: (state) => {
       state.darkMode = false
     },
+    setDarkModeAutoOn: (state) => {
+      state.darkModeAuto = true
+    },
+    setDarkModeAutoOff: (state) => {
+      state.darkModeAuto = false
+    },
     setTheme:(state, action: PayloadAction<enumTheme>) =>{
       state.currentTheme = action.payload
     },
@@ -39,7 +47,7 @@ export const sliceTheme = createSlice({
   },
 });
 
-export const { setDarkModeOn, setDarkModeOff,setTheme,setBg, } = sliceTheme.actions;
+export const { setDarkModeOn, setDarkModeOff,setTheme,setBg,setDarkModeAutoOn,setDarkModeAutoOff } = sliceTheme.actions;
 
 export default sliceTheme.reducer;
 

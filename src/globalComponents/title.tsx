@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 import IconButton from "@mui/material/IconButton";
 import ArrowBackIosRoundedIcon from "@mui/icons-material/ArrowBackIosRounded";
+import useScreen from "../customHooks/useScreen";
 
 const StyledTitle = styled.div`
   display: flex;
@@ -20,13 +21,13 @@ const StyledButton = styled(IconButton)`
 
 interface TitleProp {
   title: string;
-  fnToDo: () => void;
 }
 
-export default function SettingsTitle({ title, fnToDo }: TitleProp) {
+export default function Title({ title }: TitleProp) {
+  const {backToPreviousScreen} = useScreen()
   return (
     <StyledTitle>
-      <StyledButton onClick={fnToDo} size="small">
+      <StyledButton onClick={backToPreviousScreen} size="small">
         <ArrowBackIosRoundedIcon fontSize="small" />
       </StyledButton>
       {title}

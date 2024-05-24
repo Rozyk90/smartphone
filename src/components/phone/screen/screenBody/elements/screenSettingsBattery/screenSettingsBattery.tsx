@@ -13,8 +13,8 @@ import {
 } from "../../../../../../redux/reducers/battery";
 
 import BatteryStatus from "./elements/batteryStatus";
-import SwitchField from "../../../../../../componentsGlobal/switchField";
-import SettingsTitle from "../../../../../../componentsGlobal/settingsTitle";
+import SwitchField from "../../../../../../globalComponents/switchField";
+import Title from "../../../../../../globalComponents/title";
 import { setCurrentScreen } from "../../../../../../redux/reducers/screenParts/screenCenter";
 import { enumCurrentScreen } from "../../../../../../redux/reducers/screenParts/enumsScreen";
 
@@ -39,10 +39,6 @@ export default function ScreenSettingsBattery() {
   } = useAppSelector((state) => state.battery);
 
   const dispatch = useAppDispatch();
-
-  const backBtn = () =>{
-    dispatch(setCurrentScreen(enumCurrentScreen.screenSettings))
-  }
 
   const batteryProtection = () => {
     isBatteryProtection
@@ -94,7 +90,7 @@ export default function ScreenSettingsBattery() {
 
   return (
     <StyledScreenBattery>
-      <SettingsTitle title="Bateria" fnToDo={backBtn} />
+      <Title title="Bateria"/>
 
       <BatteryStatus />
 

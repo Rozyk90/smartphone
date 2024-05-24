@@ -1,19 +1,24 @@
 import styled from "styled-components";
-import SettingsTitle from "../../../../../../../componentsGlobal/settingsTitle";
-import {
-  useAppDispatch,
-  useAppSelector,
-} from "../../../../../../../redux/hooks";
+import Title from "../../../../../../globalComponents/title";
+import { useAppDispatch, useAppSelector } from "../../../../../../redux/hooks";
 
 import TaskAltRoundedIcon from "@mui/icons-material/TaskAltRounded";
-import { enumTheme, colors } from "../../../../../../../theme/theme";
-import theme, { setTheme } from "../../../../../../../redux/reducers/theme";
+import { enumTheme, colors } from "../../../../../../theme/theme";
+import theme, { setTheme } from "../../../../../../redux/reducers/theme";
 import ScreenCalculator from "./screens/screenCalculator";
-import SwitchField from "../../../../../../../componentsGlobal/switchField";
-import { useState } from "react";
+import SwitchField from "../../../../../../globalComponents/switchField";
 import ScreenSettings from "./screens/screenSettings";
+import { setCurrentScreen } from "../../../../../../redux/reducers/screenParts/screenCenter";
+import { enumCurrentScreen } from "../../../../../../redux/reducers/screenParts/enumsScreen";
 
-const StyledThemeColors = styled.div``;
+const StyledThemeColors = styled.div`
+  background: ${(prop) => prop.theme.backgrounds.primary};
+  height: 100%;
+  max-height: 600px;
+  display: flex;
+  flex-direction: column;
+  padding: 0px 10px;
+`;
 
 const StyledScreens = styled.div`
   height: 250px;
@@ -70,9 +75,10 @@ const StyledColorsShadow = styled.div`
   position: absolute;
 `;
 
-export default function ThemeColors({ setColors }: { setColors: () => void }) {
+export default function SettingsThemeColors() {
   const { currentTheme } = useAppSelector((state) => state.theme);
   const dispatch = useAppDispatch();
+
 
   const setNewTheme = (theme: enumTheme) => {
     dispatch(setTheme(theme));
@@ -80,11 +86,11 @@ export default function ThemeColors({ setColors }: { setColors: () => void }) {
 
   return (
     <StyledThemeColors>
-      <SettingsTitle title="Paleta kolorów" fnToDo={setColors} />
+      <Title title="Paleta kolorów"/>
 
       <StyledScreens>
         <ScreenCalculator />
-        <ScreenSettings/>
+        <ScreenSettings />
       </StyledScreens>
       <StyledSwitchBox>
         <SwitchField
@@ -94,7 +100,7 @@ export default function ThemeColors({ setColors }: { setColors: () => void }) {
           fn={() =>
             setNewTheme(
               currentTheme === enumTheme.themeBasic
-                ? enumTheme.themeOrange
+                ? enumTheme.themeRed
                 : enumTheme.themeBasic
             )
           }

@@ -1,10 +1,10 @@
 import styled from "styled-components";
-import { useAppSelector } from "../../../../../../../../redux/hooks";
+import { useAppSelector } from "../../../../../../../redux/hooks";
 import FingerprintIcon from "@mui/icons-material/Fingerprint";
-import Clock, { enumClockSizes } from "../../../../../../../apps/clock/clock";
-import Calendar from "../../../../../../../apps/calendar/calendar";
-import { RenderIconSmall } from "../../../../../../../icons/renderIcon";
-import backgrounds from "../../../../../../../../theme/backgrounds";
+import Clock, { enumClockSizes } from "../../../../../../apps/clock/clock";
+import Calendar from "../../../../../../apps/calendar/calendar";
+import { RenderIconSmall } from "../../../../../../icons/renderIcon";
+import backgrounds from "../../../../../../../theme/backgrounds";
 
 const StyledPreview = styled.div`
   height: 260px;

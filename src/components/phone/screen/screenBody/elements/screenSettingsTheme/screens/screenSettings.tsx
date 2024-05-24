@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useAppSelector } from "../../../../../../../../redux/hooks";
+import { useAppSelector } from "../../../../../../../redux/hooks";
 
 import ArrowBackIosRoundedIcon from "@mui/icons-material/ArrowBackIosRounded";
 import ArrowForwardIosRoundedIcon from "@mui/icons-material/ArrowForwardIosRounded";

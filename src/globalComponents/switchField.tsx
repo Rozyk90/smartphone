@@ -3,11 +3,11 @@ import Switch from "@mui/material/Switch";
 
 const StyledField = styled.button`
   border: none;
+  border-radius: 16px;
   background:  ${prop => prop.theme.colors.background};
   min-height: 50px;
   padding-top: 5px;
   padding-bottom: 5px;
-  border-radius: 16px;
   padding-left: 20px;
   display: flex;
   align-items: center;

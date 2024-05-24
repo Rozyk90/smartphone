@@ -56,5 +56,5 @@ export default function GlobalEffects() {
     isBatteryDescription,
   ]);
 
-  return null;
+  return (null)
 }

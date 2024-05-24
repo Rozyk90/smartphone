@@ -1,17 +1,21 @@
 import styled from "styled-components";
 import React, { useState, useEffect } from "react";
-import {
-  useAppDispatch,
-  useAppSelector,
-} from "../../../../../../../redux/hooks";
-import { setBg } from "../../../../../../../redux/reducers/theme";
-import SettingsTitle from "../../../../../../../componentsGlobal/settingsTitle";
-import Paggination from "../../../../../../../componentsGlobal/paggination";
-import backgrounds from "../../../../../../../theme/backgrounds";
+import { useAppDispatch, useAppSelector } from "../../../../../../redux/hooks";
+import { setBg } from "../../../../../../redux/reducers/theme";
+import Title from "../../../../../../globalComponents/title";
+import Paggination from "../../../../../../globalComponents/paggination";
+import backgrounds from "../../../../../../theme/backgrounds";
 import ScreenBG from "./screens/screenBG";
+import { setCurrentScreen } from "../../../../../../redux/reducers/screenParts/screenCenter";
+import { enumCurrentScreen } from "../../../../../../redux/reducers/screenParts/enumsScreen";
 
 const StyledThemeBackgrounds = styled.div`
   background: ${(prop) => prop.theme.backgrounds.primary};
+  height: 100%;
+  max-height: 600px;
+  display: flex;
+  flex-direction: column;
+  padding: 0px 10px;
 `;
 
 const StyledTitle = styled.div`
@@ -25,7 +29,6 @@ const StyledCard = styled.div`
   margin-top: 20px;
   padding: 10px;
   border-radius: 16px;
-  gap: 10px;
 `;
 
 const StyledScreens = styled.div`
@@ -34,11 +37,7 @@ const StyledScreens = styled.div`
   margin: 10px 0px;
 `;
 
-export default function ThemeBackgrounds({
-  setBackgrounds,
-}: {
-  setBackgrounds: () => void;
-}) {
+export default function SettingsThemeBG() {
   const [pageGradients, setPageGradients] = useState(1);
   const [pagePhotos, setPagePhotos] = useState(1);
   const { darkMode } = useAppSelector((state) => state.theme);
@@ -96,7 +95,7 @@ export default function ThemeBackgrounds({
 
   return (
     <StyledThemeBackgrounds>
-      <SettingsTitle title="Tapety" fnToDo={setBackgrounds} />
+      <Title title="Tapety" />
 
       <StyledCard>
         <StyledTitle>Kolory</StyledTitle>

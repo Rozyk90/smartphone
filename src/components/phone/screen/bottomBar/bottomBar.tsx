@@ -6,16 +6,9 @@ import ArrowBackIosRoundedIcon from "@mui/icons-material/ArrowBackIosRounded";
 import CropSquareRoundedIcon from "@mui/icons-material/CropSquareRounded";
 import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
 
-import {
-  enumCurrentBarBottom,
-  enumCurrentBarTop,
-  enumCurrentScreen,
-} from "../../../../redux/reducers/screenParts/enumsScreen";
-import { setCurrentBarBottom } from "../../../../redux/reducers/screenParts/screenBarBottom";
-import { resetScreenCountingDownShort } from "../../../../redux/reducers/screenParts/screenGeneral";
+import { enumCurrentBarBottom } from "../../../../redux/reducers/screenParts/enumsScreen";
 
-import { setCurrentScreen } from "../../../../redux/reducers/screenParts/screenCenter";
-import { setCurrenBarTop } from "../../../../redux/reducers/screenParts/screenBarTop";
+import useScreen from "../../../../customHooks/useScreen";
 
 const StyledBarBottom = styled.div<{
   $barBg: enumCurrentBarBottom;
@@ -61,17 +54,10 @@ const StyledBarBottomOff = styled.div`
 `;
 
 export default function BottomBar() {
-  const currentBarBottom = useAppSelector(
-    (state) => state.screen.barBottom.currentBarBottom
+  const { currentBarBottom } = useAppSelector(
+    (state) => state.screen.barBottom
   );
-
-  const dispatch = useAppDispatch();
-
-  const MainScreen = () => {
-    dispatch(setCurrentScreen(enumCurrentScreen.screenMain));
-    dispatch(setCurrenBarTop(enumCurrentBarTop.transparent));
-    dispatch(setCurrentBarBottom(enumCurrentBarBottom.transparent));
-  };
+  const { toMainScreen, backToPreviousScreen } = useScreen();
 
   return (
     <>
@@ -83,10 +69,14 @@ export default function BottomBar() {
           <StyledButton>
             <StyledIcon fontSize="small" />
           </StyledButton>
-          <StyledButton onClick={() => MainScreen()}>
+          <StyledButton onClick={() => toMainScreen()}>
             <CropSquareRoundedIcon fontSize="small" />
           </StyledButton>
-          <StyledButton>
+          <StyledButton
+            onClick={() => {
+              backToPreviousScreen();
+            }}
+          >
             <ArrowBackIosRoundedIcon fontSize="small" />
           </StyledButton>
         </StyledBarBottom>
