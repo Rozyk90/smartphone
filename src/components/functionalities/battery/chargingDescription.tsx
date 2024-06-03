@@ -52,7 +52,7 @@ function CountDescription() {
   const { isCharging, battery, isFastCharging, isBatteryProtection } =
     useAppSelector((state) => state.battery);
   const { isOn } = useAppSelector((state) => state.basicStates);
-  const {isScreenActive}= useAppSelector(state => state.screen.general)
+  const {isScreenOn}= useAppSelector(state => state.screen.general)
   
 
   const countTime = () => {
@@ -65,11 +65,11 @@ function CountDescription() {
   useEffect(() => {
     if (isCharging) {
       if (isFastCharging) {
-        isScreenActive
+        isScreenOn
           ? setTimer(TimersCharging.basicCharging)
           : setTimer(TimersCharging.fastCharging);
       } else {
-        isScreenActive
+        isScreenOn
           ? setTimer(TimersCharging.slowCharging)
           : setTimer(TimersCharging.basicCharging);
       }
@@ -77,7 +77,7 @@ function CountDescription() {
   }, [
     battery,
     isCharging,
-    isScreenActive,
+    isScreenOn,
     isOn,
     isFastCharging,
     isBatteryProtection,

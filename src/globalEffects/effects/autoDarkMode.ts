@@ -10,27 +10,22 @@ export default function AutoDarkMode() {
   );
   const dispatch = useAppDispatch();
 
-  console.log("sprawdzam czy jest noc i zmienic dark mode");
-
   useEffect(() => {
     const checkTime = () => {
       const currentHour = new Date().getHours();
       if (currentHour >= 22 || currentHour < 6) {
-        console.log("mamy noc");
         if (!darkMode) {
           dispatch(setDarkModeOn());
         }
       } else {
         dispatch(setDarkModeOff());
-        console.log("jest dzień");
       }
     };
     if (
       darkModeAuto &&
-      currentScreen !== enumCurrentScreen.screenSettingsScreen
+      currentScreen !== enumCurrentScreen.settingsScreen
     ) {
       checkTime();
-      console.log("robie akcje oł jee");
     }
   });
 

@@ -2,7 +2,8 @@ import { useAppDispatch, useAppSelector } from "../redux/hooks";
 
 import {
   screenTurnOff,
-  stopCountingDown,
+  // countDownStop,
+  countDownUpdateTime,
 } from "../redux/reducers/screenParts/screenGeneral";
 
 import {
@@ -19,13 +20,16 @@ import {
 } from "../redux/reducers/screenParts/screenGeneral";
 
 const useScreen = () => {
-  const { reversingBoard } = useAppSelector((state) => state.screen.general);
+  const { reversingBoard, countDownTimerSelected } =
+    useAppSelector((state) => state.screen.general);
+  const currentScreen = useAppSelector(
+    (state) => state.screen.center.currentScreen
+  );
   const dispatch = useAppDispatch();
 
   const screenOff = () => {
     dispatch(screenTurnOff());
-    dispatch(stopCountingDown());
-
+    dispatch(countDownUpdateTime(0));
     dispatch(setCurrentBarBottom(enumCurrentBarBottom.off));
     dispatch(setCurrentScreen(enumCurrentScreen.screenNone));
     dispatch(setCurrenBarTop(enumCurrentBarTop.off));
@@ -48,7 +52,27 @@ const useScreen = () => {
     }
   };
 
-  return { screenOff, backToPreviousScreen, toMainScreen };
+  const screenCountdownUpdate = () => {
+    const shortTime = 10000
+
+console.log("to z useScreen ->", currentScreen)
+
+ if(currentScreen === enumCurrentScreen.screenActiveBlocked){
+      dispatch(countDownUpdateTime(shortTime));
+      console.log("aktualizuje na krotko")
+
+    } else {
+      dispatch(countDownUpdateTime(countDownTimerSelected));
+      console.log("aktualizuje na dlugo")
+    }
+  };
+
+  return {
+    screenOff,
+    backToPreviousScreen,
+    toMainScreen,
+    screenCountdownUpdate,
+  };
 };
 
 export default useScreen;

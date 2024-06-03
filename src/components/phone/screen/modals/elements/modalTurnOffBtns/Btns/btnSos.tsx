@@ -3,10 +3,6 @@ import CallRoundedIcon from "@mui/icons-material/CallRounded";
 import { useAppSelector,useAppDispatch } from "../../../../../../../redux/hooks";
 
 import { enumModalTurnOffBtnsFocus, setTurnOffBtnsFocus } from "../../../../../../../redux/reducers/modal";
-import {
-  resetScreenCountingDownShort,
-} from "../../../../../../../redux/reducers/screenParts/screenGeneral";
-
 
 const StyledBtn = styled.div<{ visible: string; focused: string }>`
   opacity: ${(props) => (props.visible==='true' ? "1" : "0")};
@@ -51,7 +47,7 @@ export default function BtnSos() {
   const dispatch = useAppDispatch()
   const click = (e: React.MouseEvent) => {
     e.stopPropagation();
-    dispatch(resetScreenCountingDownShort());
+
 
     if(visible){
         dispatch(setTurnOffBtnsFocus(enumModalTurnOffBtnsFocus.sos));

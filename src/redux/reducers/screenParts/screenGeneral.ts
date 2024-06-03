@@ -1,21 +1,18 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { enumCurrentScreen } from "./enumsScreen";
 
+
 interface state {
-  isScreenActive: boolean;
-  countDownTimer: number;
-  countDownTimerShort: number;
+  isScreenOn: boolean;
   countDown: number;
-  isCountingDown: boolean;
+  countDownTimerSelected: number;
   reversingBoard: enumCurrentScreen[];
 }
 
 const initialState: state = {
-  isScreenActive: false,
-  countDownTimer: 10000,
-  countDownTimerShort: 10000,
-  countDown: 10000,
-  isCountingDown: false,
+  isScreenOn: false,
+  countDown: 0,
+  countDownTimerSelected: 15000,
   reversingBoard: [],
 };
 
@@ -24,27 +21,19 @@ export const screenGeneralSlice = createSlice({
   initialState,
   reducers: {
     screenTurnOn: (state) => {
-      state.isScreenActive = true;
+      state.isScreenOn = true;
     },
     screenTurnOff: (state) => {
-      state.isScreenActive = false;
+      state.isScreenOn = false;
     },
-    updateScreenCountDown: (state, action: PayloadAction<number>) => {
+    // ======================================================================================
+    countDownSetTimer: (state, action: PayloadAction<number>) => {
+      state.countDownTimerSelected = action.payload;
+    },
+    countDownUpdateTime: (state, action: PayloadAction<number>) => {
       state.countDown = action.payload;
     },
-    setStartCountingDown: (state) => {
-      state.isCountingDown = true;
-    },
-    setStopCountingDown: (state) => {
-      state.isCountingDown = false;
-    },
-    resetScreenCountingDownShort: (state) => {
-      state.countDown = 10000;
-    },
-    stopCountingDown: (state) => {
-      state.countDown = 0;
-      state.isCountingDown = false;
-    },
+    // ==============================================
     reversingBoardPush: (state, action: PayloadAction<enumCurrentScreen>) => {
       state.reversingBoard = [...state.reversingBoard, action.payload];
     },
@@ -60,11 +49,8 @@ export const screenGeneralSlice = createSlice({
 export const {
   screenTurnOn,
   screenTurnOff,
-  updateScreenCountDown,
-  setStartCountingDown,
-  setStopCountingDown,
-  resetScreenCountingDownShort,
-  stopCountingDown,
+  countDownSetTimer,
+  countDownUpdateTime,
   reversingBoardPush,
   reversingBoardPop,
   reversingBoardClear,

@@ -10,7 +10,13 @@ import Charger from "./charger/charger";
 import { phoneRotate } from "../redux/reducers/basicStates";
 import { plugStatus, chargingStatus } from "../redux/reducers/battery";
 import CounterActiveScreen from "./functionalities/counterActiveScreen";
-import { setDarkModeOff, setDarkModeOn, setTheme } from "../redux/reducers/theme";
+import {
+  minus,
+  plus,
+  setDarkModeOff,
+  setDarkModeOn,
+  setTheme,
+} from "../redux/reducers/theme";
 
 const StyledDesign = styled.div`
   display: flex;
@@ -37,22 +43,30 @@ const StyledSide = styled.div`
 
 export default function Components() {
   const dispatch = useAppDispatch();
-  const currentScreen = useAppSelector((state) => state.screen.center.currentScreen);
-  const reversingBoard = useAppSelector(state => state.screen.general.reversingBoard)
+  const currentScreen = useAppSelector(
+    (state) => state.screen.center.currentScreen
+  );
+
   const isLogged = useAppSelector((state) => state.user.isLogged);
   const uid = useAppSelector((state) => state.user.uid);
   const isOn = useAppSelector((state) => state.basicStates.isOn);
-  const { isScreenActive, isCountingDown } = useAppSelector(
-    (state) => state.screen.general
-  );
+
+  const id = useAppSelector((state) => state.theme.background.id);
   const isCharging = useAppSelector((state) => state.battery.isCharging);
   const modalIsActive = useAppSelector((state) => state.modal.isModalActive);
-  const counterDown = useAppSelector((state) => state.screen.general.countDown);
-  const {isBatteryProtection,isBatteryDescription} = useAppSelector(state => state.battery);
-  const {darkMode,currentTheme,darkModeAuto} = useAppSelector(state => state.theme);
-  const topBar = useAppSelector(state => state.screen.barTop.currentBarTop);
-
-
+  const {
+    countDown,
+    countDownTimerSelected,
+    isScreenOn,
+    reversingBoard,
+  } = useAppSelector((state) => state.screen.general);
+  const { isBatteryProtection, isBatteryDescription } = useAppSelector(
+    (state) => state.battery
+  );
+  const { darkMode, currentTheme, darkModeAuto } = useAppSelector(
+    (state) => state.theme
+  );
+  const topBar = useAppSelector((state) => state.screen.barTop.currentBarTop);
 
   const rotatePhone = () => {
     if (isCharging) {
@@ -70,45 +84,44 @@ export default function Components() {
     }
   };
 
-
-
   const zrobTo = () => {
-    dispatch(darkMode?setDarkModeOff():setDarkModeOn())
+    dispatch(darkMode ? setDarkModeOff() : setDarkModeOn());
   };
 
+  const lewo = () => {
+    if (id > 0) {
+      dispatch(minus());
+    }
+  };
+  const prawo = () => {
+    if (id < 38) {
+      dispatch(plus());
+    }
+  };
+  
 
   return (
     <StyledDesign>
       <StyledHeader>
         aktualny ekran = {currentScreen}
         <p></p>
-     arr - {reversingBoard.map(x=>x.toString()+'   ')}
-   <p></p>
-        jest wlaczony - {isOn.toString()}
+        czas - {countDown / 1000}
+
         <p></p>
-    
-   
-      darkmode = {darkMode.toString()}
-      <p></p>
-      darkmodeauto = {darkModeAuto.toString()}
-      <p></p>
-      opis baterii = {isBatteryDescription.toString()}
-      <p></p>
-      theme = {currentTheme}
-      <p></p>
-      top bar - {topBar}
-      <p></p>
-
-
-        <Button variant="contained"  onClick={() => rotatePhone()}>
+        wybrany czas = {countDownTimerSelected/1000}
+        <p></p>
+        <Button variant="contained" onClick={() => rotatePhone()}>
           Obrot
         </Button>
-
         <Button variant="contained" onClick={() => zrobTo()}>
-          do wszystkiego
+          X
         </Button>
- 
-      
+        <Button variant="contained" onClick={() => lewo()}>
+          lewo
+        </Button>
+        <Button variant="contained" onClick={() => prawo()}>
+          prawo
+        </Button>
       </StyledHeader>
 
       <StyledMain>

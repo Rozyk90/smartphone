@@ -7,6 +7,7 @@ import useTheme from "./customHooks/useTheme";
 
 const StyledApp = styled.div`
   font-family: "Roboto", sans-serif;
+  background: #979797;
 `;
 
 function App() {

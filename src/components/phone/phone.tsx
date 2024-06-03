@@ -1,12 +1,12 @@
 import styled from "styled-components";
-
 import { useAppSelector } from "../../redux/hooks";
+import { useEffect, useState, useRef } from "react";
 
+import useScreen from "../../customHooks/useScreen";
 import Screen from "./screen/screen";
-import { useEffect, useState } from "react";
-
 import VolumeBtns from "./buttons/volumeBtns";
 import MainBtn from "./buttons/mainBtn";
+import { enumCurrentScreen } from "../../redux/reducers/screenParts/enumsScreen";
 
 const StyledPhone = styled.div<{ vertical: string }>`
   position: relative;
@@ -34,13 +34,34 @@ const StyledChargerInput = styled.div`
 
 export default function Phone() {
   const isVertical = useAppSelector((state) => state.basicStates.isVertical);
+  const { currentScreen } = useAppSelector((state) => state.screen.center);
+  const screenRef = useRef<HTMLDivElement | null>(null);
+
+  const { screenCountdownUpdate } = useScreen();
+
+  useEffect(() => {
+    const screenElement = screenRef.current;
+    const logBubblingEvent = (e: Event) => {
+      screenCountdownUpdate();
+    };
+    if (screenElement && currentScreen !== enumCurrentScreen.screenNone) {
+      screenElement.addEventListener("mousedown", logBubblingEvent, false);
+    }
+    return () => {
+      if (screenElement) {
+        screenElement.removeEventListener("mousedown", logBubblingEvent, false);
+      }
+    };
+  });
 
   return (
     <StyledPhone vertical={isVertical ? "true" : "false"}>
       <VolumeBtns />
       <MainBtn />
       <StyledChargerInput />
-      <Screen />
+      <div ref={screenRef}>
+        <Screen />
+      </div>
     </StyledPhone>
   );
 }

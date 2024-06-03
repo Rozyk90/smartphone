@@ -6,7 +6,6 @@ import {
 
 import RotateLeftRoundedIcon from "@mui/icons-material/RotateLeftRounded";
 
-import { resetScreenCountingDownShort } from "../../../../../../../redux/reducers/screenParts/screenGeneral";
 import {
   enumCurrentModal,
   enumModalTurnOffBtnsFocus,
@@ -60,7 +59,6 @@ export default function BtnReset() {
   const click = (e: React.MouseEvent) => {
     e.stopPropagation();
     dispatch(setTurnOffBtnsFocus(enumModalTurnOffBtnsFocus.reset));
-    dispatch(resetScreenCountingDownShort());
 
     if (focused) {
       // restart phone

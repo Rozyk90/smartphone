@@ -15,7 +15,7 @@ export default function Uncharging() {
   const dispatch = useAppDispatch();
   const { isCharging, battery } = useAppSelector((state) => state.battery);
   const { isOn } = useAppSelector((state) => state.basicStates);
-  const { isScreenActive } = useAppSelector((state) => state.screen.general);
+  const { isScreenOn } = useAppSelector((state) => state.screen.general);
 
   const {screenOff} = useScreen()
   const {modalOff} = useModal()
@@ -27,7 +27,7 @@ export default function Uncharging() {
       if (!isOn) {
         timer = TimersUncharging.slowUncharging;
       } else if (battery > 0) {
-        isScreenActive
+        isScreenOn
           ? (timer = TimersUncharging.fastUncharging)
           : (timer = TimersUncharging.basicUncharging);
       }

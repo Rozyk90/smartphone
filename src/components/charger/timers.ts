@@ -5,11 +5,11 @@ export enum TimersCharging {
 }
 
 
-// export enum TimersUncharging{
-//     basicUncharging = 40000,
-//     fastUncharging = 35000,
-//     slowUncharging = 120000,
-// }
+export enum TimersUncharging{
+    basicUncharging = 40000,
+    fastUncharging = 35000,
+    slowUncharging = 120000,
+}
 
 
 // export enum TimersCharging {
@@ -19,8 +19,8 @@ export enum TimersCharging {
 // }
 
 
-export enum TimersUncharging{
-    basicUncharging = 50,
-    fastUncharging = 50,
-    slowUncharging = 50,
-}
+// export enum TimersUncharging{
+//     basicUncharging = 50,
+//     fastUncharging = 50,
+//     slowUncharging = 50,
+// }

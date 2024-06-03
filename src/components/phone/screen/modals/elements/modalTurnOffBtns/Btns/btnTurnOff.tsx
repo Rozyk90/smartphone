@@ -6,7 +6,6 @@ import {
 
 import PowerSettingsNewRoundedIcon from "@mui/icons-material/PowerSettingsNewRounded";
 
-import { resetScreenCountingDownShort } from "../../../../../../../redux/reducers/screenParts/screenGeneral";
 import { setCurrentScreen } from "../../../../../../../redux/reducers/screenParts/screenCenter";
 import { enumCurrentScreen } from "../../../../../../../redux/reducers/screenParts/enumsScreen";
 
@@ -59,7 +58,6 @@ export default function BtnTurnOff() {
 
   const click = (e: React.MouseEvent) => {
     e.stopPropagation();
-    dispatch(resetScreenCountingDownShort());
 
     dispatch(setTurnOffBtnsFocus(enumModalTurnOffBtnsFocus.off));
 

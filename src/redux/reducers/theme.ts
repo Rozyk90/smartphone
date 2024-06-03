@@ -43,11 +43,15 @@ export const sliceTheme = createSlice({
     },
     setBg: (state, action: PayloadAction<BGprops>) => {
       state.background = action.payload;
-    },
+    },plus:(state) =>{
+      state.background.id = state.background.id+1
+    },minus:(state) =>{
+      state.background.id = state.background.id-1
+    }
   },
 });
 
-export const { setDarkModeOn, setDarkModeOff,setTheme,setBg,setDarkModeAutoOn,setDarkModeAutoOff } = sliceTheme.actions;
+export const { setDarkModeOn, setDarkModeOff,setTheme,setBg,setDarkModeAutoOn,setDarkModeAutoOff,plus,minus } = sliceTheme.actions;
 
 export default sliceTheme.reducer;
-
+ 

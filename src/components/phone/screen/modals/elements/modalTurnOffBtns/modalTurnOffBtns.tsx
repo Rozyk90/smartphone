@@ -13,7 +13,6 @@ import {
   setTurnOffBtnsFocus,
 } from "../../../../../../redux/reducers/modal";
 
-import { resetScreenCountingDownShort } from "../../../../../../redux/reducers/screenParts/screenGeneral";
 import { enumCurrentBarBottom } from "../../../../../../redux/reducers/screenParts/enumsScreen";
 import { setCurrentBarBottom } from "../../../../../../redux/reducers/screenParts/screenBarBottom";
 
@@ -72,7 +71,6 @@ export default function ModalTurnOffBtns() {
   const dispatch = useAppDispatch();
 
   const clickScreen = () => {
-    dispatch(resetScreenCountingDownShort());
     dispatch(setTurnOffBtnsFocus(enumModalTurnOffBtnsFocus.all));
     if (focus === enumModalTurnOffBtnsFocus.all) {
       dispatch(setCurrentModal(enumCurrentModal.modalNone));

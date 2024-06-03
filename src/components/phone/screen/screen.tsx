@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import { useAppSelector } from "../../../redux/hooks";
 
 import TopBar from "./topBar/topBar";
-import ScreenBody from "./screenBody/screenBody";
+import ScreenBody from "./screenCenter/screenCenter";
 import BottomBar from "./bottomBar/bottomBar";
 import Modals from "./modals/modals";
 import backgrounds from "../../../theme/backgrounds";

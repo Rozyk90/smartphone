@@ -2,24 +2,24 @@ import { useEffect } from "react";
 import { useAppSelector, useAppDispatch } from "../../redux/hooks";
 
 
-import { updateScreenCountDown } from "../../redux/reducers/screenParts/screenGeneral";
+import { countDownUpdateTime } from "../../redux/reducers/screenParts/screenGeneral";
 import useScreen from "../../customHooks/useScreen";
 import useModal from "../../customHooks/useModal";
 
 export default function CounterActiveScreen() {
-  const { isScreenActive, countDown, isCountingDown } = useAppSelector(
+  const { isScreenOn, countDown } = useAppSelector(
     (state) => state.screen.general
   );
 
   const dispatch = useAppDispatch();
 
-  const { screenOff } = useScreen();
+  const { screenOff, } = useScreen();
   const {modalOff} = useModal()
 
   // useEffect(() => {
-  //   if (isScreenActive && isCountingDown) {
+  //   if (countDown) {
   //     const timer = setTimeout(() => {
-  //       dispatch(updateScreenCountDown(countDown - 1000));
+  //       dispatch(countDownUpdateTime(countDown - 1000));
   //       if (countDown === 1000) {
   //         screenOff();
   //         modalOff()
@@ -27,7 +27,7 @@ export default function CounterActiveScreen() {
   //     }, 1000);
   //     return () => clearTimeout(timer);
   //   }
-  // }, [isScreenActive, countDown,isCountingDown]);
+  // }, [countDown]);
 
   return null;
 }

@@ -29,7 +29,7 @@ export default function IconSettings({
   const dispatch = useAppDispatch();
   const fn = () => {
     if (isButton) {
-      dispatch(setCurrentScreen(enumCurrentScreen.screenSettings));
+      dispatch(setCurrentScreen(enumCurrentScreen.settingsMain));
       dispatch(setCurrenBarTop(enumCurrentBarTop.bgPrimary))
       dispatch(setCurrentBarBottom(enumCurrentBarBottom.bgPrimary))
     }

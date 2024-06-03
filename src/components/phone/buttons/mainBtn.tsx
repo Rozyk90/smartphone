@@ -4,8 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import { useAppSelector, useAppDispatch } from "../../../redux/hooks";
 import {
   screenTurnOn,
-  resetScreenCountingDownShort,
-  setStartCountingDown,
+  countDownUpdateTime
 } from "../../../redux/reducers/screenParts/screenGeneral";
 
 import {
@@ -41,31 +40,29 @@ export default function MainBtn() {
   const [toTurnOff, setToTurnOff] = useState(false);
 
   const { isOn } = useAppSelector((state) => state.basicStates);
-  const battery = useAppSelector((state) => state.battery.battery);
-  const { isScreenActive } = useAppSelector((state) => state.screen.general);
+  const {battery} = useAppSelector((state) => state.battery);
+  const { isScreenOn } = useAppSelector((state) => state.screen.general);
 
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const dispatch = useAppDispatch();
-  const { screenOff } = useScreen();
+  const { screenOff,screenCountdownUpdate } = useScreen();
   const { modalOff } = useModal();
 
   const press = () => {
     if (isOn) {
-      if (!isScreenActive) {
-        dispatch(resetScreenCountingDownShort());
-        dispatch(setStartCountingDown());
+      if (!isScreenOn) {
         dispatch(screenTurnOn());
+        dispatch(countDownUpdateTime(10000))
         dispatch(setCurrenBarTop(enumCurrentBarTop.transparent));
         dispatch(setCurrentScreen(enumCurrentScreen.screenActiveBlocked));
         dispatch(setCurrentBarBottom(enumCurrentBarBottom.transparent));
       }
 
-      if (isScreenActive) {
+      if (isScreenOn) {
         timeoutRef.current = setTimeout(() => {
           dispatch(setCurrentModal(enumCurrentModal.modalTurnOffBtns));
           dispatch(modalTurnOn());
-          dispatch(resetScreenCountingDownShort());
           setToTurnOff(false);
         }, 1000);
       }
@@ -92,12 +89,12 @@ export default function MainBtn() {
   };
 
   useEffect(() => {
-    if (isScreenActive && isOn) {
+    if (isScreenOn && isOn) {
       return () => {
         setToTurnOff(false);
       };
     }
-  }, [isScreenActive]);
+  }, [isScreenOn]);
 
   return (
     <StyledButtonMain
