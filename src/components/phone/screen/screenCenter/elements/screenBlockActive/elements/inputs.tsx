@@ -6,7 +6,7 @@ import {
   useAppDispatch,
 } from "../../../../../../../redux/hooks";
 
-import { auth,db } from "../../../../../../../firebase";
+import { auth, db } from "../../../../../../../firebase";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -26,6 +26,8 @@ import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import Input from "./input";
 import ActionBtn from "./actionBtn";
 import { enumErrors, enumErrorsCodes, enumBtns } from "./enumsInput";
+import { phoneUnlocked } from "../../../../../../../redux/reducers/basicStates";
+import useSound from "../../../../../../../customHooks/useSound";
 
 const StyledInputs = styled.div`
   margin-bottom: 50px;
@@ -40,15 +42,17 @@ export default function Inputs() {
   const [passError, setPassError] = useState("");
 
   const screenGrid = useAppSelector((state) => state.screen.center.screenGrid);
-  const {countDownTimerSelected} = useAppSelector(state => state.screen.general)
+  const { countDownTimerSelected } = useAppSelector(
+    (state) => state.screen.general
+  );
   const dispatch = useAppDispatch();
+
+  const { lockSoundEffect } = useSound();
 
   const setBtn = (
     event: React.MouseEvent<HTMLElement>,
     newBtn: enumBtns.btnLogin | enumBtns.btnRegistration
   ) => {
-
-
     if (newBtn !== null) {
       resetErrors();
       setSelectedBtn(newBtn);
@@ -57,15 +61,11 @@ export default function Inputs() {
 
   const changeEmail = (event: any) => {
     resetErrors();
-
-
     setEmail(event.target.value);
   };
 
   const changePass = (event: any) => {
     resetErrors();
-
-
     setPass(event.target.value);
   };
 
@@ -80,13 +80,14 @@ export default function Inputs() {
   };
 
   const loginAcc = async () => {
-
     dispatch(countDownUpdateTime(countDownTimerSelected));
+    dispatch(phoneUnlocked());
 
     signInWithEmailAndPassword(auth, email, pass)
       .then(() => {
         resetErrors();
         editScreen();
+        lockSoundEffect();
       })
       .catch((error) => {
         setEmailError(enumErrors.correctDetails);
@@ -112,14 +113,15 @@ export default function Inputs() {
   };
 
   const createAcc = async () => {
-
     dispatch(countDownUpdateTime(countDownTimerSelected));
+    dispatch(phoneUnlocked());
 
     createUserWithEmailAndPassword(auth, email, pass)
       .then((userCredential) => {
         createFirestore(userCredential.user);
         resetErrors();
         editScreen();
+        lockSoundEffect();
       })
       .catch((error) => {
         const errorCode = error.code;

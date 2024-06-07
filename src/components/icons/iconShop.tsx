@@ -4,6 +4,7 @@ import { enumCurrentScreen } from "../../redux/reducers/screenParts/enumsScreen"
 import { setCurrentScreen } from "../../redux/reducers/screenParts/screenCenter";
 
 import LocalMallIcon from "@mui/icons-material/LocalMall";
+import useSound from "../../customHooks/useSound";
 
 const StyledIcon = styled.button<{ $isButton: boolean }>`
   width: 50px;
@@ -22,6 +23,7 @@ const StyledIcon = styled.button<{ $isButton: boolean }>`
 
 export default function IconShop({ isButton = true }: { isButton?: boolean }) {
   const dispatch = useAppDispatch();
+  const {btnSoundEffect} = useSound()
   const fn = () => {
     if (isButton) {
       dispatch(setCurrentScreen(enumCurrentScreen.screenShop));
@@ -33,6 +35,7 @@ export default function IconShop({ isButton = true }: { isButton?: boolean }) {
       onClick={() => {
         fn();
       }}
+      onMouseDown={()=>btnSoundEffect()}
     >
       <LocalMallIcon fontSize="large" />
     </StyledIcon>

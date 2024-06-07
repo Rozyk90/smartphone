@@ -23,6 +23,8 @@ import { setCurrentScreen } from "../../../../../../redux/reducers/screenParts/s
 
 import { userLogout } from "../../../../../../redux/reducers/user";
 import { countDownUpdateTime } from "../../../../../../redux/reducers/screenParts/screenGeneral";
+import { phoneUnlocked } from "../../../../../../redux/reducers/basicStates";
+import useSound from "../../../../../../customHooks/useSound";
 
 const StyledScreenBlockActive = styled.div`
   height: 100%;
@@ -36,7 +38,6 @@ const StyledContainerCalendar = styled.div`
   text-align: center;
 `;
 const StyledContainerLogin = styled.div`
-  border: 2px solid orange;
   text-align: center;
   padding-top: 50px;
   display: flex;
@@ -52,6 +53,7 @@ export default function ScreenBlockActive() {
   );
 
   const dispatch = useAppDispatch();
+  const {lockSoundEffect} = useSound()
 
   const logout = async () => {
     dispatch(userLogout);
@@ -66,6 +68,8 @@ export default function ScreenBlockActive() {
     dispatch(setCurrentScreen(enumCurrentScreen.screenMain));
     dispatch(setCurrentBarBottom(enumCurrentBarBottom.transparent));
     dispatch(countDownUpdateTime(countDownTimerSelected));
+    dispatch(phoneUnlocked())
+    lockSoundEffect()
   };
 
   return (

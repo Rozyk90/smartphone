@@ -49,17 +49,13 @@ export default function Components() {
 
   const isLogged = useAppSelector((state) => state.user.isLogged);
   const uid = useAppSelector((state) => state.user.uid);
-  const isOn = useAppSelector((state) => state.basicStates.isOn);
+  const { isOn, isLocked } = useAppSelector((state) => state.basicStates);
 
   const id = useAppSelector((state) => state.theme.background.id);
   const isCharging = useAppSelector((state) => state.battery.isCharging);
   const modalIsActive = useAppSelector((state) => state.modal.isModalActive);
-  const {
-    countDown,
-    countDownTimerSelected,
-    isScreenOn,
-    reversingBoard,
-  } = useAppSelector((state) => state.screen.general);
+  const { countDown, countDownTimerSelected, isScreenOn, reversingBoard } =
+    useAppSelector((state) => state.screen.general);
   const { isBatteryProtection, isBatteryDescription } = useAppSelector(
     (state) => state.battery
   );
@@ -67,6 +63,15 @@ export default function Components() {
     (state) => state.theme
   );
   const topBar = useAppSelector((state) => state.screen.barTop.currentBarTop);
+  const { mode, volume } = useAppSelector((state) => state.sound.general);
+  const {
+    vibrationTouch,
+    vibrationKeyboard,
+    vibrationCharger,
+    vibrationLockUnlockScreen,
+  } = useAppSelector((state) => state.sound.vibration);
+  const { soundTouch, soundKeyboard, soundCharger, soundLockUnlockScreen } =
+    useAppSelector((state) => state.sound.sounds);
 
   const rotatePhone = () => {
     if (isCharging) {
@@ -88,39 +93,36 @@ export default function Components() {
     dispatch(darkMode ? setDarkModeOff() : setDarkModeOn());
   };
 
-  const lewo = () => {
-    if (id > 0) {
-      dispatch(minus());
-    }
-  };
-  const prawo = () => {
-    if (id < 38) {
-      dispatch(plus());
-    }
-  };
-  
-
   return (
     <StyledDesign>
       <StyledHeader>
+        telefon dziala?= {isOn.toString()}
+        <p></p>
+        telefon zablokowany? = {isLocked.toString()}
+        <p></p>
         aktualny ekran = {currentScreen}
         <p></p>
         czas - {countDown / 1000}
-
         <p></p>
-        wybrany czas = {countDownTimerSelected/1000}
+        wybrany czas = {countDownTimerSelected / 1000}
+        <p></p>
+        rodzaj dzwieku - {mode}
+        <p></p>
+        głosnosc - {volume}
+        <p></p>
+        dzwiek klikania - {soundTouch.toString()}
+        <p></p>
+        dzwiek klawiatury - {soundKeyboard.toString()}
+        <p></p>
+        dzwiek ladowarki - {soundCharger.toString()}
+        <p></p>
+        dzwiek blokowania - {soundLockUnlockScreen.toString()}
         <p></p>
         <Button variant="contained" onClick={() => rotatePhone()}>
           Obrot
         </Button>
         <Button variant="contained" onClick={() => zrobTo()}>
           X
-        </Button>
-        <Button variant="contained" onClick={() => lewo()}>
-          lewo
-        </Button>
-        <Button variant="contained" onClick={() => prawo()}>
-          prawo
         </Button>
       </StyledHeader>
 

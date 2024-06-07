@@ -4,6 +4,7 @@ import { enumCurrentScreen } from "../../redux/reducers/screenParts/enumsScreen"
 import { setCurrentScreen } from "../../redux/reducers/screenParts/screenCenter";
 
 import WatchLaterRoundedIcon from "@mui/icons-material/WatchLaterRounded";
+import useSound from "../../customHooks/useSound";
 
 const StyledIcon = styled.button<{ $isButton: boolean }>`
   width: 50px;
@@ -22,6 +23,7 @@ const StyledIcon = styled.button<{ $isButton: boolean }>`
 
 export default function IconClock({ isButton = true }: { isButton?: boolean }) {
   const dispatch = useAppDispatch();
+  const {btnSoundEffect} = useSound()
   const fn = () => {
     if (isButton) {
       dispatch(setCurrentScreen(enumCurrentScreen.screenClock));
@@ -33,6 +35,7 @@ export default function IconClock({ isButton = true }: { isButton?: boolean }) {
       onClick={() => {
         fn();
       }}
+      onMouseDown={() => btnSoundEffect()}
     >
       <WatchLaterRoundedIcon fontSize="large" />
     </StyledIcon>

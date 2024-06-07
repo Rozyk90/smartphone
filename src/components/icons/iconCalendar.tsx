@@ -4,6 +4,7 @@ import { enumCurrentScreen } from "../../redux/reducers/screenParts/enumsScreen"
 import { setCurrentScreen } from "../../redux/reducers/screenParts/screenCenter";
 
 import CalendarMonthRoundedIcon from "@mui/icons-material/CalendarMonthRounded";
+import useSound from "../../customHooks/useSound";
 
 const StyledIcon = styled.button<{ $isButton: boolean }>`
   width: 50px;
@@ -26,6 +27,7 @@ export default function IconCalendar({
   isButton?: boolean;
 }) {
   const dispatch = useAppDispatch();
+  const {btnSoundEffect} = useSound()
   const fn = () => {
     if (isButton) {
       dispatch(setCurrentScreen(enumCurrentScreen.screenCalendar));
@@ -37,6 +39,7 @@ export default function IconCalendar({
       onClick={() => {
         fn();
       }}
+      onMouseDown={()=>btnSoundEffect()}
     >
       <CalendarMonthRoundedIcon fontSize="large" />
     </StyledIcon>

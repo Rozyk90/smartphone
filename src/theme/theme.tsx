@@ -105,8 +105,8 @@ const lightModeTheme = {
   onSuccess: "#fcfcfc",
   declain: "#e03c34",
   onDeclain: "#fcfcfc",
-  off: "#e5e5e5",
-  onOff: "#9b9b9b",
+  off: "#5a5a5a",
+  onOff: "#b1b1b1",
   white: "#fcfcfc",
   black: "#4a4a4a",
   backgrounds: {

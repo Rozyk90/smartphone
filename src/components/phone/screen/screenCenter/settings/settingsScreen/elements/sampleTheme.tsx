@@ -19,6 +19,7 @@ import {
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
+import useSound from "../../../../../../../customHooks/useSound";
 
 const StyledBody = styled.div`
   border-radius: 14px;
@@ -91,14 +92,18 @@ const StyledBtns = styled(RadioGroup)`
     justify-content: space-around;
   }
 `;
-const StyledLabel = styled(FormControlLabel)`
+
+const StyledLabel = styled(FormControlLabel)<{ isActive: boolean }>`
   && {
-    color: ${(prop) => prop.theme.fonts.primary};
+    color: ${(props) =>
+      props.isActive ? props.theme.colors.primary : props.theme.off};
   }
 `;
-const StyledRadio = styled(Radio)`
+
+const StyledRadio = styled(Radio)<{ isActive: boolean }>`
   && {
-    color: ${(props) => props.theme.colors.primary};
+    color: ${(props) =>
+      props.isActive ? props.theme.colors.primary : props.theme.off};
     &.Mui-checked {
       color: ${(props) => props.theme.colors.primary};
     }
@@ -108,6 +113,7 @@ const StyledRadio = styled(Radio)`
 export default function SampleTheme() {
   const { darkMode } = useAppSelector((state) => state.theme);
   const dispatch = useAppDispatch();
+  const {btnSoundEffect} = useSound()
 
   return (
     <StyledBody>
@@ -127,18 +133,22 @@ export default function SampleTheme() {
 
       <StyledBtns>
         <StyledLabel
+          isActive={!darkMode}
           checked={!darkMode}
           onClick={() => dispatch(setDarkModeOff())}
+          onMouseDown={()=>btnSoundEffect()}
           value="Jasny"
-          control={<StyledRadio />}
+          control={<StyledRadio isActive={!darkMode} />}
           label="Jasny"
           labelPlacement="top"
         />
         <StyledLabel
+          isActive={darkMode}
           checked={darkMode}
           onClick={() => dispatch(setDarkModeOn())}
+          onMouseDown={()=>btnSoundEffect()}
           value="Ciemny"
-          control={<StyledRadio />}
+          control={<StyledRadio isActive={darkMode} />}
           label="Ciemny"
           labelPlacement="top"
         />

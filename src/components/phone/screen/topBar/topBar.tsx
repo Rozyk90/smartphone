@@ -49,8 +49,8 @@ const StyledRightBox = styled.div``;
 
 const StyledBarTopOff = styled.div`
   background: ${(prop) => prop.theme.backgrounds.off};
-  border-top-left-radius: 20px;
-  border-top-right-radius: 20px;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
   height: 28px;
 `;
 

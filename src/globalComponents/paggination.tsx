@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import ArrowBackIosRoundedIcon from "@mui/icons-material/ArrowBackIosRounded";
 import ArrowForwardIosRoundedIcon from "@mui/icons-material/ArrowForwardIosRounded";
+import useSound from "../customHooks/useSound";
 
 const StyledPagination = styled.div`
   padding: 5px;
@@ -15,6 +16,7 @@ const StyledBtnLeft = styled(ArrowBackIosRoundedIcon)<{ $isActive: boolean }>`
     $isActive ? theme.colors.primary : theme.off};
   cursor: ${({ $isActive }) => ($isActive ? "pointer" : "default")};
 `;
+
 const StyledBtnRight = styled(ArrowForwardIosRoundedIcon)<{
   $isActive: boolean;
 }>`
@@ -44,6 +46,8 @@ export default function Paggination({
   fnPreviousPage,
   fnNextPage,
 }: Prop) {
+  const { btnSoundEffect } = useSound();
+
   const renderPageDots = () => {
     const dots = [];
     for (let i = 1; i <= length / 4; i++) {
@@ -54,10 +58,18 @@ export default function Paggination({
 
   return (
     <StyledPagination>
-      <StyledBtnLeft onClick={fnPreviousPage} $isActive={page > 1} />
+      <StyledBtnLeft
+        onMouseDown={() => btnSoundEffect()}
+        onClick={fnPreviousPage}
+        $isActive={page > 1}
+      />
 
       {renderPageDots()}
-      <StyledBtnRight onClick={fnNextPage} $isActive={page < length / 4} />
+      <StyledBtnRight
+        onMouseDown={() => btnSoundEffect()}
+        onClick={fnNextPage}
+        $isActive={page < length / 4}
+      />
     </StyledPagination>
   );
 }

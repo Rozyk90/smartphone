@@ -9,12 +9,13 @@ import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
 import { enumCurrentBarBottom } from "../../../../redux/reducers/screenParts/enumsScreen";
 
 import useScreen from "../../../../customHooks/useScreen";
+import useSound from "../../../../customHooks/useSound";
 
 const StyledBarBottom = styled.div<{
   $barBg: enumCurrentBarBottom;
 }>`
-  border-bottom-left-radius: 20px;
-  border-bottom-right-radius: 20px;
+  border-bottom-left-radius: 16px;
+  border-bottom-right-radius: 16px;
   height: 28px;
   display: flex;
   justify-content: center;
@@ -27,6 +28,8 @@ const StyledBarBottom = styled.div<{
       case enumCurrentBarBottom.bgPrimary:
         return props.theme.backgrounds.primary;
       case enumCurrentBarBottom.transparent:
+        return "none";
+      case enumCurrentBarBottom.transparentEmpty:
         return "none";
       default:
         return "none";
@@ -48,8 +51,8 @@ const StyledIcon = styled(MenuRoundedIcon)`
 
 const StyledBarBottomOff = styled.div`
   background: ${(prop) => prop.theme.backgrounds.off};
-  border-bottom-left-radius: 20px;
-  border-bottom-right-radius: 20px;
+  border-bottom-left-radius: 16px;
+  border-bottom-right-radius: 16px;
   height: 28px;
 `;
 
@@ -58,6 +61,7 @@ export default function BottomBar() {
     (state) => state.screen.barBottom
   );
   const { toMainScreen, backToPreviousScreen } = useScreen();
+  const {btnSoundEffect} = useSound()
 
   return (
     <>
@@ -66,13 +70,13 @@ export default function BottomBar() {
       {(currentBarBottom === enumCurrentBarBottom.transparent ||
         currentBarBottom === enumCurrentBarBottom.bgPrimary) && (
         <StyledBarBottom $barBg={currentBarBottom}>
-          <StyledButton>
+          <StyledButton onMouseDown={()=>btnSoundEffect()}>
             <StyledIcon fontSize="small" />
           </StyledButton>
-          <StyledButton onClick={() => toMainScreen()}>
+          <StyledButton onMouseDown={()=>btnSoundEffect()} onClick={() => toMainScreen()}>
             <CropSquareRoundedIcon fontSize="small" />
           </StyledButton>
-          <StyledButton
+          <StyledButton onMouseDown={()=>btnSoundEffect()}
             onClick={() => {
               backToPreviousScreen();
             }}
@@ -81,6 +85,7 @@ export default function BottomBar() {
           </StyledButton>
         </StyledBarBottom>
       )}
+      {currentBarBottom === enumCurrentBarBottom.transparentEmpty && <StyledBarBottom $barBg={currentBarBottom}/>}
     </>
   );
 }

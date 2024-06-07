@@ -3,6 +3,7 @@ import styled from "styled-components";
 import IconButton from "@mui/material/IconButton";
 import ArrowBackIosRoundedIcon from "@mui/icons-material/ArrowBackIosRounded";
 import useScreen from "../customHooks/useScreen";
+import useSound from "../customHooks/useSound";
 
 const StyledTitle = styled.div`
   display: flex;
@@ -25,9 +26,10 @@ interface TitleProp {
 
 export default function Title({ title }: TitleProp) {
   const {backToPreviousScreen} = useScreen()
+  const {btnSoundEffect} = useSound()
   return (
     <StyledTitle>
-      <StyledButton onClick={backToPreviousScreen} size="small">
+      <StyledButton onMouseDown={()=>btnSoundEffect()} onClick={backToPreviousScreen} size="small">
         <ArrowBackIosRoundedIcon fontSize="small" />
       </StyledButton>
       {title}

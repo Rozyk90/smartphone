@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import useSound from "../customHooks/useSound";
 
 const StyledCardTitle = styled.button`
   background: ${(prop) => prop.theme.colors.background};
@@ -36,8 +37,9 @@ export default function BtnCard({
   description: string | null;
   fnToDo: () => void;
 }) {
+  const { btnSoundEffect } = useSound();
   return (
-    <StyledCardTitle onClick={fnToDo}>
+    <StyledCardTitle onClick={fnToDo} onMouseDown={() => btnSoundEffect()}>
       <StyledTxtBox>
         <StyledElementTitle>{title}</StyledElementTitle>
         {description ? (

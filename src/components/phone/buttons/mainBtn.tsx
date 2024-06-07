@@ -23,6 +23,7 @@ import {
 } from "../../../redux/reducers/modal";
 import useScreen from "../../../customHooks/useScreen";
 import useModal from "../../../customHooks/useModal";
+import useSound from "../../../customHooks/useSound";
 
 const StyledButtonMain = styled.div`
   position: absolute;
@@ -48,18 +49,19 @@ export default function MainBtn() {
   const dispatch = useAppDispatch();
   const { screenOff,screenCountdownUpdate } = useScreen();
   const { modalOff } = useModal();
+  const {lockSoundEffect} = useSound()
 
   const press = () => {
     if (isOn) {
-      if (!isScreenOn) {
+      if (!isScreenOn) {       // turnOn
         dispatch(screenTurnOn());
         dispatch(countDownUpdateTime(10000))
         dispatch(setCurrenBarTop(enumCurrentBarTop.transparent));
         dispatch(setCurrentScreen(enumCurrentScreen.screenActiveBlocked));
-        dispatch(setCurrentBarBottom(enumCurrentBarBottom.transparent));
+        dispatch(setCurrentBarBottom(enumCurrentBarBottom.transparentEmpty));
       }
 
-      if (isScreenOn) {
+      if (isScreenOn) {    
         timeoutRef.current = setTimeout(() => {
           dispatch(setCurrentModal(enumCurrentModal.modalTurnOffBtns));
           dispatch(modalTurnOn());
@@ -75,7 +77,8 @@ export default function MainBtn() {
 
   const stopPress = () => {
     if (isOn) {
-      if (toTurnOff) {
+      if (toTurnOff) {    // turnOff Screen
+        lockSoundEffect()
         setToTurnOff(false);
         screenOff();
         modalOff();

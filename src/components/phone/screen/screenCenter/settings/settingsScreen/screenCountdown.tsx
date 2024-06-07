@@ -7,6 +7,7 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 
 import Title from "../../../../../../globalComponents/title";
 import { countDownSetTimer } from "../../../../../../redux/reducers/screenParts/screenGeneral";
+import useSound from "../../../../../../customHooks/useSound";
 
 const StyledBody = styled.div`
   background: ${(prop) => prop.theme.backgrounds.primary};
@@ -50,6 +51,7 @@ export default function ScreenCountdown() {
     (state) => state.screen.general
   );
   const dispatch = useAppDispatch();
+  const {btnSoundEffect} = useSound()
 
   type CountDownSelected = 15000 | 30000 | 60000 | 120000 | 300000 | 600000;
   const timers: CountDownSelected[] = [
@@ -66,6 +68,7 @@ export default function ScreenCountdown() {
             key={time}
             checked={time === countDownTimerSelected}
             onClick={() => dispatch(countDownSetTimer(time))}
+            onMouseDown={()=>btnSoundEffect()}
             value={time}
             control={<StyledRadio />}
             label={convertTime(time)}

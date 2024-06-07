@@ -2,7 +2,6 @@ import { useAppDispatch, useAppSelector } from "../redux/hooks";
 
 import {
   screenTurnOff,
-  // countDownStop,
   countDownUpdateTime,
 } from "../redux/reducers/screenParts/screenGeneral";
 
@@ -18,6 +17,7 @@ import {
   reversingBoardPop,
   reversingBoardClear,
 } from "../redux/reducers/screenParts/screenGeneral";
+import { phoneLocked } from "../redux/reducers/basicStates";
 
 const useScreen = () => {
   const { reversingBoard, countDownTimerSelected } =
@@ -29,6 +29,7 @@ const useScreen = () => {
 
   const screenOff = () => {
     dispatch(screenTurnOff());
+    dispatch(phoneLocked())
     dispatch(countDownUpdateTime(0));
     dispatch(setCurrentBarBottom(enumCurrentBarBottom.off));
     dispatch(setCurrentScreen(enumCurrentScreen.screenNone));
@@ -55,15 +56,11 @@ const useScreen = () => {
   const screenCountdownUpdate = () => {
     const shortTime = 10000
 
-console.log("to z useScreen ->", currentScreen)
 
  if(currentScreen === enumCurrentScreen.screenActiveBlocked){
       dispatch(countDownUpdateTime(shortTime));
-      console.log("aktualizuje na krotko")
-
     } else {
       dispatch(countDownUpdateTime(countDownTimerSelected));
-      console.log("aktualizuje na dlugo")
     }
   };
 

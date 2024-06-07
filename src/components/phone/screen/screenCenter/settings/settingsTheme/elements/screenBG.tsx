@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import backgrounds from "../../../../../../../theme/backgrounds";
+import useSound from "../../../../../../../customHooks/useSound";
 
 interface StyledBGprops {
   $darkMode: boolean;
@@ -29,9 +30,11 @@ interface BGprops {
 }
 
 const ScreenBG: React.FC<BGprops> = ({ group, id, darkMode, setNewBg }) => {
+  const {btnSoundEffect} = useSound()
   return (
     <StyledScreen
       onClick={() => setNewBg()}
+      onMouseDown={()=>btnSoundEffect()}
       $group={group}
       $id={id}
       $darkMode={darkMode}

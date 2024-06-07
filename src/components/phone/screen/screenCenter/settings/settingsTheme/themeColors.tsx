@@ -8,6 +8,7 @@ import theme, { setTheme } from "../../../../../../redux/reducers/theme";
 import ScreenCalculator from "./elements/screenCalculator";
 import BtnCardSwitch from "../../../../../../globalComponents/btnCardSwitch";
 import ScreenSettings from "./elements/screenSettings";
+import useSound from "../../../../../../customHooks/useSound";
 
 const StyledBody = styled.div`
   background: ${(prop) => prop.theme.backgrounds.primary};
@@ -80,6 +81,7 @@ const StyledColorsShadow = styled.div`
 export default function SettingsThemeColors() {
   const { currentTheme } = useAppSelector((state) => state.theme);
   const dispatch = useAppDispatch();
+  const {btnSoundEffect} = useSound()
 
   const setNewTheme = (theme: enumTheme) => {
     dispatch(setTheme(theme));
@@ -115,6 +117,7 @@ export default function SettingsThemeColors() {
                 key={id}
                 $color={color.primary}
                 onClick={() => setNewTheme(color.name)}
+                onMouseDown={()=>btnSoundEffect()}
               >
                 {color.name === currentTheme && <StyledSelectedMarker />}
               </StyledColor>

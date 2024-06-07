@@ -1,11 +1,12 @@
 import styled from "styled-components";
 import Switch from "@mui/material/Switch";
+import useSound from "../customHooks/useSound";
 
-const StyledCardSwitch = styled.button`
+const StyledCardSwitch = styled.div`
   background:  ${prop => prop.theme.colors.background};
   border: none;
   border-radius: 14px;
-  width: 100%;
+  max-width: 260px;
   padding: 14px;
   display: flex;
   align-items: center;
@@ -51,6 +52,7 @@ export default function BtnCardSwitch({
   isActive,
   fn,
 }: Props) {
+  const { btnSoundEffect } = useSound();
 
   return (
     <StyledCardSwitch>
@@ -60,7 +62,7 @@ export default function BtnCardSwitch({
           <StyledElementDescription>{description}</StyledElementDescription>
         ) : null}
       </StyledTxtBox>
-      <StyledSwitch checked={isActive} onChange={fn} />
+      <StyledSwitch checked={isActive} onChange={fn} onMouseDown={()=>btnSoundEffect()} />
     </StyledCardSwitch>
   );
 }

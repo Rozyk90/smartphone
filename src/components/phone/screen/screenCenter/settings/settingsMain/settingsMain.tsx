@@ -18,7 +18,6 @@ const StyledSettings = styled.div`
     background-color: #0000003e;
     border-radius: 5px;
   }
-
   &::-webkit-scrollbar-thumb:hover {
     cursor: pointer;
   }

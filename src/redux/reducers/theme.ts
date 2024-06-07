@@ -18,8 +18,8 @@ const initialState: theme = {
   darkMode: false,
   darkModeAuto: false,
   background:
-  {group:'gradients',id:0},
-  currentTheme: enumTheme.themeBasic,
+  {group:'photos',id:14},
+  currentTheme: enumTheme.themePurple,
 };
 
 export const sliceTheme = createSlice({

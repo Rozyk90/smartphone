@@ -6,6 +6,7 @@ import { setCurrentScreen } from "../../redux/reducers/screenParts/screenCenter"
 import SettingsIcon from "@mui/icons-material/Settings";
 import { setCurrenBarTop } from "../../redux/reducers/screenParts/screenBarTop";
 import { setCurrentBarBottom } from "../../redux/reducers/screenParts/screenBarBottom";
+import useSound from "../../customHooks/useSound";
 
 const StyledIcon = styled.button<{ $isButton: boolean }>`
   width: 50px;
@@ -27,6 +28,7 @@ export default function IconSettings({
   isButton?: boolean;
 }) {
   const dispatch = useAppDispatch();
+  const {btnSoundEffect} = useSound()
   const fn = () => {
     if (isButton) {
       dispatch(setCurrentScreen(enumCurrentScreen.settingsMain));
@@ -40,6 +42,7 @@ export default function IconSettings({
       onClick={() => {
         fn();
       }}
+      onMouseDown={()=>btnSoundEffect()}
     >
       <SettingsIcon fontSize="large" />
     </StyledIcon>

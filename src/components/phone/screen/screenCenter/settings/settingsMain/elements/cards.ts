@@ -22,6 +22,7 @@ const cards: CardProp[] = [
     iconBG: "#3976ff",
     enumScreen: enumCurrentScreen.settingsApps,
   },
+
   {
     title: "Tapeta i styl",
     description: ["Tapety", "Paleta kolorów"],
@@ -32,17 +33,10 @@ const cards: CardProp[] = [
 
   {
     title: "Wyświetlacz",
-    description: ["Jasność", "Ochrona wzroku", "Pasek nawigacji"],
+    description: ["Wygaszanie ekranu", "Ochrona wzroku"],
     Icon: LightModeRoundedIcon,
     iconBG: "#96ce09",
     enumScreen: enumCurrentScreen.settingsScreen,
-  },
-  {
-    title: "Bateria",
-    description: ["Oszczędzanie energii", "Ładowanie"],
-    Icon: BatterySaverRoundedIcon,
-    iconBG: "#07b196",
-    enumScreen: enumCurrentScreen.settingsBattery,
   },
   {
     title: "Dźwięki i wibracja",
@@ -50,6 +44,13 @@ const cards: CardProp[] = [
     Icon: VolumeUpRoundedIcon,
     iconBG: "#6d74df",
     enumScreen: enumCurrentScreen.settingsSounds,
+  },
+  {
+    title: "Bateria",
+    description: ["Oszczędzanie energii", "Ładowanie"],
+    Icon: BatterySaverRoundedIcon,
+    iconBG: "#07b196",
+    enumScreen: enumCurrentScreen.settingsBattery,
   },
 ];
 
