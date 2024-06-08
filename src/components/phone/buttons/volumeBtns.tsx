@@ -10,6 +10,7 @@ import {
   setSoundVibration,
   setSoundOn,
 } from "../../../redux/reducers/sound/general";
+import useSound from "../../../customHooks/useSound";
 
 const StyledBox = styled.div`
   position: absolute;
@@ -34,6 +35,7 @@ export default function VolumeBtns() {
 
   const dispatch = useAppDispatch();
   const { screenCountdownUpdate } = useScreen();
+  const { volumeBtnEffect } = useSound();
 
   const updateActiveScreen = () => {
     if (currentScreen !== enumCurrentScreen.screenNone) {
@@ -43,6 +45,7 @@ export default function VolumeBtns() {
 
   const topBtn = () => {
     if (!isLocked && isOn) {
+      volumeBtnEffect(true);
       if (volume < 100) {
         dispatch(volumePlus());
       }
@@ -53,6 +56,7 @@ export default function VolumeBtns() {
     updateActiveScreen();
   };
   const bottomBtn = () => {
+    volumeBtnEffect(false);
     if (!isLocked && isOn) {
       updateActiveScreen();
       if (volume > 0) {

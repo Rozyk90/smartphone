@@ -5,6 +5,7 @@ import { plugStatus, chargingStatus } from "../../redux/reducers/battery";
 
 import Charging from "./charging";
 import Uncharging from "./uncharging";
+import useSound from "../../customHooks/useSound";
 
 const StyledCharger = styled.div`
   display: flex;
@@ -69,11 +70,12 @@ const StyledCable = styled.div`
 export default function Charger() {
   const dispatch = useAppDispatch();
   const isVertical = useAppSelector((state) => state.basicStates.isVertical);
-
   const isPlugConnected = useAppSelector(
     (state) => state.battery.isPlugConnected
   );
   const isCharging = useAppSelector((state) => state.battery.isCharging);
+
+  const { plugSoundEffect } = useSound();
 
   const putCharger = () => {
     dispatch(plugStatus());
@@ -82,6 +84,9 @@ export default function Charger() {
       setTimeout(
         () => {
           dispatch(chargingStatus());
+          if (!isCharging) {
+            plugSoundEffect();
+          }
         },
         isCharging ? 200 : 2000
       );
