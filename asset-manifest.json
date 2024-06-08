@@ -1,13 +1,38 @@
 {
   "files": {
-    "main.js": "/smartphone/static/js/main.fd857b10.js",
-    "static/media/cat-1.jpg": "/smartphone/static/media/cat-1.c2e6fc46b1f95716bd29.jpg",
-    "static/media/car-1.jpg": "/smartphone/static/media/car-1.2399c53cc3c7ed393888.jpg",
-    "static/media/dog-1.jpg": "/smartphone/static/media/dog-1.0ca84ef31f669cd049c4.jpg",
+    "main.js": "/smartphone/static/js/main.475ffce1.js",
+    "static/media/p16.jpeg": "/smartphone/static/media/p16.61a27ab24147b1b5f6a4.jpeg",
+    "static/media/p6.jpeg": "/smartphone/static/media/p6.e7b709fa7e6b9b966b4e.jpeg",
+    "static/media/p12.jpeg": "/smartphone/static/media/p12.06a6560daf7f8421737e.jpeg",
+    "static/media/p4.jpeg": "/smartphone/static/media/p4.a011875ea8d91c40b18f.jpeg",
+    "static/media/p19.jpeg": "/smartphone/static/media/p19.c2e6fc46b1f95716bd29.jpeg",
+    "static/media/p5.jpeg": "/smartphone/static/media/p5.c9b32d7f6650f863e042.jpeg",
+    "static/media/p13.jpeg": "/smartphone/static/media/p13.2399c53cc3c7ed393888.jpeg",
+    "static/media/p2.jpeg": "/smartphone/static/media/p2.9e2b1011620ffde12bd5.jpeg",
+    "static/media/p11.jpeg": "/smartphone/static/media/p11.33b262407832d5db97be.jpeg",
+    "static/media/p17.jpeg": "/smartphone/static/media/p17.596ce13d28ce31c5d15c.jpeg",
+    "static/media/p10.jpeg": "/smartphone/static/media/p10.df5bf0ff5cdf5f4ba8a3.jpeg",
+    "static/media/p14.jpeg": "/smartphone/static/media/p14.981fab9a3576a7f229f7.jpeg",
+    "static/media/p3.jpeg": "/smartphone/static/media/p3.e7f6c2b989aa78462eae.jpeg",
+    "static/media/p8.jpeg": "/smartphone/static/media/p8.ec025ee8017f49cf02e6.jpeg",
+    "static/media/p7.jpeg": "/smartphone/static/media/p7.326ab01827566f9df270.jpeg",
+    "static/media/p1.jpeg": "/smartphone/static/media/p1.34e276e175ed7d551dbb.jpeg",
+    "static/media/p9.jpeg": "/smartphone/static/media/p9.e189455c7f9f3bee07ff.jpeg",
+    "static/media/sound3.mp3": "/smartphone/static/media/sound3.63660b3ddc4b94975969.mp3",
+    "static/media/sound2.mp3": "/smartphone/static/media/sound2.ba0ae5f4d034afce8510.mp3",
+    "static/media/p0.jpeg": "/smartphone/static/media/p0.1e8dbddf1caf0e2678fd.jpeg",
+    "static/media/p18.jpeg": "/smartphone/static/media/p18.0ca84ef31f669cd049c4.jpeg",
+    "static/media/p15.jpeg": "/smartphone/static/media/p15.e4f051012dd7ea14e561.jpeg",
+    "static/media/sound1.mp3": "/smartphone/static/media/sound1.0f5a773504fae7f14463.mp3",
+    "static/media/info.mp3": "/smartphone/static/media/info.519ffc3b9f5b026828da.mp3",
+    "static/media/lock.mp3": "/smartphone/static/media/lock.66d6e60db86807773032.mp3",
+    "static/media/vibrationStrong.mp3": "/smartphone/static/media/vibrationStrong.7b17967483339ef69c47.mp3",
+    "static/media/vibrationLight.mp3": "/smartphone/static/media/vibrationLight.cfe759a3b8bc71aedfc7.mp3",
+    "static/media/click.mp3": "/smartphone/static/media/click.e0298dbd6e9c3c212907.mp3",
     "index.html": "/smartphone/index.html",
-    "main.fd857b10.js.map": "/smartphone/static/js/main.fd857b10.js.map"
+    "main.475ffce1.js.map": "/smartphone/static/js/main.475ffce1.js.map"
   },
   "entrypoints": [
-    "static/js/main.fd857b10.js"
+    "static/js/main.475ffce1.js"
   ]
 }
