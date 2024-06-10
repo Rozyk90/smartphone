@@ -19,8 +19,8 @@ import { setCurrentScreen } from "../../../../../../../redux/reducers/screenPart
 import { enumCurrentScreen } from "../../../../../../../redux/reducers/screenParts/enumsScreen";
 import useScreen from "../../../../../../../customHooks/useScreen";
 
-const StyledBtn = styled.div<{ visible: string; focused: string }>`
-  opacity: ${(props) => (props.visible === "true" ? "1" : "0")};
+const StyledBtn = styled.div<{ $visible: boolean; $focused: boolean }>`
+  opacity: ${(props) => (props.$visible ? "1" : "0")};
   color: ${prop=>prop.theme.white};
   display: flex;
   flex-direction: column;
@@ -28,8 +28,8 @@ const StyledBtn = styled.div<{ visible: string; focused: string }>`
   gap: 5px;
   font-size: 0.8rem;
   transition: 0.5s;
-  scale: ${(prop) => (prop.focused === "true" ? 1.3 : 1)};
-  z-index: ${(props) => (props.focused === "true" ? 1 : 0)};
+  scale: ${(prop) => (prop.$focused  ? 1.3 : 1)};
+  z-index: ${(props) => (props.$focused ? 1 : 0)};
 `;
 
 const StyledBackgroundIcon = styled.button`
@@ -72,7 +72,7 @@ export default function BtnReset() {
   };
 
   return (
-    <StyledBtn focused={focused.toString()} visible={visible.toString()}>
+    <StyledBtn $focused={focused} $visible={visible}>
       <StyledBackgroundIcon
         onClick={(e) => {
           click(e);

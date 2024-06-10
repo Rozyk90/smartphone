@@ -35,10 +35,10 @@ const StyledIcons = styled.div`
   margin-bottom: 10px;
 `;
 
-const StyledIcon = styled.div<{ isActive: boolean }>`
+const StyledIcon = styled.div<{ $isActive: boolean }>`
   && {
     color: ${(props) =>
-      props.isActive ? props.theme.colors.primary : props.theme.off};
+      props.$isActive ? props.theme.colors.primary : props.theme.off};
   }
 `;
 
@@ -50,10 +50,10 @@ const StyledBtns = styled(RadioGroup)`
   }
 `;
 
-const StyledLabel = styled(FormControlLabel)<{ isActive: boolean }>`
+const StyledLabel = styled(FormControlLabel)<{ $isActive: boolean }>`
   && {
     color: ${(props) =>
-      props.isActive ? props.theme.colors.primary : props.theme.colors.off};
+      props.$isActive ? props.theme.colors.primary : props.theme.colors.off};
     & .MuiFormControlLabel-label {
       font-size: 13px;
       font-weight: 600;
@@ -61,10 +61,10 @@ const StyledLabel = styled(FormControlLabel)<{ isActive: boolean }>`
   }
 `;
 
-const StyledRadio = styled(Radio)<{ isActive: boolean }>`
+const StyledRadio = styled(Radio)<{ $isActive: boolean }>`
   && {
     color: ${(props) =>
-      props.isActive ? props.theme.colors.primary : props.theme.off};
+      props.$isActive ? props.theme.colors.primary : props.theme.off};
     &.Mui-checked {
       color: ${(props) => props.theme.colors.primary};
     }
@@ -93,41 +93,41 @@ export default function SoundMode() {
   return (
     <StyledBody>
       <StyledIcons>
-        <StyledIcon isActive={mode === enumSoundModes.on}>
+        <StyledIcon $isActive={mode === enumSoundModes.on}>
           <VolumeUpRoundedIcon fontSize="large" />
         </StyledIcon>
-        <StyledIcon isActive={mode === enumSoundModes.vibration}>
+        <StyledIcon $isActive={mode === enumSoundModes.vibration}>
           <VibrationRoundedIcon fontSize="large" />
         </StyledIcon>
-        <StyledIcon isActive={mode === enumSoundModes.off}>
+        <StyledIcon $isActive={mode === enumSoundModes.off}>
           <VolumeOffRoundedIcon fontSize="large" />
         </StyledIcon>
       </StyledIcons>
       <StyledBtns>
         <StyledLabel
-          isActive={mode === enumSoundModes.on}
+          $isActive={mode === enumSoundModes.on}
           checked={mode === enumSoundModes.on}
           onMouseDown={() => sound()}
           value="Dźwięk"
-          control={<StyledRadio isActive={mode === enumSoundModes.on} />}
+          control={<StyledRadio $isActive={mode === enumSoundModes.on} />}
           label="Dźwięk"
           labelPlacement="top"
         />
         <StyledLabel
-          isActive={mode === enumSoundModes.vibration}
+          $isActive={mode === enumSoundModes.vibration}
           checked={mode === enumSoundModes.vibration}
           onMouseDown={() => vibration()}
           value="Wibracja"
-          control={<StyledRadio isActive={mode === enumSoundModes.vibration} />}
+          control={<StyledRadio $isActive={mode === enumSoundModes.vibration} />}
           label="Wibracja"
           labelPlacement="top"
         />
         <StyledLabel
-          isActive={mode === enumSoundModes.off}
+          $isActive={mode === enumSoundModes.off}
           checked={mode === enumSoundModes.off}
           onClick={() => dispatch(setSoundOff())}
           value="Wycisz"
-          control={<StyledRadio isActive={mode === enumSoundModes.off} />}
+          control={<StyledRadio $isActive={mode === enumSoundModes.off} />}
           label="Wycisz"
           labelPlacement="top"
         />

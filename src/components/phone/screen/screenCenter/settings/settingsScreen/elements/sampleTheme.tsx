@@ -93,17 +93,17 @@ const StyledBtns = styled(RadioGroup)`
   }
 `;
 
-const StyledLabel = styled(FormControlLabel)<{ isActive: boolean }>`
+const StyledLabel = styled(FormControlLabel)<{ $isActive: boolean }>`
   && {
     color: ${(props) =>
-      props.isActive ? props.theme.colors.primary : props.theme.off};
+      props.$isActive ? props.theme.colors.primary : props.theme.off};
   }
 `;
 
-const StyledRadio = styled(Radio)<{ isActive: boolean }>`
+const StyledRadio = styled(Radio)<{ $isActive: boolean }>`
   && {
     color: ${(props) =>
-      props.isActive ? props.theme.colors.primary : props.theme.off};
+      props.$isActive ? props.theme.colors.primary : props.theme.off};
     &.Mui-checked {
       color: ${(props) => props.theme.colors.primary};
     }
@@ -133,22 +133,22 @@ export default function SampleTheme() {
 
       <StyledBtns>
         <StyledLabel
-          isActive={!darkMode}
+          $isActive={!darkMode}
           checked={!darkMode}
           onClick={() => dispatch(setDarkModeOff())}
           onMouseDown={()=>btnSoundEffect()}
           value="Jasny"
-          control={<StyledRadio isActive={!darkMode} />}
+          control={<StyledRadio $isActive={!darkMode} />}
           label="Jasny"
           labelPlacement="top"
         />
         <StyledLabel
-          isActive={darkMode}
+          $isActive={darkMode}
           checked={darkMode}
           onClick={() => dispatch(setDarkModeOn())}
           onMouseDown={()=>btnSoundEffect()}
           value="Ciemny"
-          control={<StyledRadio isActive={darkMode} />}
+          control={<StyledRadio $isActive={darkMode} />}
           label="Ciemny"
           labelPlacement="top"
         />

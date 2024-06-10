@@ -35,11 +35,11 @@ const StyledBar = styled.div`
   background: #e8e8e8;
 `;
 
-const StyledGreenLane = styled.div<{ progres: number }>`
+const StyledGreenLane = styled.div<{ $progres: number }>`
   border-radius: 13px;
   height: 26px;
-  background: ${(prop) => (prop.progres > 15 ? "#80dd8d" : "#e25f4d")};
-  width: ${(prop) => prop.progres}%;
+  background: ${(prop) => (prop.$progres > 15 ? "#80dd8d" : "#e25f4d")};
+  width: ${(prop) => prop.$progres}%;
   transition: 0.5s;
 `;
 
@@ -99,7 +99,7 @@ export default function BatteryStatus() {
       <StyledLittleDescription>
         Dostępne {battery}%<p></p>
         <StyledBar>
-          <StyledGreenLane progres={battery} />
+          <StyledGreenLane $progres={battery} />
         </StyledBar>
         <StyledBarBorder />
         {isCharging

@@ -37,7 +37,7 @@ const useSound = () => {
   });
 
   // =======================================================================================
-
+  const { isOn } = useAppSelector(state => state.basicStates)
   const { volume, mode } = useAppSelector((state) => state.sound.general);
   const { soundTouch, soundKeyboard, soundCharger, soundLockUnlockScreen } =
     // =======================================================================================
@@ -81,12 +81,13 @@ const useSound = () => {
   };
 
   const plugSoundEffect = () => {
-    if (mode === enumSoundModes.on && soundCharger) {
+
+    if (mode === enumSoundModes.on && soundCharger && isOn) {
       console.log("dzwiek wtyczka");
       infoSound.volume = volume / 100;
       infoSound.play();
     }
-    if (mode === enumSoundModes.vibration && vibrationCharger) {
+    if (mode === enumSoundModes.vibration && vibrationCharger && isOn) {
       console.log("wibracja ladowarka");
       vibrationStrong.volume = 1;
       vibrationStrong.play();
@@ -94,10 +95,10 @@ const useSound = () => {
   };
 
   const volumeBtnEffect = (isAdding: boolean) => {
-    if (isAdding) {
+    if (isAdding && isOn) {
       infoSound.volume = Math.min(volume + 10, 100) / 100;
       infoSound.play();
-    } else {
+    } else if (isOn) {
       if (volume > 10) {
         infoSound.volume = (volume - 10) / 100;
         infoSound.play();

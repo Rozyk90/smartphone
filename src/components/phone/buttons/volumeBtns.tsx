@@ -44,7 +44,7 @@ export default function VolumeBtns() {
   };
 
   const topBtn = () => {
-    if (!isLocked && isOn) {
+    if (!isLocked) {
       volumeBtnEffect(true);
       if (volume < 100) {
         dispatch(volumePlus());
@@ -53,12 +53,10 @@ export default function VolumeBtns() {
         dispatch(setSoundOn());
       }
     }
-    updateActiveScreen();
   };
   const bottomBtn = () => {
-    volumeBtnEffect(false);
-    if (!isLocked && isOn) {
-      updateActiveScreen();
+    if (!isLocked) {
+      volumeBtnEffect(false);
       if (volume > 0) {
         dispatch(volumeMinus());
       }

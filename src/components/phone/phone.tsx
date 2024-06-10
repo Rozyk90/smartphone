@@ -8,19 +8,19 @@ import VolumeBtns from "./buttons/volumeBtns";
 import MainBtn from "./buttons/mainBtn";
 import { enumCurrentScreen } from "../../redux/reducers/screenParts/enumsScreen";
 
-const StyledPhone = styled.div<{ vertical: string }>`
+const StyledPhone = styled.div<{ $vertical: boolean }>`
   position: relative;
   height: 680px;
   width: 320px;
   border: 5px solid black;
   box-shadow: 0px 0px 0px 2px #7a7a7a,
-    8px ${(props) => (props.vertical === "true" ? -10 : 10)}px 25px gray;
+    8px ${(props) => (props.$vertical ? -10 : 10)}px 25px gray;
   border-radius: 35px;
   background: #000000;
   display: flex;
   align-items: center;
   justify-content: center;
-  transform: rotate(${(props) => (props.vertical === "true" ? 0 : -90)}deg);
+  transform: rotate(${(props) => (props.$vertical ? 0 : -90)}deg);
   transition: 2s;
 `;
 
@@ -55,7 +55,7 @@ export default function Phone() {
   });
 
   return (
-    <StyledPhone vertical={isVertical ? "true" : "false"}>
+    <StyledPhone $vertical={isVertical ? true : false}>
       <VolumeBtns />
       <MainBtn />
       <StyledChargerInput />

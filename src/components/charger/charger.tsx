@@ -13,8 +13,8 @@ const StyledCharger = styled.div`
   flex: 0 1 400px;
 `;
 
-const StyledPlugContainer = styled.div<{ connected: "true" | "false" }>`
-  min-height: ${(props) => (props.connected === "true" ? 70 : 180)}px;
+const StyledPlugContainer = styled.div<{ $connected: true | false }>`
+  min-height: ${(props) => (props.$connected ? 70 : 180)}px;
   display: flex;
   justify-content: center;
   align-items: flex-end;
@@ -102,7 +102,7 @@ export default function Charger() {
       <Charging />
       <Uncharging />
 
-      <StyledPlugContainer connected={isPlugConnected ? "true" : "false"}>
+      <StyledPlugContainer $connected={isPlugConnected}>
         <StyledPlug onClick={() => putCharger()} />
       </StyledPlugContainer>
 

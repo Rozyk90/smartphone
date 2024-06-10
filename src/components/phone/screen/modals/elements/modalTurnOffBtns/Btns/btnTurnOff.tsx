@@ -17,8 +17,8 @@ import {
 import useScreen from "../../../../../../../customHooks/useScreen";
 import useModal from "../../../../../../../customHooks/useModal";
 
-const StyledBtn = styled.div<{ visible: string; focused: string }>`
-  opacity: ${(props) => (props.visible === "true" ? "1" : "0")};
+const StyledBtn = styled.div<{ $visible: boolean; $focused: boolean }>`
+  opacity: ${(props) => (props.$visible  ? "1" : "0")};
   color: ${prop=>prop.theme.white};
   display: flex;
   flex-direction: column;
@@ -26,10 +26,10 @@ const StyledBtn = styled.div<{ visible: string; focused: string }>`
   gap: 5px;
   font-size: 0.8rem;
   transition: 0.5s;
-  scale: ${(prop) => (prop.focused === "true" ? 1.3 : 1)};
+  scale: ${(prop) => (prop.$focused  ? 1.3 : 1)};
   position: absolute;
-  top: ${(props) => (props.focused === "true" ? 248 : 161)}px;
-  z-index: ${(props) => (props.focused === "true" ? 1 : 0)};
+  top: ${(props) => (props.$focused  ? 248 : 161)}px;
+  z-index: ${(props) => (props.$focused  ? 1 : 0)};
 `;
 
 const StyledBackgroundIcon = styled.button`
@@ -69,7 +69,7 @@ export default function BtnTurnOff() {
   };
 
   return (
-    <StyledBtn focused={focused.toString()} visible={visible.toString()}>
+    <StyledBtn $focused={focused} $visible={visible}>
       <StyledBackgroundIcon
         onClick={(e) => {
           click(e);
