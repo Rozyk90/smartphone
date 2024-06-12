@@ -9,6 +9,10 @@ import BtnCard from "../../../../../../globalComponents/btnCard";
 import { setCurrentScreen } from "../../../../../../redux/reducers/screenParts/screenCenter";
 import { enumCurrentScreen } from "../../../../../../redux/reducers/screenParts/enumsScreen";
 
+import callSounds from "../../../../../../sounds/callSounds/callSounds";
+import notificationSounds from "../../../../../../sounds/notificationSounds/notificationSounds";
+import vibrationSounds from "../../../../../../sounds/vibrationSounds/vibrationSounds";
+
 const StyledBody = styled.div`
   background: ${(prop) => prop.theme.backgrounds.primary};
   height: 100%;
@@ -31,6 +35,12 @@ const StyledBody = styled.div`
 
 export default function SettingsSounds() {
   const { currentScreen } = useAppSelector((state) => state.screen.center);
+  const {
+    callSoundID,
+    callVibrationID,
+    notificationSoundID,
+    notificationVibrationID,
+  } = useAppSelector((state) => state.sound.general);
   const dispatch = useAppDispatch();
 
   const openCall = () => {
@@ -64,10 +74,14 @@ export default function SettingsSounds() {
     <StyledBody>
       <Title title="Dźwięki i wibracja" />
       <SoundMode />
-      <BtnCard title="Dzwonek" description="nazwa piosenki" fnToDo={openCall} />
+      <BtnCard
+        title="Dzwonek"
+        description={callSounds[callSoundID].name}
+        fnToDo={openCall}
+      />
       <BtnCard
         title="Dźwięk powiadomienia"
-        description="nazwa dzwieku"
+        description={notificationSounds[notificationSoundID].name}
         fnToDo={openNotificationSound}
       />
       <BtnCard
@@ -77,12 +91,12 @@ export default function SettingsSounds() {
       />
       <BtnCard
         title="Wibracje połączeń"
-        description="nazwa wibracji"
+        description={vibrationSounds[callVibrationID].name}
         fnToDo={openCallVib}
       />
       <BtnCard
         title="Wibracja powiadomienia"
-        description="nazwa wibracji"
+        description={vibrationSounds[notificationVibrationID].name}
         fnToDo={openNotificationVib}
       />
       <BtnCard

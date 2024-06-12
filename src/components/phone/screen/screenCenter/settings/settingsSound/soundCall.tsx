@@ -1,14 +1,14 @@
 import styled from "styled-components";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Title from "../../../../../../globalComponents/title";
 
-import sound1 from "../../../../../../sounds/sound1.mp3";
-import sound2 from "../../../../../../sounds/sound2.mp3";
-import sound3 from "../../../../../../sounds/sound3.mp3";
+import callSounds from "../../../../../../sounds/callSounds/callSounds";
+import { useAppDispatch, useAppSelector } from "../../../../../../redux/hooks";
+import { setCallSound } from "../../../../../../redux/reducers/sound/general";
 
 const StyledBody = styled.div`
   background: ${(prop) => prop.theme.backgrounds.primary};
@@ -19,7 +19,18 @@ const StyledBody = styled.div`
   display: flex;
   gap: 18px;
   flex-direction: column;
+  &::-webkit-scrollbar {
+    width: 10px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: #0000003e;
+    border-radius: 5px;
+  }
+  &::-webkit-scrollbar-thumb:hover {
+    cursor: pointer;
+  }
 `;
+
 const StyledBtns = styled(RadioGroup)`
   && {
     margin-top: 50px;
@@ -45,74 +56,45 @@ const StyledRadio = styled(Radio)`
     }
   }
 `;
-
 export default function SoundCall() {
-  const [audio, setAudio] = useState(new Audio(sound1)); // Użyj useState do utworzenia stanu audio
-  const [volume, setVolume] = useState(1); // Stan głośności, domyślnie ustawiony na maksymalną głośność (1)
+  const [audio, setAudio] = useState(new Audio(callSounds[0].path))
+  const {volume,callSoundID} = useAppSelector((state) => state.sound.general);
+  const dispatch = useAppDispatch()
 
-  const play = () => {
-    audio.volume = volume; // Ustaw głośność przed odtworzeniem
-    audio.play(); // Odtwórz dźwięk
+  const selectSound = (path:string,songId:number) => {
+    dispatch(setCallSound(songId))
+    const newAudio = new Audio(path);
+    newAudio.addEventListener("loadeddata", () => {
+      setAudio(newAudio);
+      newAudio.volume = volume / 100;
+      newAudio.play();
+    });
   };
 
-  const stop = () => {
-    audio.pause(); // Zatrzymaj odtwarzanie dźwięku
-    audio.currentTime = 0; // Ustaw czas odtwarzania na początek
-  };
-
-  const changeSound = () => {
-    const newSound = audio.src === sound1 ? sound3 : sound1; // Porównujemy src audio z src dźwięku sound1
-    const newAudio = new Audio(newSound);
-    newAudio.volume = volume; // Ustaw głośność na nowym audio
-    setAudio(newAudio); // Ustawiamy nowy dźwięk w stanie
-  };
-
-  const handleVolumeChange = (event:any) => {
-    const newVolume = event.target.value;
-    setVolume(newVolume);
-    audio.volume = newVolume; // Ustaw nową głośność na aktualnym audio
-  };
+  useEffect(() => {
+    return () => {
+      audio.pause();
+      audio.currentTime = 0;
+    };
+  }, [audio]);
 
   return (
     <StyledBody>
       <Title title="Dzwonek" />
-      {audio.toString()}
-      <p></p>
-      czas - {audio.currentTime}
-      <button onClick={play}>Play</button>
-      <button onClick={stop}>Stop</button> {/* Przycisk zatrzymania dźwięku */}
-      <button onClick={()=>{setAudio(new Audio(sound1))}}>song 1</button> {/* Przycisk zmiany dźwięku */}
-      <button onClick={()=>{setAudio(new Audio(sound2))}}>song 2</button> {/* Przycisk zmiany dźwięku */}
-      <button onClick={()=>{setAudio(new Audio(sound3))}}>song 3</button> {/* Przycisk zmiany dźwięku */}
-
-      <input 
-        type="range" 
-        min="0" 
-        max="1" 
-        step="0.01" 
-        value={volume} 
-        onChange={handleVolumeChange} 
-      /> {/* Suwak do regulacji głośności */}
+      <StyledBtns>
+        {callSounds.map((sound) => (
+          <StyledLabel
+            key={sound.id}
+            value={sound.name}
+            control={<StyledRadio />}
+            label={sound.name}
+            checked={callSoundID===sound.id}
+            onClick={() => {
+              selectSound(sound.path,sound.id);
+            }}
+          />
+        ))}
+      </StyledBtns>
     </StyledBody>
   );
 }
-
-
-
-
-
-
-
-
-      {/* <StyledBtns>
-        {sounds.map((sound) => (
-          <StyledLabel
-            key={sound}
-            // checked={time === countDownTimerSelected}
-            // onClick={() => dispatch(countDownSetTimer(time))}
-            value={sound}
-            control={<StyledRadio />}
-            label={sound}
-          />
-        ))}
-      </StyledBtns> */}

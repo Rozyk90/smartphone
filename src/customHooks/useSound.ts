@@ -41,13 +41,13 @@ const useSound = () => {
   const { volume, mode } = useAppSelector((state) => state.sound.general);
   const { soundTouch, soundKeyboard, soundCharger, soundLockUnlockScreen } =
     // =======================================================================================
-    useAppSelector((state) => state.sound.sounds);
+    useAppSelector((state) => state.sound.systemSounds);
   const {
     vibrationTouch,
     vibrationKeyboard,
     vibrationCharger,
     vibrationLockUnlockScreen,
-  } = useAppSelector((state) => state.sound.vibration);
+  } = useAppSelector((state) => state.sound.systemVibration);
 
   const dispatch = useAppDispatch();
   // =======================================================================================

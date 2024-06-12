@@ -10,7 +10,7 @@ import {
   setSoundChargerOff,
   setSoundLockUnlockScreenOn,
   setSoundLockUnlockScreenOff,
-} from "../../../../../../redux/reducers/sound/sounds";
+} from "../../../../../../redux/reducers/sound/systemSounds";
 
 import Title from "../../../../../../globalComponents/title";
 import BtnCardSwitch from "../../../../../../globalComponents/btnCardSwitch";
@@ -28,7 +28,7 @@ const StyledBody = styled.div`
 
 export default function SoundSystem() {
   const { soundTouch, soundKeyboard, soundCharger, soundLockUnlockScreen } =
-    useAppSelector((state) => state.sound.sounds);
+    useAppSelector((state) => state.sound.systemSounds);
   const dispatch = useAppDispatch();
 
   const toggleSoundTouch = () => {

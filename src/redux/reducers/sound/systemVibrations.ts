@@ -15,7 +15,7 @@ const initialState: vibrations = {
   vibrationLockUnlockScreen: true,
 };
 
-export const sliceSoundVibrations = createSlice({
+export const sliceSystemVibrations = createSlice({
   name: "vibrations",
   initialState,
   reducers: {
@@ -55,6 +55,6 @@ export const {
   setVibrationChargerOff, 
   setVibrationLockUnlockScreenOn, 
   setVibrationLockUnlockScreenOff 
-} = sliceSoundVibrations.actions;
+} = sliceSystemVibrations.actions;
 
-export default sliceSoundVibrations.reducer;
+export default sliceSystemVibrations.reducer;

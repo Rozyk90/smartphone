@@ -10,7 +10,7 @@ import {
   setVibrationChargerOff,
   setVibrationLockUnlockScreenOn,
   setVibrationLockUnlockScreenOff,
-} from "../../../../../../redux/reducers/sound/vibrations";
+} from "../../../../../../redux/reducers/sound/systemVibrations";
 import Title from "../../../../../../globalComponents/title";
 import BtnCardSwitch from "../../../../../../globalComponents/btnCardSwitch";
 
@@ -31,7 +31,7 @@ export default function SoundSystemVibration() {
     vibrationKeyboard,
     vibrationCharger,
     vibrationLockUnlockScreen,
-  } = useAppSelector((state) => state.sound.vibration);
+  } = useAppSelector((state) => state.sound.systemVibration);
   const dispatch = useAppDispatch();
 
   const toggleVibrationTouch = () => {

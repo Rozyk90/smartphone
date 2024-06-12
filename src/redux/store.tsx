@@ -14,8 +14,8 @@ import screenCenter from "./reducers/screenParts/screenCenter";
 import screenGeneral from "./reducers/screenParts/screenGeneral";
 
 import sliceSoundGeneral from "./reducers/sound/general";
-import sliceSoundSounds from "./reducers/sound/sounds";
-import sliceSoundVibrations from "./reducers/sound/vibrations";
+import sliceSystemSounds from "./reducers/sound/systemSounds";
+import sliceSystemVibrations from "./reducers/sound/systemVibrations";
 
 
 const screen = combineReducers({
@@ -25,8 +25,8 @@ const screen = combineReducers({
   general: screenGeneral,
 });
 const sound = combineReducers({
-  vibration: sliceSoundVibrations,
-  sounds: sliceSoundSounds,
+  systemVibration: sliceSystemVibrations,
+  systemSounds: sliceSystemSounds,
   general: sliceSoundGeneral,
 });
 

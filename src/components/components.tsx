@@ -69,9 +69,9 @@ export default function Components() {
     vibrationKeyboard,
     vibrationCharger,
     vibrationLockUnlockScreen,
-  } = useAppSelector((state) => state.sound.vibration);
+  } = useAppSelector((state) => state.sound.systemVibration);
   const { soundTouch, soundKeyboard, soundCharger, soundLockUnlockScreen } =
-    useAppSelector((state) => state.sound.sounds);
+    useAppSelector((state) => state.sound.systemSounds);
 
   const rotatePhone = () => {
     if (isCharging) {

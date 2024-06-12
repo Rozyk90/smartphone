@@ -1,9 +1,14 @@
 import styled from "styled-components";
+import { useState, useEffect } from "react";
 
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Title from "../../../../../../globalComponents/title";
+
+import vibrationSounds from "../../../../../../sounds/vibrationSounds/vibrationSounds";
+import { useAppDispatch, useAppSelector } from "../../../../../../redux/hooks";
+import { setNotificationVibration } from "../../../../../../redux/reducers/sound/general";
 
 const StyledBody = styled.div`
   background: ${(prop) => prop.theme.backgrounds.primary};
@@ -14,7 +19,18 @@ const StyledBody = styled.div`
   display: flex;
   gap: 18px;
   flex-direction: column;
+  &::-webkit-scrollbar {
+    width: 10px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: #0000003e;
+    border-radius: 5px;
+  }
+  &::-webkit-scrollbar-thumb:hover {
+    cursor: pointer;
+  }
 `;
+
 const StyledBtns = styled(RadioGroup)`
   && {
     margin-top: 50px;
@@ -42,19 +58,46 @@ const StyledRadio = styled(Radio)`
 `;
 
 export default function SoundNotificationVibration() {
-  const sounds = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-  return <StyledBody><Title title="Wibracja powiadomienia"/>
+  const [audio, setAudio] = useState(new Audio(vibrationSounds[0].path));
+  const { notificationVibrationID } = useAppSelector(
+    (state) => state.sound.general
+  );
+  const dispatch = useAppDispatch();
+
+  const selectSound = (path: string, songId: number) => {
+    dispatch(setNotificationVibration(songId));
+    const newAudio = new Audio(path);
+    newAudio.addEventListener("loadeddata", () => {
+      setAudio(newAudio);
+      newAudio.volume = 1;
+      newAudio.play();
+    });
+  };
+
+  useEffect(() => {
+    return () => {
+      audio.pause();
+      audio.currentTime = 0;
+    };
+  }, [audio]);
+
+  return (
+    <StyledBody>
+      <Title title="Wibracja powiadomienia" />
       <StyledBtns>
-        {sounds.map((sound) => (
+        {vibrationSounds.map((sound) => (
           <StyledLabel
-            key={sound}
-            // checked={time === countDownTimerSelected}
-            // onClick={() => dispatch(countDownSetTimer(time))}
-            value={sound}
+            key={sound.id}
+            value={sound.name}
             control={<StyledRadio />}
-            label={sound}
+            label={sound.name}
+            checked={notificationVibrationID === sound.id}
+            onClick={() => {
+              selectSound(sound.path, sound.id);
+            }}
           />
         ))}
       </StyledBtns>
-  </StyledBody>;
+    </StyledBody>
+  );
 }

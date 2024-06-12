@@ -1,21 +1,21 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../../store";
 
-interface sounds {
+interface systemSounds {
   soundTouch: boolean;
   soundKeyboard: boolean;
   soundCharger: boolean;
   soundLockUnlockScreen: boolean;
 }
 
-const initialState: sounds = {
+const initialState: systemSounds = {
   soundTouch: true,
   soundKeyboard: true,
   soundCharger: true,
   soundLockUnlockScreen: true,
 };
 
-export const sliceSoundSounds = createSlice({
+export const sliceSystemSounds = createSlice({
   name: "sounds",
   initialState,
   reducers: {
@@ -55,6 +55,6 @@ export const {
   setSoundChargerOff, 
   setSoundLockUnlockScreenOn, 
   setSoundLockUnlockScreenOff 
-} = sliceSoundSounds.actions;
+} = sliceSystemSounds.actions;
 
-export default sliceSoundSounds.reducer;
+export default sliceSystemSounds.reducer;
