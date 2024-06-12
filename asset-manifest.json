@@ -1,7 +1,6 @@
 {
   "files": {
-    "main.js": "/smartphone/static/js/main.97844efe.js",
-    "static/media/Luminae.mp3": "/smartphone/static/media/Luminae.6e6e6deaee6e786d7ff4.mp3",
+    "main.js": "/smartphone/static/js/main.59dd6c29.js",
     "static/media/Zephyro.mp3": "/smartphone/static/media/Zephyro.7f854016e4d8baf425d9.mp3",
     "static/media/Follix.mp3": "/smartphone/static/media/Follix.8c983f543024ae44ee0a.mp3",
     "static/media/Jantine.mp3": "/smartphone/static/media/Jantine.b81f3bbd0098771322e8.mp3",
@@ -32,18 +31,25 @@
     "static/media/p1.jpeg": "/smartphone/static/media/p1.34e276e175ed7d551dbb.jpeg",
     "static/media/Spirela.mp3": "/smartphone/static/media/Spirela.b3ef1ed1e348162323b3.mp3",
     "static/media/p9.jpeg": "/smartphone/static/media/p9.e189455c7f9f3bee07ff.jpeg",
+    "static/media/vibra3.mp3": "/smartphone/static/media/vibra3.ba0ae5f4d034afce8510.mp3",
     "static/media/p0.jpeg": "/smartphone/static/media/p0.1e8dbddf1caf0e2678fd.jpeg",
+    "static/media/sound2.mp3": "/smartphone/static/media/sound2.4378e9fa9e4ca0b2781e.mp3",
     "static/media/p18.jpeg": "/smartphone/static/media/p18.0ca84ef31f669cd049c4.jpeg",
+    "static/media/sound3.mp3": "/smartphone/static/media/sound3.35b2f9f42107e2fee0a9.mp3",
     "static/media/p15.jpeg": "/smartphone/static/media/p15.e4f051012dd7ea14e561.jpeg",
+    "static/media/vibra2.mp3": "/smartphone/static/media/vibra2.1eeecc3f5bf292758fcd.mp3",
+    "static/media/vibra1.mp3": "/smartphone/static/media/vibra1.0f5a773504fae7f14463.mp3",
     "static/media/info.mp3": "/smartphone/static/media/info.519ffc3b9f5b026828da.mp3",
     "static/media/lock.mp3": "/smartphone/static/media/lock.66d6e60db86807773032.mp3",
     "static/media/vibrationStrong.mp3": "/smartphone/static/media/vibrationStrong.7b17967483339ef69c47.mp3",
+    "static/media/vibra4.mp3": "/smartphone/static/media/vibra4.798d70bcece8a50e2260.mp3",
     "static/media/vibrationLight.mp3": "/smartphone/static/media/vibrationLight.cfe759a3b8bc71aedfc7.mp3",
     "static/media/click.mp3": "/smartphone/static/media/click.e0298dbd6e9c3c212907.mp3",
+    "static/media/sound1.mp3": "/smartphone/static/media/sound1.26371742bcb64f25256e.mp3",
     "index.html": "/smartphone/index.html",
-    "main.97844efe.js.map": "/smartphone/static/js/main.97844efe.js.map"
+    "main.59dd6c29.js.map": "/smartphone/static/js/main.59dd6c29.js.map"
   },
   "entrypoints": [
-    "static/js/main.97844efe.js"
+    "static/js/main.59dd6c29.js"
   ]
 }
