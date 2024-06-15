@@ -59,6 +59,18 @@ export const sliceSoundGeneral = createSlice({
     setNotificationVibration: (state, action) => {
       state.notificationVibrationID = action.payload;
     },
+    soundGeneralFirestoreUpdate: (state, action) => {
+      const {
+        callSoundID,
+        notificationSoundID,
+        callVibrationID,
+        notificationVibrationID,
+      } = action.payload;
+      state.callSoundID = callSoundID;
+      state.notificationSoundID = notificationSoundID;
+      state.callVibrationID = callVibrationID;
+      state.notificationVibrationID = notificationVibrationID;
+    },
   },
 });
 
@@ -72,6 +84,7 @@ export const {
   setNotificationSound,
   setCallVibration,
   setNotificationVibration,
+  soundGeneralFirestoreUpdate,
 } = sliceSoundGeneral.actions;
 
 export default sliceSoundGeneral.reducer;

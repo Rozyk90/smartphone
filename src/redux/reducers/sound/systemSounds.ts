@@ -43,18 +43,27 @@ export const sliceSystemSounds = createSlice({
     setSoundLockUnlockScreenOff: (state) => {
       state.soundLockUnlockScreen = false;
     },
+    systemSoundsFirestoreUpdate: (state, action) => {
+      const { soundTouch, soundKeyboard, soundCharger, soundLockUnlockScreen } =
+        action.payload;
+      state.soundTouch = soundTouch;
+      state.soundKeyboard = soundKeyboard;
+      state.soundCharger = soundCharger;
+      state.soundLockUnlockScreen = soundLockUnlockScreen;
+    },
   },
 });
 
-export const { 
-  setSoundTouchOn, 
-  setSoundTouchOff, 
-  setSoundKeyboardOn, 
-  setSoundKeyboardOff, 
-  setSoundChargerOn, 
-  setSoundChargerOff, 
-  setSoundLockUnlockScreenOn, 
-  setSoundLockUnlockScreenOff 
+export const {
+  setSoundTouchOn,
+  setSoundTouchOff,
+  setSoundKeyboardOn,
+  setSoundKeyboardOff,
+  setSoundChargerOn,
+  setSoundChargerOff,
+  setSoundLockUnlockScreenOn,
+  setSoundLockUnlockScreenOff,
+  systemSoundsFirestoreUpdate,
 } = sliceSystemSounds.actions;
 
 export default sliceSystemSounds.reducer;

@@ -10,16 +10,15 @@ interface BGprops {
 interface theme {
   darkMode: boolean;
   darkModeAuto: boolean;
-  background: BGprops;
   currentTheme: enumTheme;
+  background: BGprops;
 }
 
 const initialState: theme = {
   darkMode: false,
   darkModeAuto: false,
-  background:
-  {group:'photos',id:14},
   currentTheme: enumTheme.themePurple,
+  background: { group: "photos", id: 14 },
 };
 
 export const sliceTheme = createSlice({
@@ -27,31 +26,46 @@ export const sliceTheme = createSlice({
   initialState,
   reducers: {
     setDarkModeOn: (state) => {
-      state.darkMode = true
+      state.darkMode = true;
     },
     setDarkModeOff: (state) => {
-      state.darkMode = false
+      state.darkMode = false;
     },
     setDarkModeAutoOn: (state) => {
-      state.darkModeAuto = true
+      state.darkModeAuto = true;
     },
     setDarkModeAutoOff: (state) => {
-      state.darkModeAuto = false
+      state.darkModeAuto = false;
     },
-    setTheme:(state, action: PayloadAction<enumTheme>) =>{
-      state.currentTheme = action.payload
+    setTheme: (state, action: PayloadAction<enumTheme>) => {
+      state.currentTheme = action.payload;
     },
     setBg: (state, action: PayloadAction<BGprops>) => {
       state.background = action.payload;
-    },plus:(state) =>{
-      state.background.id = state.background.id+1
-    },minus:(state) =>{
-      state.background.id = state.background.id-1
-    }
+    },
+    themeFirestoreUpdate: (state, action) => {
+      const {
+        darkMode,
+        darkModeAuto,
+        currentTheme,
+        background,
+      } = action.payload;
+      state.darkMode = darkMode
+      state.darkModeAuto = darkModeAuto
+      state.currentTheme = currentTheme
+      state.background = background
+    },
   },
 });
 
-export const { setDarkModeOn, setDarkModeOff,setTheme,setBg,setDarkModeAutoOn,setDarkModeAutoOff,plus,minus } = sliceTheme.actions;
+export const {
+  setDarkModeOn,
+  setDarkModeOff,
+  setTheme,
+  setBg,
+  setDarkModeAutoOn,
+  setDarkModeAutoOff,
+  themeFirestoreUpdate,
+} = sliceTheme.actions;
 
 export default sliceTheme.reducer;
- 

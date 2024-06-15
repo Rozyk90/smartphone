@@ -43,18 +43,31 @@ export const sliceSystemVibrations = createSlice({
     setVibrationLockUnlockScreenOff: (state) => {
       state.vibrationLockUnlockScreen = false;
     },
+    systemVibrationsFirestoreUpdate: (state, action) => {
+      const {
+        vibrationTouch,
+        vibrationKeyboard,
+        vibrationCharger,
+        vibrationLockUnlockScreen,
+      } = action.payload;
+      state.vibrationTouch = vibrationTouch;
+      state.vibrationKeyboard = vibrationKeyboard;
+      state.vibrationCharger = vibrationCharger;
+      state.vibrationLockUnlockScreen = vibrationLockUnlockScreen;
+    },
   },
 });
 
-export const { 
-  setVibrationTouchOn, 
-  setVibrationTouchOff, 
-  setVibrationKeyboardOn, 
-  setVibrationKeyboardOff, 
-  setVibrationChargerOn, 
-  setVibrationChargerOff, 
-  setVibrationLockUnlockScreenOn, 
-  setVibrationLockUnlockScreenOff 
+export const {
+  setVibrationTouchOn,
+  setVibrationTouchOff,
+  setVibrationKeyboardOn,
+  setVibrationKeyboardOff,
+  setVibrationChargerOn,
+  setVibrationChargerOff,
+  setVibrationLockUnlockScreenOn,
+  setVibrationLockUnlockScreenOff,
+  systemVibrationsFirestoreUpdate,
 } = sliceSystemVibrations.actions;
 
 export default sliceSystemVibrations.reducer;

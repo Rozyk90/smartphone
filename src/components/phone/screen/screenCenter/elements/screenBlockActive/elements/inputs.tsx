@@ -19,7 +19,6 @@ import {
 } from "../../../../../../../redux/reducers/screenParts/enumsScreen";
 import { setCurrentBarBottom } from "../../../../../../../redux/reducers/screenParts/screenBarBottom";
 import { setCurrentScreen } from "../../../../../../../redux/reducers/screenParts/screenCenter";
-import { countDownUpdateTime } from "../../../../../../../redux/reducers/screenParts/screenGeneral";
 
 import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
@@ -28,10 +27,12 @@ import ActionBtn from "./actionBtn";
 import { enumErrors, enumErrorsCodes, enumBtns } from "./enumsInput";
 import { phoneUnlocked } from "../../../../../../../redux/reducers/basicStates";
 import useSound from "../../../../../../../customHooks/useSound";
+import useFirestorePush from "../../../../../../../customHooks/useFirestorePush";
 
 const StyledInputs = styled.div`
   margin-bottom: 50px;
 `;
+
 const StyledBtnsGroup = styled(ToggleButtonGroup)``;
 
 export default function Inputs() {
@@ -41,22 +42,18 @@ export default function Inputs() {
   const [pass, setPass] = useState("");
   const [passError, setPassError] = useState("");
 
-  const screenGrid = useAppSelector((state) => state.screen.center.screenGrid);
-  const { countDownTimerSelected } = useAppSelector(
-    (state) => state.screen.general
-  );
   const dispatch = useAppDispatch();
 
   const { lockSoundEffect } = useSound();
+  const { firestorePush } = useFirestorePush();
 
-  const setBtn = (
-    event: React.MouseEvent<HTMLElement>,
-    newBtn: enumBtns.btnLogin | enumBtns.btnRegistration
-  ) => {
-    if (newBtn !== null) {
-      resetErrors();
-      setSelectedBtn(newBtn);
-    }
+  const setBtn = () => {
+    resetErrors();
+    setSelectedBtn(
+      selectedBtn === enumBtns.btnLogin
+        ? enumBtns.btnRegistration
+        : enumBtns.btnLogin
+    );
   };
 
   const changeEmail = (event: any) => {
@@ -75,67 +72,92 @@ export default function Inputs() {
   };
 
   const editScreen = () => {
+    lockSoundEffect();
+    dispatch(phoneUnlocked());
     dispatch(setCurrentScreen(enumCurrentScreen.screenMain));
     dispatch(setCurrentBarBottom(enumCurrentBarBottom.transparent));
   };
+  // ================================================================
+
+  // const loginAcc = async () => {
+  //   signInWithEmailAndPassword(auth, email, pass)
+  //     .then(() => {
+  //       resetErrors();
+  //       editScreen();
+  //     })
+  //     .catch((error) => {
+  //       setEmailError(enumErrors.correctDetails);
+  //       setPassError(enumErrors.correctDetails);
+  //     });
+  // };
 
   const loginAcc = async () => {
-    dispatch(countDownUpdateTime(countDownTimerSelected));
-    dispatch(phoneUnlocked());
-
-    signInWithEmailAndPassword(auth, email, pass)
-      .then(() => {
-        resetErrors();
-        editScreen();
-        lockSoundEffect();
-      })
-      .catch((error) => {
-        setEmailError(enumErrors.correctDetails);
-        setPassError(enumErrors.correctDetails);
-      });
-  };
-
-  const createFirestore = async (user: any) => {
-    const uid = user.uid;
-    const email = user.email;
-
     try {
-      const userDocRef = doc(db, "users", uid);
-
-      const create = await setDoc(userDocRef, {
-        uid,
-        email,
-        screenGrid,
-      });
-    } catch (e) {
-      console.error("Błąd podczas dodawania dokumentu: ", e);
+      await signInWithEmailAndPassword(auth, email, pass);
+      resetErrors();
+      editScreen();
+    } catch (error) {
+      setEmailError(enumErrors.correctDetails);
+      setPassError(enumErrors.correctDetails);
     }
   };
 
-  const createAcc = async () => {
-    dispatch(countDownUpdateTime(countDownTimerSelected));
-    dispatch(phoneUnlocked());
+  // ================================================================
+  const createFirestore = (uid: string, uEmail: string | null) => {
+    const min = 100000;
+    const max = 999999;
+    const randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
 
-    createUserWithEmailAndPassword(auth, email, pass)
-      .then((userCredential) => {
-        createFirestore(userCredential.user);
-        resetErrors();
-        editScreen();
-        lockSoundEffect();
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        if (errorCode === enumErrorsCodes.emailExists) {
-          setEmailError(enumErrors.existsEmail);
-        } else if (errorCode === enumErrorsCodes.emailWrong) {
-          setEmailError(enumErrors.wrongEmail);
-        } else if (errorCode === enumErrorsCodes.missingPass) {
-          setPassError(enumErrors.wrongPass);
-        } else {
-          setEmailError(enumErrors.serverError);
-          setPassError(enumErrors.serverError);
-        }
+    if (uid && uEmail) {
+      const userDocRef = doc(db, "users", uid);
+      setDoc(userDocRef, {
+        uid,
+        email: uEmail,
+        phoneNumber: randomNumber,
       });
+    }
+  };
+
+  // const createAcc = async () => {
+  //   dispatch(phoneUnlocked());
+
+  //   createUserWithEmailAndPassword(auth, email, pass)
+  //     .then((userCredential) => {
+  //       createFirestore(userCredential.user);
+  //       resetErrors();
+  //       editScreen();
+  //       lockSoundEffect();
+  //     })
+  //     .catch((error) => {
+  //       const errorCode = error.code;
+  //       if (errorCode === enumErrorsCodes.emailExists) {
+  //         setEmailError(enumErrors.existsEmail);
+  //       } else if (errorCode === enumErrorsCodes.emailWrong) {
+  //         setEmailError(enumErrors.wrongEmail);
+  //       } else if (errorCode === enumErrorsCodes.missingPass) {
+  //         setPassError(enumErrors.wrongPass);
+  //       } else {
+  //         setEmailError(enumErrors.serverError);
+  //         setPassError(enumErrors.serverError);
+  //       }
+  //     });
+  // };
+
+  const createAcc = async () => {
+    try {
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        pass
+      );
+      const uid = userCredential.user.uid;
+      const uEmail = userCredential.user.email;
+
+      await createFirestore(uid, uEmail);
+      await firestorePush(uid);
+      resetErrors();
+      editScreen();
+    } catch (error: any) {}
   };
 
   return (

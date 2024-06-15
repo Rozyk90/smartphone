@@ -11,8 +11,6 @@ import { phoneRotate } from "../redux/reducers/basicStates";
 import { plugStatus, chargingStatus } from "../redux/reducers/battery";
 import CounterActiveScreen from "./functionalities/counterActiveScreen";
 import {
-  minus,
-  plus,
   setDarkModeOff,
   setDarkModeOn,
   setTheme,
@@ -110,14 +108,9 @@ export default function Components() {
         <p></p>
         głosnosc - {volume}
         <p></p>
-        dzwiek klikania - {soundTouch.toString()}
+        uid = {uid}
         <p></p>
-        dzwiek klawiatury - {soundKeyboard.toString()}
-        <p></p>
-        dzwiek ladowarki - {soundCharger.toString()}
-        <p></p>
-        dzwiek blokowania - {soundLockUnlockScreen.toString()}
-        <p></p>
+
         <Button variant="contained" onClick={() => rotatePhone()}>
           Obrot
         </Button>
@@ -125,7 +118,7 @@ export default function Components() {
           X
         </Button>
       </StyledHeader>
-
+test@o2.pl   / test123
       <StyledMain>
         <StyledSide></StyledSide>
         <Phone></Phone>

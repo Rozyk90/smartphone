@@ -22,7 +22,6 @@ import { setCurrentBarBottom } from "../../../../../../redux/reducers/screenPart
 import { setCurrentScreen } from "../../../../../../redux/reducers/screenParts/screenCenter";
 
 import { userLogout } from "../../../../../../redux/reducers/user";
-import { countDownUpdateTime } from "../../../../../../redux/reducers/screenParts/screenGeneral";
 import { phoneUnlocked } from "../../../../../../redux/reducers/basicStates";
 import useSound from "../../../../../../customHooks/useSound";
 
@@ -48,12 +47,9 @@ const StyledContainerLogin = styled.div`
 export default function ScreenBlockActive() {
   const [showInputs, setShowInputs] = useState(false);
   const isLogged = useAppSelector((state) => state.user.isLogged);
-  const countDownTimerSelected = useAppSelector(
-    (state) => state.screen.general.countDownTimerSelected
-  );
 
   const dispatch = useAppDispatch();
-  const {lockSoundEffect} = useSound()
+  const { lockSoundEffect } = useSound();
 
   const logout = async () => {
     dispatch(userLogout);
@@ -67,9 +63,8 @@ export default function ScreenBlockActive() {
   const setMainScreen = () => {
     dispatch(setCurrentScreen(enumCurrentScreen.screenMain));
     dispatch(setCurrentBarBottom(enumCurrentBarBottom.transparent));
-    dispatch(countDownUpdateTime(countDownTimerSelected));
-    dispatch(phoneUnlocked())
-    lockSoundEffect()
+    dispatch(phoneUnlocked());
+    lockSoundEffect();
   };
 
   return (
@@ -82,10 +77,8 @@ export default function ScreenBlockActive() {
       </StyledContainerCalendar>
       <StyledContainerLogin>
         {!isLogged && showInputs && <Inputs />}
-        {!showInputs && (
-          <Finger onClick={isLogged ? setMainScreen : showInp} />
-        )}
-        {isLogged && <ActionBtn txt="Wyloguj się" fn={logout} />}
+        {!showInputs && <Finger onClick={isLogged ? setMainScreen : showInp} />}
+        {isLogged && !showInputs && <ActionBtn txt="Wyloguj się" fn={logout} />}
       </StyledContainerLogin>
     </StyledScreenBlockActive>
   );

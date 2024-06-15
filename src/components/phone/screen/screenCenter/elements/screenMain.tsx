@@ -38,7 +38,6 @@ const StyledShadow = styled.div`
   border-radius: 20px;
 `;
 
-
 const DotsId = [0, 1, 2, 4, 5, 6, 8, 9, 10, 12, 13, 14, 16, 17, 18];
 
 const StyledDot = styled.div`

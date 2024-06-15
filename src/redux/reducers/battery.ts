@@ -12,12 +12,12 @@ interface battery {
 }
 
 const initialState: battery = {
-  battery: 99,
+  battery: 50,
   isPlugConnected: false,
   isCharging: false,
   isShowingValue: true,
-  isFastCharging: false,
-  isBatteryProtection: false,
+  isFastCharging: true,
+  isBatteryProtection: true,
   isBatteryDescription: true, // is not ussing right now
 };
 
@@ -59,6 +59,19 @@ export const sliceBattery = createSlice({
     batteryDescriptionOff: (state) => {
       state.isBatteryDescription = false;
     },
+    // =====================================================
+    batteryFirestoreUpdate: (state, action) => {
+      const {
+        isShowingValue,
+        isFastCharging,
+        isBatteryProtection,
+        isBatteryDescription,
+      } = action.payload;
+      state.isShowingValue = isShowingValue;
+      state.isFastCharging = isFastCharging;
+      state.isBatteryProtection = isBatteryProtection;
+      state.isBatteryDescription = isBatteryDescription;
+    },
   },
 });
 
@@ -74,6 +87,7 @@ export const {
   batteryFastChargingOff,
   batteryDescriptionOn,
   batteryDescriptionOff,
+  batteryFirestoreUpdate,
 } = sliceBattery.actions;
 
 export default sliceBattery.reducer;
