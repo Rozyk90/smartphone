@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.js": "/smartphone/static/js/main.a8fa9e7a.js",
+    "main.js": "/smartphone/static/js/main.047130af.js",
     "static/media/Zephyro.mp3": "/smartphone/static/media/Zephyro.7f854016e4d8baf425d9.mp3",
     "static/media/Follix.mp3": "/smartphone/static/media/Follix.8c983f543024ae44ee0a.mp3",
     "static/media/Jantine.mp3": "/smartphone/static/media/Jantine.b81f3bbd0098771322e8.mp3",
@@ -47,9 +47,9 @@
     "static/media/click.mp3": "/smartphone/static/media/click.e0298dbd6e9c3c212907.mp3",
     "static/media/sound1.mp3": "/smartphone/static/media/sound1.26371742bcb64f25256e.mp3",
     "index.html": "/smartphone/index.html",
-    "main.a8fa9e7a.js.map": "/smartphone/static/js/main.a8fa9e7a.js.map"
+    "main.047130af.js.map": "/smartphone/static/js/main.047130af.js.map"
   },
   "entrypoints": [
-    "static/js/main.a8fa9e7a.js"
+    "static/js/main.047130af.js"
   ]
 }
