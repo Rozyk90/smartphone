@@ -27,6 +27,7 @@ export default function IconClock({ isButton = true }: { isButton?: boolean }) {
   const fn = () => {
     if (isButton) {
       dispatch(setCurrentScreen(enumCurrentScreen.screenClock));
+      btnSoundEffect()
     }
   };
   return (
@@ -35,7 +36,7 @@ export default function IconClock({ isButton = true }: { isButton?: boolean }) {
       onClick={() => {
         fn();
       }}
-      onMouseDown={() => btnSoundEffect()}
+
     >
       <WatchLaterRoundedIcon fontSize="large" />
     </StyledIcon>

@@ -16,8 +16,8 @@ export default function FireBaseAuthEffect() {
         const defaultUid = "";
         const defaultUserEmail = "";
         const uid = user.uid || defaultUid;
-        const userEmail = user.email || defaultUserEmail;
-        dispatch(userSet({ uid, userEmail, isLogged: true }));
+        const uEmail = user.email || defaultUserEmail;
+        dispatch(userSet({ uid, uEmail, isLogged: true }));
         firestorePull(uid);
       } else {
         dispatch(userLogout());

@@ -41,13 +41,13 @@ const StyledShadow = styled.div`
 const DotsId = [0, 1, 2, 4, 5, 6, 8, 9, 10, 12, 13, 14, 16, 17, 18];
 
 const StyledDot = styled.div`
-position: absolute;
+  position: absolute;
   height: 2px;
   width: 2px;
   background: #ffffff;
   margin-top: 96px;
   margin-left: 76px;
-`
+`;
 
 const ScreenMain: React.FC = () => {
   const [enumToReplace, setEnumToReplace] = useState(enumIcons.empty);
@@ -66,8 +66,6 @@ const ScreenMain: React.FC = () => {
     event: React.DragEvent<HTMLDivElement>,
     id: number
   ) => {
-    
-
     event.preventDefault();
     if ((shadow === null || shadow !== id) && replaceFrom !== null) {
       setShadow(id);
@@ -113,7 +111,7 @@ const ScreenMain: React.FC = () => {
             />
 
             {id === shadow && <StyledShadow />}
-            {DotsId.includes(id)&&replaceFrom!==null&&<StyledDot/>}
+            {DotsId.includes(id) && replaceFrom !== null && <StyledDot />}
           </StyledPlace>
         ))}
       </StyledIconsMap>

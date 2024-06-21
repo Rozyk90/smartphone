@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
 import { useAppSelector, useAppDispatch } from "../../../../../../redux/hooks";
-import { reversingBoardPush } from "../../../../../../redux/reducers/screenParts/screenGeneral";
 
 import Title from "../../../../../../globalComponents/title";
 import SoundMode from "./elements/soundMode";
@@ -12,6 +11,7 @@ import { enumCurrentScreen } from "../../../../../../redux/reducers/screenParts/
 import callSounds from "../../../../../../sounds/callSounds/callSounds";
 import notificationSounds from "../../../../../../sounds/notificationSounds/notificationSounds";
 import vibrationSounds from "../../../../../../sounds/vibrationSounds/vibrationSounds";
+import useScreen from "../../../../../../customHooks/useScreen";
 
 const StyledBody = styled.div`
   background: ${(prop) => prop.theme.backgrounds.primary};
@@ -20,7 +20,7 @@ const StyledBody = styled.div`
   display: flex;
   gap: 18px;
   flex-direction: column;
-  padding-left: 10px;
+  padding: 0px 10px;
   &::-webkit-scrollbar {
     width: 10px;
   }
@@ -34,7 +34,6 @@ const StyledBody = styled.div`
 `;
 
 export default function SettingsSounds() {
-  const { currentScreen } = useAppSelector((state) => state.screen.center);
   const {
     callSoundID,
     callVibrationID,
@@ -42,31 +41,32 @@ export default function SettingsSounds() {
     notificationVibrationID,
   } = useAppSelector((state) => state.sound.general);
   const dispatch = useAppDispatch();
+  const { pushCurrentScreen } = useScreen();
 
   const openCall = () => {
-    dispatch(reversingBoardPush(currentScreen));
+    pushCurrentScreen();
     dispatch(setCurrentScreen(enumCurrentScreen.settingsSoundsCall));
   };
   const openNotificationSound = () => {
-    dispatch(reversingBoardPush(currentScreen));
+    pushCurrentScreen();
     dispatch(setCurrentScreen(enumCurrentScreen.settingsSoundsNotification));
   };
   const openSystemSound = () => {
-    dispatch(reversingBoardPush(currentScreen));
+    pushCurrentScreen();
     dispatch(setCurrentScreen(enumCurrentScreen.settingsSoundsSystem));
   };
   const openCallVib = () => {
-    dispatch(reversingBoardPush(currentScreen));
+    pushCurrentScreen();
     dispatch(setCurrentScreen(enumCurrentScreen.settingsSoundsCallVibration));
   };
   const openNotificationVib = () => {
-    dispatch(reversingBoardPush(currentScreen));
+    pushCurrentScreen();
     dispatch(
       setCurrentScreen(enumCurrentScreen.settingsSoundsNotificationsVibration)
     );
   };
   const openSystemVib = () => {
-    dispatch(reversingBoardPush(currentScreen));
+    pushCurrentScreen();
     dispatch(setCurrentScreen(enumCurrentScreen.settingsSoundsSystemVibration));
   };
 

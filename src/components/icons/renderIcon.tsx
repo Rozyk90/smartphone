@@ -6,6 +6,7 @@ import IconShop from "./iconShop";
 import IconSettings from "./iconSettings";
 import IconClock from "./iconClock";
 import IconCalendar from "./iconCalendar";
+import IconContacts from "./iconContacts";
 
 interface StyledIconProps {
   $isVisible: boolean;
@@ -41,6 +42,8 @@ export default function RenderIcon({
       {icon === enumIcons.appShop && <IconShop />}
       {icon === enumIcons.clock && <IconClock />}
       {icon === enumIcons.calendar && <IconCalendar />}
+      {icon === enumIcons.contacts && <IconContacts />}
+
     </StyledIcon>
   );
 }
@@ -60,6 +63,7 @@ function RenderIconSmall({ icon }: { icon: enumIcons }) {
       {icon === enumIcons.appShop && <IconShop isButton={false} />}
       {icon === enumIcons.clock && <IconClock isButton={false} />}
       {icon === enumIcons.calendar && <IconCalendar isButton={false} />}
+      {icon === enumIcons.contacts && <IconContacts isButton={false} />}
     </StyledIconSmall>
   );
 }

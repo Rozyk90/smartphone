@@ -10,7 +10,7 @@ const StyledSettings = styled.div`
   display: flex;
   gap: 18px;
   flex-direction: column;
-  padding-left: 10px;
+  padding: 0px 10px;
   &::-webkit-scrollbar {
     width: 10px;
   }

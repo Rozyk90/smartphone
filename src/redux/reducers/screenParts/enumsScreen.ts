@@ -11,15 +11,14 @@ export enum enumCurrentScreen {
   screenActiveBlocked = "screenActiveBlocked",
   screenMain = "screenMain",
   // ==============================================================
+  // =======================SETTINGS===============================
   settingsMain = "settingsMain",
   settingsBattery = "settingsBattery",
   settingsApps = "settingsApps",
   // ==============================================================
-
   settingsScreen = "settingsScreen",
   settingsScreenCountdown = "settingsScreenCountdown",
   // ==============================================================
-
   settingsSounds = "settingsSounds",
   settingsSoundsCall = "settingsSoundsCall",
   settingsSoundsNotification = "settingsSoundsNotification",
@@ -32,9 +31,12 @@ export enum enumCurrentScreen {
   settingsThemeBG = "settingsThemeBG",
   settingsThemeColors = "settingsThemeColors",
   // ==============================================================
+  // ==========================APPS================================
   screenShop = "screenShop",
   screenClock = "screenClock",
   screenCalendar = "screenCalendar",
+  appContacts = "appContacts",
+  newContact = 'newContact'
 }
 
 export enum enumCurrentBarBottom {

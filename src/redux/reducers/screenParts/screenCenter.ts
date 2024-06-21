@@ -15,7 +15,7 @@ const initialState: State = {
     enumIcons.calendar,
     enumIcons.clock,
     enumIcons.settings,
-    enumIcons.empty,
+    enumIcons.contacts,
     enumIcons.empty,
     enumIcons.empty,
     enumIcons.empty,

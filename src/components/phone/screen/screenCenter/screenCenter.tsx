@@ -6,6 +6,8 @@ import { enumCurrentScreen } from "../../../../redux/reducers/screenParts/enumsS
 import ScreenShop from "./elements/screenShop";
 import ScreenClock from "./elements/screenClock";
 import ScreenCalendar from "./elements/screenCalendar";
+import AppContacts from "./apps/appContacts";
+import NewContact from "./elements/newContact";
 
 import ScreenNone from "./elements/screenNone";
 import ScreenBlockActive from "./elements/screenBlockActive/screenBlockActive";
@@ -100,6 +102,8 @@ export default function ScreenCenter() {
       {currentScreen === enumCurrentScreen.screenShop && <ScreenShop />}
       {currentScreen === enumCurrentScreen.screenClock && <ScreenClock />}
       {currentScreen === enumCurrentScreen.screenCalendar && <ScreenCalendar />}
+      {currentScreen === enumCurrentScreen.appContacts && <AppContacts />}
+      {currentScreen === enumCurrentScreen.newContact && <NewContact />}
     </StyledScreenBody>
   );
 }

@@ -7,7 +7,7 @@ import BtnCard from "../../../../../../globalComponents/btnCard";
 import { useAppDispatch,useAppSelector } from "../../../../../../redux/hooks";
 import { setCurrentScreen } from "../../../../../../redux/reducers/screenParts/screenCenter";
 import { enumCurrentScreen } from "../../../../../../redux/reducers/screenParts/enumsScreen";
-import { reversingBoardPush } from "../../../../../../redux/reducers/screenParts/screenGeneral";
+import useScreen from "../../../../../../customHooks/useScreen";
 
 const StyledBody = styled.div`
   background: ${(prop) => prop.theme.backgrounds.primary};
@@ -21,15 +21,16 @@ const StyledBody = styled.div`
 `;
 
 export default function ScreenTheme() {
-  const currentScreen = useAppSelector(state => state.screen.center.currentScreen)
   const dispatch = useAppDispatch();
+  const {pushCurrentScreen} = useScreen()
+
 
   const openBG = () => {
-    dispatch(reversingBoardPush(currentScreen))
+    pushCurrentScreen()
     dispatch(setCurrentScreen(enumCurrentScreen.settingsThemeBG));
   };
   const openColors = () => {
-    dispatch(reversingBoardPush(currentScreen))
+    pushCurrentScreen()
     dispatch(setCurrentScreen(enumCurrentScreen.settingsThemeColors));
   };
 

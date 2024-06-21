@@ -34,6 +34,7 @@ export default function IconSettings({
       dispatch(setCurrentScreen(enumCurrentScreen.settingsMain));
       dispatch(setCurrenBarTop(enumCurrentBarTop.bgPrimary))
       dispatch(setCurrentBarBottom(enumCurrentBarBottom.bgPrimary))
+      btnSoundEffect()
     }
   };
   return (
@@ -42,7 +43,6 @@ export default function IconSettings({
       onClick={() => {
         fn();
       }}
-      onMouseDown={()=>btnSoundEffect()}
     >
       <SettingsIcon fontSize="large" />
     </StyledIcon>

@@ -27,6 +27,8 @@ export default function IconShop({ isButton = true }: { isButton?: boolean }) {
   const fn = () => {
     if (isButton) {
       dispatch(setCurrentScreen(enumCurrentScreen.screenShop));
+      btnSoundEffect()
+
     }
   };
   return (
@@ -35,7 +37,7 @@ export default function IconShop({ isButton = true }: { isButton?: boolean }) {
       onClick={() => {
         fn();
       }}
-      onMouseDown={()=>btnSoundEffect()}
+    
     >
       <LocalMallIcon fontSize="large" />
     </StyledIcon>

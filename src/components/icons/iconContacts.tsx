@@ -1,9 +1,15 @@
 import styled from "styled-components";
 import { useAppDispatch } from "../../redux/hooks";
-import { enumCurrentScreen } from "../../redux/reducers/screenParts/enumsScreen";
 import { setCurrentScreen } from "../../redux/reducers/screenParts/screenCenter";
+import {
+  enumCurrentScreen,
+  enumCurrentBarTop,
+  enumCurrentBarBottom,
+} from "../../redux/reducers/screenParts/enumsScreen";
+import { setCurrenBarTop } from "../../redux/reducers/screenParts/screenBarTop";
+import { setCurrentBarBottom } from "../../redux/reducers/screenParts/screenBarBottom";
 
-import CalendarMonthRoundedIcon from "@mui/icons-material/CalendarMonthRounded";
+import PhoneIcon from "@mui/icons-material/Phone";
 import useSound from "../../customHooks/useSound";
 
 const StyledIcon = styled.button<{ $isButton: boolean }>`
@@ -11,17 +17,13 @@ const StyledIcon = styled.button<{ $isButton: boolean }>`
   height: 50px;
   border: none;
   border-radius: 20px;
-  background: rgb(0, 143, 170);
-  background: linear-gradient(
-    175deg,
-    rgba(0, 143, 170, 1) 30%,
-    rgba(0, 129, 182, 1) 60%
-  );
+  background: #01a463;
+
   color: white;
   cursor: ${(prop) => (prop.$isButton ? "pointer" : "default")};
 `;
 
-export default function IconCalendar({
+export default function IconContacts({
   isButton = true,
 }: {
   isButton?: boolean;
@@ -30,7 +32,9 @@ export default function IconCalendar({
   const { btnSoundEffect } = useSound();
   const fn = () => {
     if (isButton) {
-      dispatch(setCurrentScreen(enumCurrentScreen.screenCalendar));
+      dispatch(setCurrentScreen(enumCurrentScreen.appContacts));
+      dispatch(setCurrenBarTop(enumCurrentBarTop.bgPrimary));
+      dispatch(setCurrentBarBottom(enumCurrentBarBottom.bgPrimary));
       btnSoundEffect();
     }
   };
@@ -41,7 +45,7 @@ export default function IconCalendar({
         fn();
       }}
     >
-      <CalendarMonthRoundedIcon fontSize="large" />
+      <PhoneIcon fontSize="large" />
     </StyledIcon>
   );
 }

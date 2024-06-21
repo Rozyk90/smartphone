@@ -17,9 +17,9 @@ import BtnCardSwitch from "../../../../../../globalComponents/btnCardSwitch";
 import BtnCard from "../../../../../../globalComponents/btnCard";
 import { setCurrentScreen } from "../../../../../../redux/reducers/screenParts/screenCenter";
 import { enumCurrentScreen } from "../../../../../../redux/reducers/screenParts/enumsScreen";
-import { reversingBoardPush } from "../../../../../../redux/reducers/screenParts/screenGeneral";
 import { convertTime } from "./screenCountdown";
 import SampleTheme from "./elements/sampleTheme";
+import useScreen from "../../../../../../customHooks/useScreen";
 
 const StyledBody = styled.div`
   background: ${(prop) => prop.theme.backgrounds.primary};
@@ -33,7 +33,6 @@ const StyledBody = styled.div`
 `;
 
 export default function SettingsScreen() {
-  const { currentScreen } = useAppSelector((state) => state.screen.center);
   const { countDownTimerSelected } = useAppSelector(
     (state) => state.screen.general
   );
@@ -42,6 +41,7 @@ export default function SettingsScreen() {
     (state) => state.battery.isBatteryDescription
   );
   const dispatch = useAppDispatch();
+  const { pushCurrentScreen } = useScreen();
 
   const darkModeAutoFn = () => {
     dispatch(darkModeAuto ? setDarkModeAutoOff() : setDarkModeAutoOn());
@@ -54,7 +54,7 @@ export default function SettingsScreen() {
   };
 
   const openCountdown = () => {
-    dispatch(reversingBoardPush(currentScreen));
+    pushCurrentScreen();
     dispatch(setCurrentScreen(enumCurrentScreen.settingsScreenCountdown));
   };
 

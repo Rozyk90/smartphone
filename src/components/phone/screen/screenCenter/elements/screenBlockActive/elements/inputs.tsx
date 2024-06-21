@@ -19,6 +19,10 @@ import {
 } from "../../../../../../../redux/reducers/screenParts/enumsScreen";
 import { setCurrentBarBottom } from "../../../../../../../redux/reducers/screenParts/screenBarBottom";
 import { setCurrentScreen } from "../../../../../../../redux/reducers/screenParts/screenCenter";
+import {
+  userSet,
+  userSetNumber,
+} from "../../../../../../../redux/reducers/user";
 
 import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
@@ -103,17 +107,17 @@ export default function Inputs() {
   };
 
   // ================================================================
-  const createFirestore = (uid: string, uEmail: string | null) => {
-    const min = 100000;
-    const max = 999999;
-    const randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
-
+  const createFirestore = (
+    uid: string,
+    uEmail: string | null,
+    phoneNumber: string | null
+  ) => {
     if (uid && uEmail) {
       const userDocRef = doc(db, "users", uid);
       setDoc(userDocRef, {
         uid,
-        email: uEmail,
-        phoneNumber: randomNumber,
+        uEmail,
+        phoneNumber,
       });
     }
   };
@@ -144,16 +148,25 @@ export default function Inputs() {
   // };
 
   const createAcc = async () => {
+    const min = 100000000;
+    const max = 999999999;
+    const randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
+    const phoneNumber = randomNumber.toString();
+
     try {
       const userCredential = await createUserWithEmailAndPassword(
         auth,
         email,
         pass
       );
-      const uid = userCredential.user.uid;
-      const uEmail = userCredential.user.email;
+      const defaultUid = "";
+      const defaultUserEmail = "";
+      const uid = userCredential.user.uid || defaultUid;
+      const uEmail = userCredential.user.email || defaultUserEmail;
 
-      await createFirestore(uid, uEmail);
+      await dispatch(userSet({ uid, uEmail, isLogged: true }));
+      await dispatch(userSetNumber(phoneNumber));
+      await createFirestore(uid, uEmail, phoneNumber);
       await firestorePush(uid);
       resetErrors();
       editScreen();

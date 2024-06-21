@@ -8,6 +8,7 @@ import { systemSoundsFirestoreUpdate } from "../redux/reducers/sound/systemSound
 import { systemVibrationsFirestoreUpdate } from "../redux/reducers/sound/systemVibrations";
 import { countDownSetTimer } from "../redux/reducers/screenParts/screenGeneral";
 import { updateScreenGrid } from "../redux/reducers/screenParts/screenCenter";
+import { userSetNumber } from "../redux/reducers/user";
 
 const useFirestorePull = () => {
   const dispatch = useAppDispatch();
@@ -31,6 +32,7 @@ const useFirestorePull = () => {
       );
       dispatch(countDownSetTimer(data.settings.screen.countDownTimerSelected));
       dispatch(updateScreenGrid(data.settings.screen.screenGrid));
+      dispatch(userSetNumber(data.phoneNumber))
     }
   };
 

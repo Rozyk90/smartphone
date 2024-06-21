@@ -6,7 +6,7 @@ import sliceBattery from "./reducers/battery";
 import sliceModal from "./reducers/modal";
 import sliceUser from "./reducers/user";
 import sliceTheme from "./reducers/theme";
-import sliceSound from "./reducers/sound/general";
+import  sliceContacts from "./reducers/contacts";
 
 import screenBarBottom from "./reducers/screenParts/screenBarBottom";
 import screenBarTop from "./reducers/screenParts/screenBarTop";
@@ -32,7 +32,7 @@ const sound = combineReducers({
 
 export const store = configureStore({
   reducer: {
-
+    contacts:sliceContacts,
     user: sliceUser,
     theme: sliceTheme,
 

@@ -25,6 +25,11 @@ const useSound = () => {
     audio.preload = "auto";
     return audio;
   });
+  const [keyboardSound] = useState(() => {
+    const audio = new Audio(keyboard);
+    audio.preload = "auto";
+    return audio;
+  });
   const [lockSound] = useState(() => {
     const audio = new Audio(lock);
     audio.preload = "auto";
@@ -65,6 +70,20 @@ const useSound = () => {
       vibrationLight.play();
     }
   };
+
+  const keyboardSoundEffect = () =>{
+    if (mode === enumSoundModes.on && soundKeyboard) {
+      console.log("dzwiek klawa");
+
+      keyboardSound.volume = volume / 100;
+      keyboardSound.play();
+    }
+    if (mode === enumSoundModes.vibration && vibrationKeyboard) {
+      console.log("wibracja klawa");
+      vibrationLight.volume = 1;
+      vibrationLight.play();
+    }
+  }
 
   const lockSoundEffect = () => {
     if (mode === enumSoundModes.on && soundLockUnlockScreen) {
@@ -109,7 +128,7 @@ const useSound = () => {
     }
   };
 
-  return { btnSoundEffect, lockSoundEffect, plugSoundEffect, volumeBtnEffect };
+  return { btnSoundEffect,keyboardSoundEffect, lockSoundEffect, plugSoundEffect, volumeBtnEffect };
 };
 
 export default useSound;

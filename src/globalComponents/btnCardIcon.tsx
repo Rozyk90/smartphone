@@ -5,6 +5,7 @@ import { setCurrentScreen } from "../redux/reducers/screenParts/screenCenter";
 import { CardProp } from "../components/phone/screen/screenCenter/settings/settingsMain/elements/cards";
 import { reversingBoardPush } from "../redux/reducers/screenParts/screenGeneral";
 import useSound from "../customHooks/useSound";
+import useScreen from "../customHooks/useScreen";
 
 const StyledBtn = styled.button`
   background: ${(prop) => prop.theme.colors.background};
@@ -67,13 +68,11 @@ export default function BtnCardIcon({
   Icon,
   enumScreen,
 }: CardProp) {
-  const currentScreen = useAppSelector(
-    (state) => state.screen.center.currentScreen
-  );
+  const {pushCurrentScreen} = useScreen()
   const dispatch = useAppDispatch();
   const fn = () => {
-    dispatch(reversingBoardPush(currentScreen));
     dispatch(setCurrentScreen(enumScreen));
+    pushCurrentScreen()
   };
   const { btnSoundEffect } = useSound();
 

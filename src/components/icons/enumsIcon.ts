@@ -3,7 +3,8 @@ export enum enumIcons {
     settings = 'settings',
     appShop = 'appShop',
     clock = 'clock',
-    calendar = 'calendar'
+    calendar = 'calendar',
+    contacts = 'contacts',
 
 
 
