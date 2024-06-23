@@ -93,7 +93,6 @@ enum Keyboards {
 
 export default function NewContact() {
   const [gradient, setGradient] = useState("");
-  const [input, setInput] = useState<string>("");
   const [name, setName] = useState("");
   const [number, setNumber] = useState("");
   const [keyboardType, setKeyboardType] = useState<
@@ -116,6 +115,7 @@ export default function NewContact() {
         <StyledInput
           onClick={() => setKeyboardType(Keyboards.qwerty)}
           label="Nazwa"
+          value={name}
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
@@ -142,7 +142,7 @@ export default function NewContact() {
         <StyledBtn>Zapisz</StyledBtn>
       </StyledButtonsArea>
 
-      {keyboardType === Keyboards.qwerty && <KeyboardQWERTY />}
+      {keyboardType === Keyboards.qwerty && <KeyboardQWERTY setTxt={setName} txt={name} />}
       {keyboardType === Keyboards.numbers && (
         <KeyboardNumbers setNumber={setNumber} number={number} />
       )}
