@@ -10,6 +10,7 @@ export enum enumCurrentScreen {
   screenTurnOffAnimation = "screenTurnOffAnimation",
   screenActiveBlocked = "screenActiveBlocked",
   screenMain = "screenMain",
+  calling = 'calling',
   // ==============================================================
   // =======================SETTINGS===============================
   settingsMain = "settingsMain",

@@ -1,7 +1,26 @@
 import styled from "styled-components";
 import { useState } from "react";
+import { useAppDispatch, useAppSelector } from "../../../../../../redux/hooks";
+
 import PhoneIcon from "@mui/icons-material/Phone";
 import BackspaceRoundedIcon from "@mui/icons-material/BackspaceRounded";
+
+import useDate from "../../../../../../customHooks/useDate";
+import useContacts from "../../../../../../customHooks/useContacts";
+import { contactSetCalling } from "../../../../../../redux/reducers/contacts/contactsGeneral";
+import { contactsHistoryAdd } from "../../../../../../redux/reducers/contacts/contactsHistory";
+import { setCurrentScreen } from "../../../../../../redux/reducers/screenParts/screenCenter";
+import {
+  enumCurrentBarBottom,
+  enumCurrentBarTop,
+  enumCurrentScreen,
+} from "../../../../../../redux/reducers/screenParts/enumsScreen";
+import { setCurrenBarTop } from "../../../../../../redux/reducers/screenParts/screenBarTop";
+import { setCurrentBarBottom } from "../../../../../../redux/reducers/screenParts/screenBarBottom";
+import useScreen from "../../../../../../customHooks/useScreen";
+import useFirestorePush from "../../../../../../customHooks/useFirestorePush";
+import useSound from "../../../../../../customHooks/useSound";
+
 const StyledBody = styled.div`
   height: 550px;
 `;
@@ -11,7 +30,7 @@ const StyledPhoneNumber = styled.div`
   display: flex;
   justify-content: center;
   align-items: end;
-  font-size: 3rem;
+  font-size: 2.5rem;
   padding-bottom: 20px;
   color: ${(prop) => prop.theme.fonts.primary};
 `;
@@ -89,11 +108,20 @@ const StyledDelBtn = styled.div`
   align-items: center;
   cursor: pointer;
   color: ${(prop) => prop.theme.fonts.primary};
-
 `;
 
 export default function Keyboard() {
   const [number, setNumber] = useState("");
+
+  const { phoneNumber, uid } = useAppSelector((state) => state.user);
+
+  const dispatch = useAppDispatch();
+  const { pushCurrentScreen } = useScreen();
+  const { getUnixTime } = useDate();
+  const { findeContactUid, editContactNumber } = useContacts();
+  const { firestorePushCallObj } = useFirestorePush();
+  const { keyboardSoundEffect } = useSound();
+
   const handleNumberClick = (sign: string) => {
     if (number.length < 9) {
       setNumber((prevNumber) => prevNumber + sign);
@@ -103,15 +131,46 @@ export default function Keyboard() {
   const handleDelete = () => {
     setNumber((prevNumber) => prevNumber.slice(0, -1));
   };
+
+  const call = async () => {
+    dispatch(contactSetCalling(number));
+    dispatch(setCurrentScreen(enumCurrentScreen.calling));
+    dispatch(setCurrenBarTop(enumCurrentBarTop.transparent));
+    dispatch(setCurrentBarBottom(enumCurrentBarBottom.transparent));
+    pushCurrentScreen();
+
+    let toWhoUid;
+
+    if (number.length === 9) {
+      toWhoUid = await findeContactUid(number);
+    }
+
+    const callObj = {
+      unixTime: getUnixTime(),
+      elementId: getUnixTime(),
+      whoCall: phoneNumber,
+      whoCallUid: uid,
+      toWho: number,
+      toWhoUid: toWhoUid ? toWhoUid : null,
+    };
+
+    dispatch(contactsHistoryAdd(callObj));
+    console.log("to ten obiekt", callObj)
+    if (toWhoUid) {
+      firestorePushCallObj(toWhoUid, callObj);
+    }
+  };
+
   return (
     <StyledBody>
-      <StyledPhoneNumber>{number}</StyledPhoneNumber>
+      <StyledPhoneNumber>{editContactNumber(number)}</StyledPhoneNumber>
 
       <StyledNumbersArea>
         {keyboardSings.map((sign) => (
           <StyledBtn
             key={sign.sign}
             onClick={() => handleNumberClick(sign.sign)}
+            onMouseDown={() => keyboardSoundEffect()}
           >
             <StyledSign>{sign.sign}</StyledSign>
             <StyledDescription>{sign.description}</StyledDescription>
@@ -121,10 +180,13 @@ export default function Keyboard() {
 
       <StyledBottomBtnsArea>
         <StyledEmptyDiv />
-        <StyledCallBtn>
+        <StyledCallBtn onClick={() => call()}>
           <PhoneIcon />
         </StyledCallBtn>
-        <StyledDelBtn onClick={handleDelete}>
+        <StyledDelBtn
+          onClick={handleDelete}
+          onMouseDown={() => keyboardSoundEffect()}
+        >
           <BackspaceRoundedIcon />
         </StyledDelBtn>
       </StyledBottomBtnsArea>

@@ -57,12 +57,14 @@ const StyledRadio = styled(Radio)`
   }
 `;
 export default function SoundCall() {
-  const [audio, setAudio] = useState(new Audio(callSounds[0].path))
-  const {volume,callSoundID} = useAppSelector((state) => state.sound.general);
-  const dispatch = useAppDispatch()
+  const [audio, setAudio] = useState(new Audio(callSounds[0].path));
+  const { volume, callSoundID } = useAppSelector(
+    (state) => state.sound.general
+  );
+  const dispatch = useAppDispatch();
 
-  const selectSound = (path:string,songId:number) => {
-    dispatch(setCallSound(songId))
+  const selectSound = (path: string, songId: number) => {
+    dispatch(setCallSound(songId));
     const newAudio = new Audio(path);
     newAudio.addEventListener("loadeddata", () => {
       setAudio(newAudio);
@@ -88,9 +90,9 @@ export default function SoundCall() {
             value={sound.name}
             control={<StyledRadio />}
             label={sound.name}
-            checked={callSoundID===sound.id}
+            checked={callSoundID === sound.id}
             onClick={() => {
-              selectSound(sound.path,sound.id);
+              selectSound(sound.path, sound.id);
             }}
           />
         ))}

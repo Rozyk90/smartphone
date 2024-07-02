@@ -6,7 +6,10 @@ import sliceBattery from "./reducers/battery";
 import sliceModal from "./reducers/modal";
 import sliceUser from "./reducers/user";
 import sliceTheme from "./reducers/theme";
-import  sliceContacts from "./reducers/contacts";
+import  slicePageStates  from "./reducers/pageStates";
+import  sliceContactsHistory from "./reducers/contacts/contactsHistory";
+import  sliceContactsList  from "./reducers/contacts/contactsList";
+import  sliceContactsGeneral  from "./reducers/contacts/contactsGeneral";
 
 import screenBarBottom from "./reducers/screenParts/screenBarBottom";
 import screenBarTop from "./reducers/screenParts/screenBarTop";
@@ -29,10 +32,16 @@ const sound = combineReducers({
   systemSounds: sliceSystemSounds,
   general: sliceSoundGeneral,
 });
+const contacts = combineReducers({
+  history:sliceContactsHistory,
+  list:sliceContactsList,
+  general:sliceContactsGeneral,
+});
 
 export const store = configureStore({
   reducer: {
-    contacts:sliceContacts,
+    pageStates: slicePageStates,
+    contacts:contacts,
     user: sliceUser,
     theme: sliceTheme,
 

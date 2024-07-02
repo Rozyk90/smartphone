@@ -15,6 +15,7 @@ import {
   setDarkModeOn,
   setTheme,
 } from "../redux/reducers/theme";
+import useSoundNotification from "../customHooks/useSoundNotification";
 
 const StyledDesign = styled.div`
   display: flex;
@@ -61,7 +62,6 @@ export default function Components() {
     (state) => state.theme
   );
   const topBar = useAppSelector((state) => state.screen.barTop.currentBarTop);
-  const { mode, volume } = useAppSelector((state) => state.sound.general);
   const {
     vibrationTouch,
     vibrationKeyboard,
@@ -70,6 +70,11 @@ export default function Components() {
   } = useAppSelector((state) => state.sound.systemVibration);
   const { soundTouch, soundKeyboard, soundCharger, soundLockUnlockScreen } =
     useAppSelector((state) => state.sound.systemSounds);
+  const { notificationSoundID, notificationVibrationID } = useAppSelector(
+    (state) => state.sound.general
+  );
+  const { mode, volume } = useAppSelector((state) => state.sound.general);
+
 
   const rotatePhone = () => {
     if (isCharging) {
@@ -88,7 +93,7 @@ export default function Components() {
   };
 
   const zrobTo = () => {
-    dispatch(darkMode ? setDarkModeOff() : setDarkModeOn());
+
   };
 
   return (
@@ -110,7 +115,10 @@ export default function Components() {
         <p></p>
         uid = {uid}
         <p></p>
-
+        {notificationSoundID} = id powiadomienia
+        <p></p>
+        {notificationVibrationID} = id powiadomienia vibracja
+        <p></p>
         <Button variant="contained" onClick={() => rotatePhone()}>
           Obrot
         </Button>
@@ -118,7 +126,7 @@ export default function Components() {
           X
         </Button>
       </StyledHeader>
-test@o2.pl   / test123
+      test@o2.pl / test123
       <StyledMain>
         <StyledSide></StyledSide>
         <Phone></Phone>

@@ -3,7 +3,7 @@ import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { setDarkModeOn, setDarkModeOff } from "../../redux/reducers/theme";
 import { enumCurrentScreen } from "../../redux/reducers/screenParts/enumsScreen";
 
-export default function AutoDarkMode() {
+export default function AutoDarkModeEffect() {
   const { darkModeAuto, darkMode } = useAppSelector((state) => state.theme);
   const currentScreen = useAppSelector(
     (state) => state.screen.center.currentScreen

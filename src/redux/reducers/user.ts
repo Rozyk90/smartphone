@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface user {
   isLogged: boolean;
-  uEmail: string | null;
+  uEmail: string;
   uid: string;
   phoneNumber: string;
 }
@@ -27,13 +27,15 @@ export const sliceUser = createSlice({
       state.isLogged = false;
       state.uEmail = "";
       state.uid = "";
+      state.phoneNumber = "";
     },
-    userSetNumber: (state, action) => {
-      state.phoneNumber = action.payload;
-    },
+    userSetNumber:(state,action) =>{
+      state.phoneNumber = action.payload
+    }
+
   },
 });
 
-export const { userSet, userLogout, userSetNumber } = sliceUser.actions;
+export const { userSet, userLogout,userSetNumber } = sliceUser.actions;
 
 export default sliceUser.reducer;

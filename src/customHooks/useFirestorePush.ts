@@ -1,6 +1,6 @@
 import { useAppSelector } from "../redux/hooks";
 import { db } from "../firebase";
-import { updateDoc, doc } from "firebase/firestore";
+import { updateDoc, doc, arrayUnion } from "firebase/firestore";
 
 const useFirestorePush = () => {
   const screenGrid = useAppSelector((state) => state.screen.center.screenGrid);
@@ -33,9 +33,14 @@ const useFirestorePush = () => {
     vibrationCharger,
     vibrationLockUnlockScreen,
   } = useAppSelector((state) => state.sound.systemVibration);
+
+  const { contactsList } = useAppSelector((state) => state.contacts.list);
+  const { contactsHistory, contactsHistoryNotification } = useAppSelector(
+    (state) => state.contacts.history
+  );
   // =============================================================================================================================
-  
-  const firestorePush = async (uid:string) => {
+
+  const updateFirestore = async (uid: string) => {
     if (uid) {
       const userDocRef = doc(db, "users", uid);
       try {
@@ -78,6 +83,10 @@ const useFirestorePush = () => {
               },
             },
           },
+          contacts: {
+            contactsList,
+            contactsHistory: { contactsHistory, contactsHistoryNotification },
+          },
         });
         console.log("Dokument zaktualizowany pomyślnie");
       } catch (error) {
@@ -85,11 +94,38 @@ const useFirestorePush = () => {
       }
     }
   };
+  // =============================================================================================================================
+
+  interface ContactHistoryObj {
+    unixTime: number;
+    whoCall: string;
+    whoCallUid: string;
+    toWho: string;
+    toWhoUid: string | null;
+  }
+
+  const firestorePushCallObj = async (
+    uid: string,
+    callObj: ContactHistoryObj
+  ) => {
+    if (uid) {
+      const userDocRef = doc(db, "users", uid);
+
+      try {
+        await updateDoc(userDocRef, {
+          "contacts.contactsHistory.contactsHistory": arrayUnion(callObj),
+          "contacts.contactsHistory.contactsHistoryNotification": true,
+        });
+      } catch (error) {
+        console.error("Error :", error);
+      }
+    }
+  };
 
   return {
-    firestorePush,
+    updateFirestore,
+    firestorePushCallObj,
   };
 };
-
 
 export default useFirestorePush;

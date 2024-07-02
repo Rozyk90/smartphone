@@ -30,6 +30,8 @@ const StyledTopBar = styled.div<{
         return "none";
     }
   }};
+  position: relative;
+  z-index: 5;
 `;
 
 const StyledLeftBox = styled.div``;

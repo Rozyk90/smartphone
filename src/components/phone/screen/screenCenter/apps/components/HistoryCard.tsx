@@ -11,16 +11,12 @@ import PhoneMissedIcon from "@mui/icons-material/PhoneMissed"; // od kogos nie o
 import PhonePausedIcon from "@mui/icons-material/PhonePaused"; // od kogos odrzucony
 import PhoneForwardedIcon from "@mui/icons-material/PhoneForwarded"; // ja do kogos na kazdy mozliwy sposob
 
-import {
-  unixToPolishTime,
-  generateRandomGradient,
-  findContactName,
-  mapCallsByDay,
-  arrHistory,
-} from "../elements/arrays";
 
 import HiddenElement from "./HiddenElement";
 import useSound from "../../../../../../customHooks/useSound";
+import useContacts from "../../../../../../customHooks/useContacts";
+import useDate from "../../../../../../customHooks/useDate";
+import useUtilities from "../../../../../../customHooks/useUtilities";
 
 const fadeIn = keyframes`
   0% {
@@ -99,22 +95,49 @@ const StyledTime = styled.div`
 `;
 
 type Props = {
-  callObj: any;
+  callObj: {
+    unixTime: number;
+    elementId: number;
+    whoCall: string;
+    whoCallUid: string;
+    toWho: string;
+    toWhoUid: string | null;
+  };
   fnToDo: () => void;
   selected: boolean;
 };
 
-export default function CallHistoryCardBtn({
-  callObj,
-  fnToDo,
-  selected,
-}: Props) {
+export default function HistoryCard({ callObj, fnToDo, selected }: Props) {
   const [gradient, setGradient] = useState("");
-  const myNumber = useAppSelector((state) => state.user.phoneNumber);
-  const { btnSoundEffect } = useSound();
+  const phoneNumber = useAppSelector((state) => state.user.phoneNumber);
 
-  const { callerNumber, calledTo } = callObj;
-  const iCalled = myNumber === callerNumber;
+  const { btnSoundEffect } = useSound();
+  const { findContactName } = useContacts();
+  const { getPolishTime } = useDate();
+  const {generateRandomGradient} = useUtilities()
+
+  const { unixTime,elementId, whoCall, whoCallUid, toWho, toWhoUid } = callObj;
+
+  const iCalled = phoneNumber === whoCall;
+  const number = iCalled ? toWho : whoCall;
+  const name = findContactName(number);
+
+  const createContactObj = () => {
+
+    return {
+      name: name === number ? "" : name,
+      number,
+      uid: iCalled ? toWhoUid : whoCallUid,
+      unixTime: unixTime,
+      elementId: elementId,
+      cardType: "history",
+    };
+  };
+
+  const getTime = () => {
+    const data = getPolishTime(unixTime);
+    return `${data.hours}:${data.minutes}`;
+  };
 
   useEffect(() => {
     const newGradient = generateRandomGradient();
@@ -132,20 +155,18 @@ export default function CallHistoryCardBtn({
           )}
         </StyledIcon>
         <StyledTxtArea>
-          <StyledName>
-            {findContactName(iCalled ? calledTo : callerNumber).name}
-          </StyledName>
+          <StyledName>{findContactName(iCalled ? toWho : whoCall)}</StyledName>
 
           {selected ? (
-            <StyledPhoto $gradient={gradient}>N</StyledPhoto>
+            <StyledPhoto $gradient={gradient}>{name === number ? "" : name[0]}</StyledPhoto>
           ) : (
-            <StyledTime>{unixToPolishTime(callObj.unixTime)}</StyledTime>
+            <StyledTime>{getTime()}</StyledTime>
           )}
         </StyledTxtArea>
       </StyledInfoBar>
 
       {selected && (
-        <HiddenElement phoneNumber={iCalled ? calledTo : callerNumber} />
+        <HiddenElement {...createContactObj()} cardType={"history"} />
       )}
     </StyledBody>
   );

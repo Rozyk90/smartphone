@@ -3,8 +3,8 @@ import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import useFirestorePush from "../../customHooks/useFirestorePush";
 
 export default function FirestorePushEffect() {
-  const [mounted,setMounted] = useState(false)
-  const {uid} = useAppSelector(state => state.user)
+  const [mounted, setMounted] = useState(false);
+  const { uid } = useAppSelector((state) => state.user);
   const screenGrid = useAppSelector((state) => state.screen.center.screenGrid);
   const { countDownTimerSelected } = useAppSelector(
     (state) => state.screen.general
@@ -37,13 +37,17 @@ export default function FirestorePushEffect() {
     vibrationLockUnlockScreen,
   } = useAppSelector((state) => state.sound.systemVibration);
 
-  const {firestorePush} = useFirestorePush()
+  const { contactsList } = useAppSelector((state) => state.contacts.list);
+  const { contactsHistory,contactsHistoryNotification } = useAppSelector((state) => state.contacts.history);
+
+  // ==========================================================================
+  
+  const { updateFirestore } = useFirestorePush();
 
   useEffect(() => {
-    setMounted(true)
-    if(mounted){
-      console.log("inicjuje wysylanie danych w effect")
-      firestorePush(uid)
+    setMounted(true);
+    if (mounted) {
+      updateFirestore(uid);
     }
   }, [
     screenGrid,
@@ -68,6 +72,9 @@ export default function FirestorePushEffect() {
     vibrationKeyboard,
     vibrationCharger,
     vibrationLockUnlockScreen,
+    contactsList,
+    contactsHistory,
+    contactsHistoryNotification
   ]);
 
   return null;

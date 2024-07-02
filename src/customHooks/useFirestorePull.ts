@@ -1,6 +1,13 @@
-import { useAppDispatch } from "../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { db } from "../firebase";
-import { getDoc, doc } from "firebase/firestore";
+import {
+  getDoc,
+  doc,
+  collection,
+  getDocs,
+  query,
+  where,
+} from "firebase/firestore";
 import { batteryFirestoreUpdate } from "../redux/reducers/battery";
 import { themeFirestoreUpdate } from "../redux/reducers/theme";
 import { soundGeneralFirestoreUpdate } from "../redux/reducers/sound/general";
@@ -8,36 +15,84 @@ import { systemSoundsFirestoreUpdate } from "../redux/reducers/sound/systemSound
 import { systemVibrationsFirestoreUpdate } from "../redux/reducers/sound/systemVibrations";
 import { countDownSetTimer } from "../redux/reducers/screenParts/screenGeneral";
 import { updateScreenGrid } from "../redux/reducers/screenParts/screenCenter";
+import { contactsListCreate } from "../redux/reducers/contacts/contactsList";
+import {
+  contactsHistoryCreate,
+  contactsHistoryNotificationSet,
+} from "../redux/reducers/contacts/contactsHistory";
 import { userSetNumber } from "../redux/reducers/user";
+import useSoundNotification from "./useSoundNotification";
 
 const useFirestorePull = () => {
+  const { notificationSoundID, notificationVibrationID } = useAppSelector(
+    (state) => state.sound.general
+  );
+  const isOn = useAppSelector((state) => state.basicStates.isOn);
+  const { mode, volume } = useAppSelector((state) => state.sound.general);
+  const contactsHistoryNotification = useAppSelector(
+    (state) => state.contacts.history.contactsHistoryNotification
+  );
+
   const dispatch = useAppDispatch();
+  const { notificationSoundEffect } = useSoundNotification();
 
-  const firestorePull = async (uid: string) => {
-    console.log("uruchamiam pull");
+  // =======================================================================================
 
-    const docRef = doc(db, "users", uid);
-    const docSnap = await getDoc(docRef);
-    const data = docSnap.data();
-
-    if (data) {
-      console.log("uruchamiam pull -> to dispacze");
-
-      dispatch(batteryFirestoreUpdate(data.settings.battery));
-      dispatch(themeFirestoreUpdate(data.settings.theme));
-      dispatch(soundGeneralFirestoreUpdate(data.settings.sound.general));
-      dispatch(systemSoundsFirestoreUpdate(data.settings.sound.systemSounds));
-      dispatch(
-        systemVibrationsFirestoreUpdate(data.settings.sound.systemVibrations)
-      );
-      dispatch(countDownSetTimer(data.settings.screen.countDownTimerSelected));
-      dispatch(updateScreenGrid(data.settings.screen.screenGrid));
-      dispatch(userSetNumber(data.phoneNumber))
+  const firestorePullLarge = async (data: any) => {
+    try {
+      if (data) {
+        dispatch(batteryFirestoreUpdate(data.settings.battery));
+        dispatch(themeFirestoreUpdate(data.settings.theme));
+        dispatch(soundGeneralFirestoreUpdate(data.settings.sound.general));
+        dispatch(systemSoundsFirestoreUpdate(data.settings.sound.systemSounds));
+        dispatch(
+          systemVibrationsFirestoreUpdate(data.settings.sound.systemVibrations)
+        );
+        dispatch(
+          countDownSetTimer(data.settings.screen.countDownTimerSelected)
+        );
+        dispatch(updateScreenGrid(data.settings.screen.screenGrid));
+        dispatch(userSetNumber(data.user.phoneNumber));
+        dispatch(contactsListCreate(data.contacts.contactsList));
+        dispatch(
+          contactsHistoryCreate(data.contacts.contactsHistory.contactsHistory)
+        );
+        dispatch(
+          contactsHistoryNotificationSet(
+            data.contacts.contactsHistory.contactsHistoryNotification
+          )
+        );
+        // console.log("Pobrano wszystkie stany z firestore");
+      }
+    } catch (error) {
+      console.error("Error firestorePullLarge : ", error);
     }
   };
 
+  // =======================================================================================
+
+  const firestorePullNotification = async (data: any) => {
+    try {
+      if (data) {
+        dispatch(
+          contactsHistoryCreate(data.contacts.contactsHistory.contactsHistory)
+        );
+        dispatch(
+          contactsHistoryNotificationSet(
+            data.contacts.contactsHistory.contactsHistoryNotification
+          )
+        );
+      }
+    } catch (error) {
+      console.error("Error firestorePullNotification : ", error);
+    }
+  };
+
+  // =======================================================================================
+
   return {
-    firestorePull,
+    firestorePullLarge,
+    firestorePullNotification,
   };
 };
 

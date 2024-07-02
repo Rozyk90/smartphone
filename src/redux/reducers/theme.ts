@@ -16,9 +16,9 @@ interface theme {
 
 const initialState: theme = {
   darkMode: false,
-  darkModeAuto: false,
-  currentTheme: enumTheme.themePurple,
-  background: { group: "photos", id: 14 },
+  darkModeAuto: true,
+  currentTheme: enumTheme.themeBasic,
+  background: { group: "gradients", id: 0 },
 };
 
 export const sliceTheme = createSlice({

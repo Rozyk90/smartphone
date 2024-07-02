@@ -3,6 +3,7 @@ import styled from "styled-components";
 import BackspaceRoundedIcon from "@mui/icons-material/BackspaceRounded";
 import FileUploadRoundedIcon from "@mui/icons-material/FileUploadRounded";
 import SpaceBarRoundedIcon from "@mui/icons-material/SpaceBarRounded";
+import useSound from "../customHooks/useSound";
 
 const KeyboardContainer = styled.div`
   display: flex;
@@ -40,7 +41,6 @@ const Key = styled.button<{
   cursor: pointer;
   background: #fff;
   text-transform: ${(props) => (props.$shift ? "uppercase" : "none")};
-
   &:active {
     background: #ddd;
   }
@@ -71,6 +71,7 @@ interface KeyboardProps {
 export default function KeyboardQWERTY({ setTxt, txt }: KeyboardProps) {
   const [shift, setShift] = useState(false);
   const [specialSings, setSpecialSings] = useState(false);
+  const { keyboardSoundEffect } = useSound();
 
   const specialRow = ["!", "?", "#", "@", "%", "^", "&", "*", "(", ")"];
   const numbersRow = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"];
@@ -86,6 +87,7 @@ export default function KeyboardQWERTY({ setTxt, txt }: KeyboardProps) {
   const specialSingsList = ["Shift", "Special", "Backspace"];
 
   const btnAction = (key: string) => {
+    keyboardSoundEffect();
     if (key === "Shift") {
       setShift(!shift);
     } else if (key === "Backspace") {
@@ -99,22 +101,14 @@ export default function KeyboardQWERTY({ setTxt, txt }: KeyboardProps) {
     }
   };
 
-const arr = ['CapsLock ','Shift','Alt']
-
-  const Btn = (key:string) =>{
-    console.log(key)
-    if(key === "Backspace"){
-
+  const Btn = (key: string) => {
+    keyboardSoundEffect();
+    if (key === "Backspace") {
       setTxt((prevTxt) => prevTxt.slice(0, -1));
-
-    }else if(!arr.includes(key)){
+    } else if (key.length === 1) {
       setTxt((prevTxt) => prevTxt + key);
-
     }
-
-
-  }
-
+  };
 
   function renderSing(sing: string) {
     switch (sing) {
@@ -146,17 +140,15 @@ const arr = ['CapsLock ','Shift','Alt']
       </Key>
     );
 
-    useEffect(() => {
-      console.log('aaaaa')
-      const keyDown = (e: KeyboardEvent) => {
-        Btn(e.key);
-      };
-      window.addEventListener("keydown", keyDown);
-      return () => {
-        window.removeEventListener("keydown", keyDown);
-      };
-    }, [setTxt, txt]);
-
+  useEffect(() => {
+    const keyDown = (e: KeyboardEvent) => {
+      Btn(e.key);
+    };
+    window.addEventListener("keydown", keyDown);
+    return () => {
+      window.removeEventListener("keydown", keyDown);
+    };
+  }, [setTxt, txt]);
 
   return (
     <KeyboardContainer>

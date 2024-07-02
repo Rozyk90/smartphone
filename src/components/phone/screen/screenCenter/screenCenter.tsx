@@ -33,6 +33,7 @@ import ScreenCountdown from "./settings/settingsScreen/screenCountdown";
 import SettingsTheme from "./settings/settingsTheme/settingsTheme";
 import SettingsThemeBG from "./settings/settingsTheme/themeBackgrounds";
 import SettingsThemeColors from "./settings/settingsTheme/themeColors";
+import Calling from "./elements/calling";
 
 const StyledScreenBody = styled.div`
   height: 600px;
@@ -54,6 +55,7 @@ export default function ScreenCenter() {
         <ScreenBlockActive />
       )}
       {currentScreen === enumCurrentScreen.screenMain && <ScreenMain />}
+      {currentScreen === enumCurrentScreen.calling && <Calling/>}
 
       {/* =============================================================== */}
 

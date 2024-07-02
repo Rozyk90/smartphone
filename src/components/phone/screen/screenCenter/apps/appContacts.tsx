@@ -1,11 +1,10 @@
 import styled from "styled-components";
-import Contacts from "./elements/contacts";
 import { useState } from "react";
-import CallList from "./elements/callList";
-import Keyboard from "./elements/keyboard";
-import useSound from "../../../../../customHooks/useSound";
 
-import { mapCallsByDay, arrHistory } from "./elements/arrays";
+import ContactsHistory from "./screens/contactsHistory";
+import ContactsList from "./screens/contactsList";
+import Keyboard from "./screens/keyboard";
+import useSound from "../../../../../customHooks/useSound";
 
 const StyledBody = styled.div`
   background: ${(prop) => prop.theme.backgrounds.primary};
@@ -30,8 +29,8 @@ const StyledBody = styled.div`
 
 enum btnEnum {
   keyboard = "Klawiatura",
-  callList = "Ostatnie",
-  contacts = "Kontakty",
+  contactsHistory = "Ostatnie",
+  contactsList = "Kontakty",
 }
 
 const StyledBtnsArea = styled.div`
@@ -66,14 +65,16 @@ const StyledBtn = styled.button<{ $selected: boolean }>`
 `;
 
 export default function AppContacts() {
-  const [selectedPage, setSelectedPage] = useState<btnEnum>(btnEnum.callList);
+  const [selectedPage, setSelectedPage] = useState<btnEnum>(
+    btnEnum.contactsHistory
+  );
   const { btnSoundEffect } = useSound();
 
   return (
     <StyledBody>
       {selectedPage === btnEnum.keyboard && <Keyboard />}
-      {selectedPage === btnEnum.contacts && <Contacts />}
-      {selectedPage === btnEnum.callList && <CallList />}
+      {selectedPage === btnEnum.contactsHistory && <ContactsHistory />}
+      {selectedPage === btnEnum.contactsList && <ContactsList />}
 
       <StyledBtnsArea>
         <StyledBtnBox $selected={selectedPage === btnEnum.keyboard}>
@@ -88,31 +89,31 @@ export default function AppContacts() {
           >
             {btnEnum.keyboard}
           </StyledBtn>
-        </StyledBtnBox>
-        <StyledBtnBox $selected={selectedPage === btnEnum.callList}>
+        </StyledBtnBox>{" "}
+        <StyledBtnBox $selected={selectedPage === btnEnum.contactsHistory}>
           <StyledBtn
             onMouseDown={() => {
               btnSoundEffect();
             }}
             onClick={() => {
-              setSelectedPage(btnEnum.callList);
+              setSelectedPage(btnEnum.contactsHistory);
             }}
-            $selected={selectedPage === btnEnum.callList}
+            $selected={selectedPage === btnEnum.contactsHistory}
           >
-            {btnEnum.callList}
+            {btnEnum.contactsHistory}
           </StyledBtn>
         </StyledBtnBox>
-        <StyledBtnBox $selected={selectedPage === btnEnum.contacts}>
+        <StyledBtnBox $selected={selectedPage === btnEnum.contactsList}>
           <StyledBtn
             onMouseDown={() => {
               btnSoundEffect();
             }}
             onClick={() => {
-              setSelectedPage(btnEnum.contacts);
+              setSelectedPage(btnEnum.contactsList);
             }}
-            $selected={selectedPage === btnEnum.contacts}
+            $selected={selectedPage === btnEnum.contactsList}
           >
-            {btnEnum.contacts}
+            {btnEnum.contactsList}
           </StyledBtn>
         </StyledBtnBox>
       </StyledBtnsArea>

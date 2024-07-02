@@ -12,37 +12,42 @@ import lock from "../sounds/systemSounds/lock.mp3";
 const useSound = () => {
   const [vibrationLight] = useState(() => {
     const audio = new Audio(vibrationL);
-    audio.preload = "auto";
+    audio.preload = "none";
     return audio;
   });
+
   const [vibrationStrong] = useState(() => {
     const audio = new Audio(vibrationS);
-    audio.preload = "auto";
+    audio.preload = "none";
     return audio;
   });
+
   const [clickSound] = useState(() => {
     const audio = new Audio(click);
-    audio.preload = "auto";
+    audio.preload = "none";
     return audio;
   });
+
   const [keyboardSound] = useState(() => {
     const audio = new Audio(keyboard);
-    audio.preload = "auto";
+    audio.preload = "none";
     return audio;
   });
+
   const [lockSound] = useState(() => {
     const audio = new Audio(lock);
-    audio.preload = "auto";
+    audio.preload = "none";
     return audio;
   });
+  
   const [infoSound] = useState(() => {
     const audio = new Audio(info);
-    audio.preload = "auto";
+    audio.preload = "none";
     return audio;
   });
 
   // =======================================================================================
-  const { isOn } = useAppSelector(state => state.basicStates)
+  const { isOn } = useAppSelector((state) => state.basicStates);
   const { volume, mode } = useAppSelector((state) => state.sound.general);
   const { soundTouch, soundKeyboard, soundCharger, soundLockUnlockScreen } =
     // =======================================================================================
@@ -59,55 +64,43 @@ const useSound = () => {
 
   const btnSoundEffect = () => {
     if (mode === enumSoundModes.on && soundTouch) {
-      console.log("dzwiek");
-
       clickSound.volume = volume / 100;
       clickSound.play();
     }
     if (mode === enumSoundModes.vibration && vibrationTouch) {
-      console.log("wibracja");
       vibrationLight.volume = 1;
       vibrationLight.play();
     }
   };
 
-  const keyboardSoundEffect = () =>{
+  const keyboardSoundEffect = () => {
     if (mode === enumSoundModes.on && soundKeyboard) {
-      console.log("dzwiek klawa");
-
       keyboardSound.volume = volume / 100;
       keyboardSound.play();
     }
     if (mode === enumSoundModes.vibration && vibrationKeyboard) {
-      console.log("wibracja klawa");
       vibrationLight.volume = 1;
       vibrationLight.play();
     }
-  }
+  };
 
   const lockSoundEffect = () => {
     if (mode === enumSoundModes.on && soundLockUnlockScreen) {
-      console.log("dzwiek lock");
-
       lockSound.volume = volume / 100;
       lockSound.play();
     }
     if (mode === enumSoundModes.vibration && vibrationLockUnlockScreen) {
-      console.log("wibracja lock");
       vibrationStrong.volume = 1;
       vibrationStrong.play();
     }
   };
 
   const plugSoundEffect = () => {
-
     if (mode === enumSoundModes.on && soundCharger && isOn) {
-      console.log("dzwiek wtyczka");
       infoSound.volume = volume / 100;
       infoSound.play();
     }
     if (mode === enumSoundModes.vibration && vibrationCharger && isOn) {
-      console.log("wibracja ladowarka");
       vibrationStrong.volume = 1;
       vibrationStrong.play();
     }
@@ -128,7 +121,13 @@ const useSound = () => {
     }
   };
 
-  return { btnSoundEffect,keyboardSoundEffect, lockSoundEffect, plugSoundEffect, volumeBtnEffect };
+  return {
+    btnSoundEffect,
+    keyboardSoundEffect,
+    lockSoundEffect,
+    plugSoundEffect,
+    volumeBtnEffect,
+  };
 };
 
 export default useSound;

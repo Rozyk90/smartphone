@@ -1,29 +1,32 @@
 import { useEffect } from "react";
-import { useAppDispatch } from "../../redux/hooks";
-
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../firebase";
 
 import { userSet, userLogout } from "../../redux/reducers/user";
-import useFirestorePull from "../../customHooks/useFirestorePull";
 
-export default function FireBaseAuthEffect() {
+export default function FirebaseAuthAndFirestoreEffect() {
   const dispatch = useAppDispatch();
-  const { firestorePull } = useFirestorePull();
+  const { uid } = useAppSelector((state) => state.user);
+
   useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
+    const authUnsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         const defaultUid = "";
         const defaultUserEmail = "";
         const uid = user.uid || defaultUid;
         const uEmail = user.email || defaultUserEmail;
         dispatch(userSet({ uid, uEmail, isLogged: true }));
-        firestorePull(uid);
       } else {
         dispatch(userLogout());
       }
     });
-  }, [auth]);
+
+    //==================================================
+    return () => {
+      authUnsubscribe();
+    };
+  }, [auth, uid]);
 
   return null;
 }

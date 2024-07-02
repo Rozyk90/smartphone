@@ -1,8 +1,9 @@
 import styled, { keyframes } from "styled-components";
 import { useState, useEffect } from "react";
-import { generateRandomGradient } from "../elements/arrays";
-import useSound from "../../../../../../customHooks/useSound";
+
 import HiddenElement from "./HiddenElement";
+import useSound from "../../../../../../customHooks/useSound";
+import useUtilities from "../../../../../../customHooks/useUtilities";
 
 const StyledBody = styled.div<{ $large: boolean }>`
   border-radius: 16px;
@@ -46,35 +47,33 @@ const StyledName = styled.div`
 `;
 
 type Props = {
-  name: string;
-  number: string;
+  contact: {
+    name: string;
+    number: string;
+    uid: string | null;
+    elementId: number;
+  };
   fnToDo: () => void;
   selected: boolean;
 };
 
-export default function ContactCardBtn({
-  name,
-  number,
-  fnToDo,
-  selected,
-}: Props) {
+export default function ContactCard({ contact, fnToDo, selected }: Props) {
   const [gradient, setGradient] = useState("");
   const { btnSoundEffect } = useSound();
+  const {generateRandomGradient} = useUtilities()
 
   useEffect(() => {
     const newGradient = generateRandomGradient();
     setGradient(newGradient);
   }, []);
+
   return (
     <StyledBody $large={selected}>
       <StyledInfoBar onMouseDown={() => btnSoundEffect()} onClick={fnToDo}>
-        <StyledLogo $gradient={gradient}>{name[0]}</StyledLogo>
-        <StyledName>{name}</StyledName>
+        <StyledLogo $gradient={gradient}>{contact.name[0]}</StyledLogo>
+        <StyledName>{contact.name}</StyledName>
       </StyledInfoBar>
-      {selected && <HiddenElement phoneNumber={number} />}
-
-
-
+      {selected && <HiddenElement {...contact} cardType={'list'}  />}
     </StyledBody>
   );
 }
