@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 import { useAppSelector, useAppDispatch } from "../../../../../../redux/hooks";
 
-import Title from "../../../../../../globalComponents/title";
+import TitleWithBack from "../../../../../../globalComponents/titleWithBack";
 import SoundMode from "./elements/soundMode";
 import BtnCard from "../../../../../../globalComponents/btnCard";
 import { setCurrentScreen } from "../../../../../../redux/reducers/screenParts/screenCenter";
@@ -72,7 +72,7 @@ export default function SettingsSounds() {
 
   return (
     <StyledBody>
-      <Title title="Dźwięki i wibracja" />
+      <TitleWithBack title="Dźwięki i wibracja" />
       <SoundMode />
       <BtnCard
         title="Dzwonek"

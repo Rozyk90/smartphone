@@ -6,7 +6,7 @@ import RenderIcon from "../../../../icons/renderIcon";
 import { useAppDispatch, useAppSelector } from "../../../../../redux/hooks";
 import { updateScreenGrid } from "../../../../../redux/reducers/screenParts/screenCenter";
 
-const StyledScreenMain = styled.div`
+const StyledBody = styled.div`
   padding-top: 20px;
 `;
 
@@ -92,7 +92,7 @@ const ScreenMain: React.FC = () => {
   };
 
   return (
-    <StyledScreenMain>
+    <StyledBody>
       <StyledIconsMap>
         {grid.map((place, id) => (
           <StyledPlace
@@ -115,7 +115,7 @@ const ScreenMain: React.FC = () => {
           </StyledPlace>
         ))}
       </StyledIconsMap>
-    </StyledScreenMain>
+    </StyledBody>
   );
 };
 

@@ -11,6 +11,7 @@ export enum enumCurrentScreen {
   screenActiveBlocked = "screenActiveBlocked",
   screenMain = "screenMain",
   calling = 'calling',
+  sms= 'sms',
   // ==============================================================
   // =======================SETTINGS===============================
   settingsMain = "settingsMain",

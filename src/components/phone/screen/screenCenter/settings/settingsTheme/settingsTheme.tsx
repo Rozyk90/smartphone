@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { useState } from "react";
 
-import Title from "../../../../../../globalComponents/title";
+import TitleWithBack from "../../../../../../globalComponents/titleWithBack";
 import ScreenPreview from "./elements/screenPreview";
 import BtnCard from "../../../../../../globalComponents/btnCard";
 import { useAppDispatch,useAppSelector } from "../../../../../../redux/hooks";
@@ -36,7 +36,7 @@ export default function ScreenTheme() {
 
   return (
     <StyledBody>
-      <Title title="Tapeta i styl"/>
+      <TitleWithBack title="Tapeta i styl"/>
       <ScreenPreview />
       <BtnCard title="Zmień tapety" description={null} fnToDo={openBG} />
       <BtnCard title="Palety kolorów" description={null} fnToDo={openColors} />

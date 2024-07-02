@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Title from "../../../../../../globalComponents/title";
+import TitleWithBack from "../../../../../../globalComponents/titleWithBack";
 import { useAppDispatch, useAppSelector } from "../../../../../../redux/hooks";
 
 import TaskAltRoundedIcon from "@mui/icons-material/TaskAltRounded";
@@ -89,7 +89,7 @@ export default function SettingsThemeColors() {
 
   return (
     <StyledBody>
-      <Title title="Paleta kolorów" />
+      <TitleWithBack title="Paleta kolorów" />
       <StyledScreens>
         <ScreenCalculator />
         <ScreenSettings />

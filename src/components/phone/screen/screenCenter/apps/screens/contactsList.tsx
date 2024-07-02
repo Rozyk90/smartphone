@@ -4,7 +4,7 @@ import { useId, useState } from "react";
 
 import AddIcon from "@mui/icons-material/Add";
 import ContactCard from "../components/contactCard";
-import ContactTitle from "../components/contactTitle";
+import TitleLarge from "../../../../../../globalComponents/titleLarge";
 import { setCurrentScreen } from "../../../../../../redux/reducers/screenParts/screenCenter";
 import { enumCurrentScreen } from "../../../../../../redux/reducers/screenParts/enumsScreen";
 import useSound from "../../../../../../customHooks/useSound";
@@ -67,7 +67,7 @@ export default function ContactsList() {
 
   return (
     <StyledBody>
-      <ContactTitle
+      <TitleLarge
         title={"Kontakty"}
         description={`Mój numer: ${editContactNumber(phoneNumber)}`}
       />

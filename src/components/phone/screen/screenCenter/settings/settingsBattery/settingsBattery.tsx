@@ -14,7 +14,7 @@ import {
 
 import BatteryStatus from "./elements/batteryStatus";
 import BtnCardSwitch from "../../../../../../globalComponents/btnCardSwitch";
-import Title from "../../../../../../globalComponents/title";
+import TitleWithBack from "../../../../../../globalComponents/titleWithBack";
 
 const StyledBody = styled.div`
   background: ${(prop) => prop.theme.backgrounds.primary};
@@ -87,7 +87,7 @@ export default function SettingsBattery() {
 
   return (
     <StyledBody>
-      <Title title="Bateria" />
+      <TitleWithBack title="Bateria" />
 
       <BatteryStatus />
 

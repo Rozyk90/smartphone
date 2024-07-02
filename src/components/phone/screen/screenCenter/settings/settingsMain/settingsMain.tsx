@@ -1,9 +1,11 @@
 import styled from "styled-components";
 
 import BtnCardIcon from "../../../../../../globalComponents/btnCardIcon";
+
+import TitleLarge from "../../../../../../globalComponents/titleLarge";
 import { cards } from "./elements/cards";
 
-const StyledSettings = styled.div`
+const StyledBody = styled.div`
   background: ${(prop) => prop.theme.backgrounds.primary};
   height: 100%;
   overflow: auto;
@@ -23,19 +25,10 @@ const StyledSettings = styled.div`
   }
 `;
 
-const StyledSettingsTitle = styled.div`
-  min-height: 300px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: ${(prop) => prop.theme.fonts.primary};
-  font-size: 2.5rem;
-`;
-
 export default function SettingsMain() {
   return (
-    <StyledSettings>
-      <StyledSettingsTitle>Ustawienia</StyledSettingsTitle>
+    <StyledBody>
+      <TitleLarge title="Ustawienia" description={null}/>
       {cards.map((card, id) => (
         <BtnCardIcon
           key={card.title + id}
@@ -46,6 +39,6 @@ export default function SettingsMain() {
           enumScreen={card.enumScreen}
         />
       ))}
-    </StyledSettings>
+    </StyledBody>
   );
 }

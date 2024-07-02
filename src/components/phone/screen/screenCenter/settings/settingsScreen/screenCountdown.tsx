@@ -5,7 +5,7 @@ import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 
-import Title from "../../../../../../globalComponents/title";
+import TitleWithBack from "../../../../../../globalComponents/titleWithBack";
 import { countDownSetTimer } from "../../../../../../redux/reducers/screenParts/screenGeneral";
 import useSound from "../../../../../../customHooks/useSound";
 
@@ -61,7 +61,7 @@ export default function ScreenCountdown() {
 
   return (
     <StyledBody>
-      <Title title="Wygaszenie ekranu" />
+      <TitleWithBack title="Wygaszenie ekranu" />
       <StyledBtns>
         {timers.map((time) => (
           <StyledLabel

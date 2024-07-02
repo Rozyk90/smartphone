@@ -11,8 +11,8 @@ const StyledBtn = styled.button`
   background: ${(prop) => prop.theme.colors.background};
   border: none;
   border-radius: 14px;
-  width: 100%;
   padding: 14px;
+  width: 100%;
   display: flex;
   align-items: center;
   gap: 20px;

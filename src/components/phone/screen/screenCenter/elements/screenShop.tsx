@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const StyledShop = styled.div`
+const StyledBody = styled.div`
     
 
 `
@@ -11,9 +11,9 @@ export default function ScreenShop() {
   
   
     return (
-      <StyledShop>
+      <StyledBody>
         sklep
-      </StyledShop>
+      </StyledBody>
     );
   }
   

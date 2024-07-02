@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
-import Title from "../../../../../../globalComponents/title";
+import TitleWithBack from "../../../../../../globalComponents/titleWithBack";
 
 import vibrationSounds from "../../../../../../sounds/vibrationSounds/vibrationSounds";
 import { useAppDispatch, useAppSelector } from "../../../../../../redux/hooks";
@@ -80,7 +80,7 @@ export default function SoundCallVibration() {
 
   return (
     <StyledBody>
-      <Title title="Wibracje połączeń" />
+      <TitleWithBack title="Wibracje połączeń" />
       <StyledBtns>
         {vibrationSounds.map((sound) => (
           <StyledLabel

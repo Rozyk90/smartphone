@@ -7,7 +7,7 @@ import { screenTurnOff } from "../../../../../redux/reducers/screenParts/screenG
 import { enumCurrentScreen } from "../../../../../redux/reducers/screenParts/enumsScreen";
 import { setCurrentScreen } from "../../../../../redux/reducers/screenParts/screenCenter";
 
-const StyledScreenTrunOffAniamtion = styled.div`
+const StyledBody = styled.div`
   background: #1b1b1b;
   text-align: center;
   padding-top: 200px;
@@ -30,5 +30,5 @@ export default function ScreenTurnOffAnimation() {
     };
   }, []);
 
-  return <StyledScreenTrunOffAniamtion>SAMSUNG</StyledScreenTrunOffAniamtion>;
+  return <StyledBody>SAMSUNG</StyledBody>;
 }

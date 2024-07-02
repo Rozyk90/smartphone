@@ -2,7 +2,7 @@ import styled from "styled-components";
 import React, { useState, useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../../../../../redux/hooks";
 import { setBg } from "../../../../../../redux/reducers/theme";
-import Title from "../../../../../../globalComponents/title";
+import TitleWithBack from "../../../../../../globalComponents/titleWithBack";
 import Paggination from "../../../../../../globalComponents/paggination";
 import backgrounds from "../../../../../../theme/backgrounds";
 import ScreenBG from "./elements/screenBG";
@@ -95,7 +95,7 @@ export default function SettingsThemeBG() {
 
   return (
     <StyledBody>
-      <Title title="Tapety" />
+      <TitleWithBack title="Tapety" />
 
       <StyledCard>
         <StyledTitle>Kolory</StyledTitle>

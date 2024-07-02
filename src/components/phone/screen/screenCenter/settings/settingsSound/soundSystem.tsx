@@ -12,7 +12,7 @@ import {
   setSoundLockUnlockScreenOff,
 } from "../../../../../../redux/reducers/sound/systemSounds";
 
-import Title from "../../../../../../globalComponents/title";
+import TitleWithBack from "../../../../../../globalComponents/titleWithBack";
 import BtnCardSwitch from "../../../../../../globalComponents/btnCardSwitch";
 
 const StyledBody = styled.div`
@@ -79,7 +79,7 @@ export default function SoundSystem() {
 
   return (
     <StyledBody>
-      <Title title="Dźwięki systemu" />
+      <TitleWithBack title="Dźwięki systemu" />
       {switches.map((x) => (
         <BtnCardSwitch
           key={x.title}

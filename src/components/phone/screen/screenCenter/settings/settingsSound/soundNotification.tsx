@@ -5,7 +5,7 @@ import { useAppSelector,useAppDispatch } from "../../../../../../redux/hooks";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
-import Title from "../../../../../../globalComponents/title";
+import TitleWithBack from "../../../../../../globalComponents/titleWithBack";
 
 import notificationSounds from "../../../../../../sounds/notificationSounds/notificationSounds";
 import { setNotificationSound } from "../../../../../../redux/reducers/sound/general";
@@ -80,7 +80,7 @@ export default function SoundNotification() {
 
   return (
     <StyledBody>
-      <Title title="Dzwonek" />
+      <TitleWithBack title="Dzwonek" />
       <StyledBtns>
         {notificationSounds.map((sound) => (
           <StyledLabel

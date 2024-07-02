@@ -11,7 +11,7 @@ import {
   setVibrationLockUnlockScreenOn,
   setVibrationLockUnlockScreenOff,
 } from "../../../../../../redux/reducers/sound/systemVibrations";
-import Title from "../../../../../../globalComponents/title";
+import TitleWithBack from "../../../../../../globalComponents/titleWithBack";
 import BtnCardSwitch from "../../../../../../globalComponents/btnCardSwitch";
 
 const StyledBody = styled.div`
@@ -83,7 +83,7 @@ export default function SoundSystemVibration() {
   ];
   return (
     <StyledBody>
-      <Title title="Wibracje systemu" />{" "}
+      <TitleWithBack title="Wibracje systemu" />{" "}
       {switches.map((x) => (
         <BtnCardSwitch
           key={x.title}

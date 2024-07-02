@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import Title from "../../../../../globalComponents/title";
+import TitleWithBack from "../../../../../globalComponents/titleWithBack";
 import { useAppDispatch } from "../../../../../redux/hooks";
 
 const StyledBody = styled.div`
@@ -17,7 +17,7 @@ const StyledBody = styled.div`
 export default function SettingsApps() {
   return (
     <StyledBody>
-      <Title title="Aplikacje" />
+      <TitleWithBack title="Aplikacje" />
     </StyledBody>
   );
 }

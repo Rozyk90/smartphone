@@ -20,7 +20,7 @@ import { setCurrentScreen } from "../../../../../redux/reducers/screenParts/scre
 import { setCurrenBarTop } from "../../../../../redux/reducers/screenParts/screenBarTop";
 import { setCurrentBarBottom } from "../../../../../redux/reducers/screenParts/screenBarBottom";
 
-const StyledStartingScreen = styled.div`
+const StyledBody = styled.div`
   background: #1b1b1b;
   width: 100%;
   height: 100%;
@@ -94,7 +94,7 @@ export default function ScreenStartupAnimation() {
   }, []);
 
   return (
-    <StyledStartingScreen>
+    <StyledBody>
       <StyledLogo>
         SAMSUNG
         <p></p>
@@ -112,6 +112,6 @@ export default function ScreenStartupAnimation() {
           </StyledBottomDescription>
         </StyledBottomPart>
       )}
-    </StyledStartingScreen>
+    </StyledBody>
   );
 }

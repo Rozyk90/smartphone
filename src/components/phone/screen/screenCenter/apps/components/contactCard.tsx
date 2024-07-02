@@ -58,15 +58,10 @@ type Props = {
 };
 
 export default function ContactCard({ contact, fnToDo, selected }: Props) {
-  const [gradient, setGradient] = useState("");
-  const { btnSoundEffect } = useSound();
   const {generateRandomGradient} = useUtilities()
-
-  useEffect(() => {
-    const newGradient = generateRandomGradient();
-    setGradient(newGradient);
-  }, []);
-
+  const [gradient] = useState(generateRandomGradient());
+  const { btnSoundEffect } = useSound();
+  
   return (
     <StyledBody $large={selected}>
       <StyledInfoBar onMouseDown={() => btnSoundEffect()} onClick={fnToDo}>

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const StyledClock = styled.div`
+const StyledBody = styled.div`
     
 
 `
@@ -11,9 +11,9 @@ export default function ScreenClock() {
   
   
     return (
-      <StyledClock>
+      <StyledBody>
         zegar
-      </StyledClock>
+      </StyledBody>
     );
   }
   

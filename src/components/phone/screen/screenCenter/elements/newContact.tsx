@@ -98,10 +98,12 @@ enum Keyboards {
 }
 
 export default function NewContact() {
+  const { generateRandomGradient } = useUtilities();
+  
   const [keyboardType, setKeyboardType] = useState<
     Keyboards.qwerty | Keyboards.numbers
   >(Keyboards.qwerty);
-  const [gradient, setGradient] = useState("");
+  const [gradient] = useState(generateRandomGradient());
   const [name, setName] = useState("");
   const [number, setNumber] = useState("");
   const [elementId, setElementId] = useState(0);
@@ -115,7 +117,6 @@ export default function NewContact() {
 
   const { btnSoundEffect } = useSound();
   const { editContactNumber, findeContactUid } = useContacts();
-  const { generateRandomGradient } = useUtilities();
 
   const addNewContact = async () => {
     if (name.length !== 0 && number.length === 9) {
@@ -137,7 +138,6 @@ export default function NewContact() {
   };
 
   useEffect(() => {
-    setGradient(generateRandomGradient());
     const { name, number, uid, elementId } = newContactData;
     if (name) {
       setName(name);

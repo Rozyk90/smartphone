@@ -24,7 +24,7 @@ interface TitleProp {
   title: string;
 }
 
-export default function Title({ title }: TitleProp) {
+export default function TitleWithBack({ title }: TitleProp) {
   const {backToPreviousScreen} = useScreen()
   const {btnSoundEffect} = useSound()
   return (

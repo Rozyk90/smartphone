@@ -2,10 +2,10 @@ import styled from "styled-components";
 import { useAppDispatch } from "../../redux/hooks";
 import { enumCurrentBarBottom, enumCurrentBarTop, enumCurrentScreen } from "../../redux/reducers/screenParts/enumsScreen";
 import { setCurrentScreen } from "../../redux/reducers/screenParts/screenCenter";
-
-import SettingsIcon from "@mui/icons-material/Settings";
 import { setCurrenBarTop } from "../../redux/reducers/screenParts/screenBarTop";
 import { setCurrentBarBottom } from "../../redux/reducers/screenParts/screenBarBottom";
+
+import SettingsIcon from "@mui/icons-material/Settings";
 import useSound from "../../customHooks/useSound";
 
 const StyledIcon = styled.button<{ $isButton: boolean }>`

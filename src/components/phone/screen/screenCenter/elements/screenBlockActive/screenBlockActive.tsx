@@ -25,7 +25,7 @@ import { userLogout } from "../../../../../../redux/reducers/user";
 import { phoneUnlocked } from "../../../../../../redux/reducers/basicStates";
 import useSound from "../../../../../../customHooks/useSound";
 
-const StyledScreenBlockActive = styled.div`
+const StyledBody = styled.div`
   height: 100%;
   width: 100%;
 `;
@@ -68,7 +68,7 @@ export default function ScreenBlockActive() {
   };
 
   return (
-    <StyledScreenBlockActive>
+    <StyledBody>
       <StyledContainerClock>
         <Clock size={enumClockSizes.large} />
       </StyledContainerClock>
@@ -80,6 +80,6 @@ export default function ScreenBlockActive() {
         {!showInputs && <Finger onClick={isLogged ? setMainScreen : showInp} />}
         {isLogged && !showInputs && <ActionBtn txt="Wyloguj się" fn={logout} />}
       </StyledContainerLogin>
-    </StyledScreenBlockActive>
+    </StyledBody>
   );
 }

@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../../../../redux/hooks";
 
-import ContactTitle from "../components/contactTitle";
+import TitleLarge from "../../../../../../globalComponents/titleLarge";
 import HistoryCard from "../components/HistoryCard";
 
 import { contactsHistoryNotificationSet } from "../../../../../../redux/reducers/contacts/contactsHistory";
@@ -53,7 +53,7 @@ export default function ContactsHistory() {
 
   return (
     <StyledBody>
-      <ContactTitle title="Historia połączeń" description={null} />
+      <TitleLarge title="Historia połączeń" description={null} />
       <StyledListArea>
         {sortedHistory
           .sort((a, b) => b.startOfDayUnixTime - a.startOfDayUnixTime)

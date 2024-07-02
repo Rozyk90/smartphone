@@ -74,7 +74,7 @@ export default function Calling() {
   const { backToPreviousScreen } = useScreen();
   const { findContactName, editContactNumber } = useContacts();
 
-  const [bg] = useState(generateRandomGradient());
+  const [gradient] = useState(generateRandomGradient());
   const { callingNumber } = useAppSelector((state) => state.contacts.general);
 
   const title = findContactName(callingNumber);
@@ -124,7 +124,7 @@ export default function Calling() {
   }, [callingSound, missedSound]);
 
   return (
-    <StyledBody $bg={bg}>
+    <StyledBody $bg={gradient}>
       <StyledDescriptiopnTop>Łączenie...</StyledDescriptiopnTop>
       <StyledTitle>
         {title === callingNumber ? editContactNumber(callingNumber) : title}

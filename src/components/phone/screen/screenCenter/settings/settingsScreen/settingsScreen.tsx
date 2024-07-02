@@ -11,7 +11,7 @@ import {
   batteryDescriptionOff,
 } from "../../../../../../redux/reducers/battery";
 
-import Title from "../../../../../../globalComponents/title";
+import TitleWithBack from "../../../../../../globalComponents/titleWithBack";
 
 import BtnCardSwitch from "../../../../../../globalComponents/btnCardSwitch";
 import BtnCard from "../../../../../../globalComponents/btnCard";
@@ -60,7 +60,7 @@ export default function SettingsScreen() {
 
   return (
     <StyledBody>
-      <Title title="Wyświetlacz" />
+      <TitleWithBack title="Wyświetlacz" />
       <SampleTheme />
 
       <BtnCardSwitch

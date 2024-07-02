@@ -34,6 +34,7 @@ import SettingsTheme from "./settings/settingsTheme/settingsTheme";
 import SettingsThemeBG from "./settings/settingsTheme/themeBackgrounds";
 import SettingsThemeColors from "./settings/settingsTheme/themeColors";
 import Calling from "./elements/calling";
+import Sms from "./elements/sms/sms";
 
 const StyledScreenBody = styled.div`
   height: 600px;
@@ -56,6 +57,7 @@ export default function ScreenCenter() {
       )}
       {currentScreen === enumCurrentScreen.screenMain && <ScreenMain />}
       {currentScreen === enumCurrentScreen.calling && <Calling/>}
+      {currentScreen === enumCurrentScreen.sms && <Sms/>}
 
       {/* =============================================================== */}
 

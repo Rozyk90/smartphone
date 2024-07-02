@@ -155,7 +155,6 @@ export default function Keyboard() {
     };
 
     dispatch(contactsHistoryAdd(callObj));
-    console.log("to ten obiekt", callObj)
     if (toWhoUid) {
       firestorePushCallObj(toWhoUid, callObj);
     }

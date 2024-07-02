@@ -20,7 +20,7 @@ type Prop = {
   description: string | null;
 };
 
-export default function ContactTitle({ title, description }: Prop) {
+export default function TitleLarge({ title, description }: Prop) {
   return (
     <StyledTitleArea>
       <StyledTitle>{title}</StyledTitle>

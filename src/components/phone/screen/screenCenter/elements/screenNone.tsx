@@ -13,7 +13,7 @@ import {
 import ChargingDescription from "../../../../functionalities/battery/chargingDescription";
 import ChargingSpiner from "../../../../functionalities/battery/chargingSpiner";
 
-const StyledScreenNone = styled.button<{$isOn:boolean}>`
+const StyledBody = styled.button<{$isOn:boolean}>`
   background: #1b1b1b;
   border: none;
   height: 100%;
@@ -42,7 +42,7 @@ export default function ScreenNone() {
   };
 
   return (
-    <StyledScreenNone $isOn={isOn}
+    <StyledBody $isOn={isOn}
       onDoubleClick={() => {
         fn();
       }}
@@ -57,6 +57,6 @@ export default function ScreenNone() {
           <ChargingSpiner />
         </StyledSpinerPosition>
       )}
-    </StyledScreenNone>
+    </StyledBody>
   );
 }
