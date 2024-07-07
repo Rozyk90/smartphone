@@ -78,7 +78,7 @@ export default function KeyboardQWERTY({
   const [specialSings, setSpecialSings] = useState(false);
   const { keyboardSoundEffect } = useSound();
 
-  const specialRow = ["!", "?", "#", "@", "%", "^", "&", "*", "(", ")"];
+  const specialRow = ["!", "?", "#", "@", "%", ":", "&", "*", "(", ")"];
   const numbersRow = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"];
 
   const rows = [

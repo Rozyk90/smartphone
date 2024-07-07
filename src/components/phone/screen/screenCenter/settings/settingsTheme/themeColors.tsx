@@ -53,6 +53,7 @@ const StyledColorsBox = styled.div`
   gap: 12px;
   flex-wrap: wrap;
   justify-content: center;
+  padding:5px 0px;
 `;
 
 const StyledColor = styled.button<{ $color: string }>`
@@ -75,7 +76,7 @@ const StyledColorsShadow = styled.div`
   height: 130px;
   width: 290px;
   position: absolute;
-  bottom: 38px;
+  bottom: 58px;
 `;
 
 export default function SettingsThemeColors() {

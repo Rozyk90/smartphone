@@ -6,6 +6,7 @@ import { enumCurrentScreen } from "../../../../redux/reducers/screenParts/enumsS
 import ScreenShop from "./elements/screenShop";
 import ScreenClock from "./elements/screenClock";
 import ScreenCalendar from "./elements/screenCalendar";
+import Calculator from "./elements/calculator";
 import Contacts from "./smsCall/contacts";
 import NewContact from "./smsCall/screens/newContact";
 import Calling from "./smsCall/screens/calling";
@@ -112,6 +113,7 @@ export default function ScreenCenter() {
 
       {currentScreen === enumCurrentScreen.screenShop && <ScreenShop />}
       {currentScreen === enumCurrentScreen.screenClock && <ScreenClock />}
+      {currentScreen === enumCurrentScreen.calculator && <Calculator />}
       {currentScreen === enumCurrentScreen.screenCalendar && <ScreenCalendar />}
       {currentScreen === enumCurrentScreen.contacts && <Contacts />}
       {currentScreen === enumCurrentScreen.newContact && <NewContact />}

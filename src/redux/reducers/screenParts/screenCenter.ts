@@ -19,7 +19,7 @@ const initialState: State = {
     enumIcons.sms,
     enumIcons.empty,
     enumIcons.empty,
-    enumIcons.empty,
+    enumIcons.calculator,
     enumIcons.empty,
     enumIcons.empty,
     enumIcons.empty,

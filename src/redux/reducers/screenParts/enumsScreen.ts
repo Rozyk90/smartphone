@@ -36,6 +36,7 @@ export enum enumCurrentScreen {
   screenShop = "screenShop",
   screenClock = "screenClock",
   screenCalendar = "screenCalendar",
+  calculator = "calculator",
   // ==============================================================
   // ==========================SMS&CALL================================
   contacts = "contacts",

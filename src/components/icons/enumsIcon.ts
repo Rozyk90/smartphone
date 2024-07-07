@@ -6,7 +6,7 @@ export enum enumIcons {
     calendar = 'calendar',
     contacts = 'contacts',
     sms = 'sms',
-
+    calculator='calculator',
 
 
 }
