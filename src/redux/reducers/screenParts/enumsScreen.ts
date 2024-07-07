@@ -1,7 +1,7 @@
 export enum enumCurrentBarTop {
   transparent = "transparent",
   off = "off",
-  bgPrimary = 'bgPrimary'
+  bgPrimary = "bgPrimary",
 }
 
 export enum enumCurrentScreen {
@@ -10,8 +10,7 @@ export enum enumCurrentScreen {
   screenTurnOffAnimation = "screenTurnOffAnimation",
   screenActiveBlocked = "screenActiveBlocked",
   screenMain = "screenMain",
-  calling = 'calling',
-  sms= 'sms',
+
   // ==============================================================
   // =======================SETTINGS===============================
   settingsMain = "settingsMain",
@@ -37,13 +36,19 @@ export enum enumCurrentScreen {
   screenShop = "screenShop",
   screenClock = "screenClock",
   screenCalendar = "screenCalendar",
-  appContacts = "appContacts",
-  newContact = 'newContact'
+  // ==============================================================
+  // ==========================SMS&CALL================================
+  contacts = "contacts",
+  newContact = "newContact",
+  calling = "calling",
+  sms = "sms",
+  conversation = "conversation",
+  newConversation = "newConversation",
 }
 
 export enum enumCurrentBarBottom {
   transparent = "transparent",
-  transparentEmpty = 'transparentEmpty',
+  transparentEmpty = "transparentEmpty",
   off = "off",
   bgPrimary = "bgPrimary",
   backOnly = "backOnly",

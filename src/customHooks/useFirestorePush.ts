@@ -1,6 +1,16 @@
 import { useAppSelector } from "../redux/hooks";
 import { db } from "../firebase";
-import { updateDoc, doc, arrayUnion } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  getDoc,
+  setDoc,
+  updateDoc,
+  arrayUnion,
+  where,
+  query,
+} from "firebase/firestore";
+import { stat } from "fs";
 
 const useFirestorePush = () => {
   const screenGrid = useAppSelector((state) => state.screen.center.screenGrid);
@@ -38,6 +48,7 @@ const useFirestorePush = () => {
   const { contactsHistory, contactsHistoryNotification } = useAppSelector(
     (state) => state.contacts.history
   );
+  const { smsHistory, smsNotification } = useAppSelector((state) => state.sms);
   // =============================================================================================================================
 
   const updateFirestore = async (uid: string) => {
@@ -87,6 +98,10 @@ const useFirestorePush = () => {
             contactsList,
             contactsHistory: { contactsHistory, contactsHistoryNotification },
           },
+          sms: {
+            smsHistory,
+            smsNotification,
+          },
         });
         console.log("Dokument zaktualizowany pomyślnie");
       } catch (error) {
@@ -121,10 +136,73 @@ const useFirestorePush = () => {
       }
     }
   };
+  // =============================================================================================================================
+
+  type Message = {
+    unixtime: number;
+    unixtimeId: number;
+    authorNumber: string;
+    txt: string;
+  };
+
+  type Conversation = {
+    elementId: number;
+    smsToNumber: string;
+    smsToUid: string | null;
+    message: Message;
+  };
+
+  const firestorePushSendSmsTo = async (uid: string, smsObj: Conversation) => {
+    if (uid) {
+      const userDocRef = doc(db, "users", uid);
+      const userDoc = await getDoc(userDocRef);
+      const data = await userDoc.data();
+
+      if (data) {
+        const userSmsHistory = data.sms.smsHistory;
+        const smsToUid = smsObj.smsToUid;
+        const foundedConversation: boolean = userSmsHistory.some(
+          (conv: { smsToUid: string }) => conv.smsToUid === smsToUid
+        );
+
+        if (foundedConversation) {
+          const toUpdate = userSmsHistory.map((conv: any) => {
+            if (conv.smsToUid === smsToUid) {
+              return {
+                ...conv,
+                conversation: [...conv.conversation, smsObj.message],
+              };
+            } else {
+              return conv;
+            }
+          });
+
+          await updateDoc(userDocRef, {
+            "sms.smsHistory": toUpdate,
+            "sms.smsNotification": true,
+          });
+        } else {
+          await updateDoc(userDocRef, {
+            "sms.smsHistory": arrayUnion({
+              elementId: smsObj.elementId,
+              smsToNumber: smsObj.smsToNumber,
+              smsToUid: smsObj.smsToUid,
+              conversation: [smsObj.message],
+            }),
+            "sms.smsNotification": true,
+          });
+        }
+      } else {
+      }
+    }
+  };
+
+  // =============================================================================================================================
 
   return {
     updateFirestore,
     firestorePushCallObj,
+    firestorePushSendSmsTo,
   };
 };
 

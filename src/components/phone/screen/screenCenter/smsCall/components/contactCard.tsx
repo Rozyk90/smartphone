@@ -44,6 +44,10 @@ const StyledLogo = styled.div<{ $gradient: string }>`
 const StyledName = styled.div`
   color: ${(prop) => prop.theme.fonts.primary};
   font-size: 1rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 170px;
 `;
 
 type Props = {

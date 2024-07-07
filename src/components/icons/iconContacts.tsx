@@ -32,7 +32,7 @@ export default function IconContacts({
   const { btnSoundEffect } = useSound();
   const fn = () => {
     if (isButton) {
-      dispatch(setCurrentScreen(enumCurrentScreen.appContacts));
+      dispatch(setCurrentScreen(enumCurrentScreen.contacts));
       dispatch(setCurrenBarTop(enumCurrentBarTop.bgPrimary));
       dispatch(setCurrentBarBottom(enumCurrentBarBottom.bgPrimary));
       btnSoundEffect();

@@ -6,41 +6,58 @@ const useDate = () => {
     return currentDate.getTime();
   };
 
+  const getIsToday = (unixtime: number) => {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const todayStart = today.getTime();
+    const todayEnd = todayStart + 24 * 60 * 60 * 1000 - 1;
+
+    return unixtime >= todayStart && unixtime <= todayEnd;
+  };
+
   const getPolishTime = (
     unixTime: number
   ): {
     minutes: string;
     hours: string;
-    weekday: string;
-    weekdayNumber: number;
-    month: string;
-    monthNumber: number;
+    dayName: string;
+    dayInArr: number;
+    dayOfMonth: number;
+    monthName: string;
+    monthInArr: number;
+    monthOfYear: number;
     year: number;
   } => {
     const date = new Date(unixTime);
     const locale = "pl-PL";
-    const weekday = date.toLocaleDateString(locale, { weekday: "long" });
-    const weekdayNumber = date.getDay() + 1;
-    const month = date.toLocaleDateString(locale, { month: "long" });
-    const monthNumber = date.getMonth() + 1;
-    const year = date.getFullYear();
+
     const hours = date.toLocaleTimeString(locale, {
       hour: "2-digit",
       minute: "2-digit",
     });
 
+    const dayName = date.toLocaleDateString(locale, { weekday: "long" });
+    const dayInArr = date.getDay()-1;
+    const dayOfMonth = date.getDate()
+    const monthName = date.toLocaleDateString(locale, { month: "long" });
+    const monthInArr = date.getMonth();
+    const monthOfYear = monthInArr + 1;
+    const year = date.getFullYear();
+
     return {
       minutes: hours.split(":")[1],
       hours: hours.split(":")[0],
-      weekday,
-      weekdayNumber,
-      month,
-      monthNumber,
+      dayName,
+      dayInArr,
+      dayOfMonth,
+      monthName,
+      monthInArr,
+      monthOfYear,
       year,
     };
   };
 
-  return { getUnixTime, getPolishTime };
+  return { getUnixTime, getIsToday, getPolishTime };
 };
 
 export default useDate;

@@ -9,7 +9,6 @@ const StyledTitle = styled.div`
   display: flex;
   align-items: center;
   gap: 10px;
-  margin-top: 20px;
   color: ${(prop) => prop.theme.colors.primary};
   font-size: 20px;
   font-weight: bold;
@@ -20,19 +19,30 @@ const StyledButton = styled(IconButton)`
   }
 `;
 
+const StyledTitleBox = styled.div`
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 150px;
+`;
+
 interface TitleProp {
   title: string;
 }
 
 export default function TitleWithBack({ title }: TitleProp) {
-  const {backToPreviousScreen} = useScreen()
-  const {btnSoundEffect} = useSound()
+  const { backToPreviousScreen } = useScreen();
+  const { btnSoundEffect } = useSound();
   return (
     <StyledTitle>
-      <StyledButton onMouseDown={()=>btnSoundEffect()} onClick={backToPreviousScreen} size="small">
+      <StyledButton
+        onMouseDown={() => btnSoundEffect()}
+        onClick={backToPreviousScreen}
+        size="small"
+      >
         <ArrowBackIosRoundedIcon fontSize="small" />
       </StyledButton>
-      {title}
+      <StyledTitleBox>{title}</StyledTitleBox>
     </StyledTitle>
   );
 }

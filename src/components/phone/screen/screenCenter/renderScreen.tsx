@@ -6,8 +6,12 @@ import { enumCurrentScreen } from "../../../../redux/reducers/screenParts/enumsS
 import ScreenShop from "./elements/screenShop";
 import ScreenClock from "./elements/screenClock";
 import ScreenCalendar from "./elements/screenCalendar";
-import AppContacts from "./apps/appContacts";
-import NewContact from "./elements/newContact";
+import Contacts from "./smsCall/contacts";
+import NewContact from "./smsCall/screens/newContact";
+import Calling from "./smsCall/screens/calling";
+import Sms from "./smsCall/sms";
+import Conversation from "./smsCall/screens/conversation";
+import NewConversation from "./smsCall/screens/newConversation";
 
 import ScreenNone from "./elements/screenNone";
 import ScreenBlockActive from "./elements/screenBlockActive/screenBlockActive";
@@ -33,11 +37,12 @@ import ScreenCountdown from "./settings/settingsScreen/screenCountdown";
 import SettingsTheme from "./settings/settingsTheme/settingsTheme";
 import SettingsThemeBG from "./settings/settingsTheme/themeBackgrounds";
 import SettingsThemeColors from "./settings/settingsTheme/themeColors";
-import Calling from "./elements/calling";
-import Sms from "./elements/sms/sms";
+
 
 const StyledScreenBody = styled.div`
-  height: 600px;
+ height: 600px;
+ overflow: hidden;
+  
 `;
 
 export default function ScreenCenter() {
@@ -58,6 +63,8 @@ export default function ScreenCenter() {
       {currentScreen === enumCurrentScreen.screenMain && <ScreenMain />}
       {currentScreen === enumCurrentScreen.calling && <Calling/>}
       {currentScreen === enumCurrentScreen.sms && <Sms/>}
+      {currentScreen === enumCurrentScreen.conversation && <Conversation/>}
+      {currentScreen === enumCurrentScreen.newConversation && <NewConversation/>}
 
       {/* =============================================================== */}
 
@@ -106,7 +113,7 @@ export default function ScreenCenter() {
       {currentScreen === enumCurrentScreen.screenShop && <ScreenShop />}
       {currentScreen === enumCurrentScreen.screenClock && <ScreenClock />}
       {currentScreen === enumCurrentScreen.screenCalendar && <ScreenCalendar />}
-      {currentScreen === enumCurrentScreen.appContacts && <AppContacts />}
+      {currentScreen === enumCurrentScreen.contacts && <Contacts />}
       {currentScreen === enumCurrentScreen.newContact && <NewContact />}
     </StyledScreenBody>
   );

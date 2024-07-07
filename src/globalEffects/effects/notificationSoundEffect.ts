@@ -11,6 +11,7 @@ export default function NotificationSoundEffect() {
   const { contactsHistory, contactsHistoryNotification } = useAppSelector(
     (state) => state.contacts.history
   );
+  const {smsHistory,smsNotification} = useAppSelector(state => state.sms)
 
   const { notificationSoundEffect } = useSoundNotification();
 
@@ -19,10 +20,10 @@ export default function NotificationSoundEffect() {
   }, []);
 
   useEffect(() => {
-    if (contactsHistoryNotification && mounted && wasInteraction) {
+    if ((contactsHistoryNotification || smsNotification) && mounted && wasInteraction) {
       notificationSoundEffect();
     }
-  }, [contactsHistory, contactsHistoryNotification]);
+  }, [contactsHistory, contactsHistoryNotification, smsHistory, smsNotification]);
 
   return null;
 }

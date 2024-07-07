@@ -39,6 +39,7 @@ export default function FirestorePushEffect() {
 
   const { contactsList } = useAppSelector((state) => state.contacts.list);
   const { contactsHistory,contactsHistoryNotification } = useAppSelector((state) => state.contacts.history);
+  const {smsHistory,smsNotification} = useAppSelector(state=>state.sms)
 
   // ==========================================================================
   
@@ -74,7 +75,7 @@ export default function FirestorePushEffect() {
     vibrationLockUnlockScreen,
     contactsList,
     contactsHistory,
-    contactsHistoryNotification
+    contactsHistoryNotification,smsHistory,smsNotification
   ]);
 
   return null;

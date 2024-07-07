@@ -64,7 +64,7 @@ const StyledBtn = styled.button<{ $selected: boolean }>`
     prop.$selected ? prop.theme.colors.primary : prop.theme.fonts.secondary};
 `;
 
-export default function AppContacts() {
+export default function Contacts() {
   const [selectedPage, setSelectedPage] = useState<btnEnum>(
     btnEnum.contactsHistory
   );

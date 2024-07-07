@@ -6,6 +6,8 @@ import sliceBattery from "./reducers/battery";
 import sliceModal from "./reducers/modal";
 import sliceUser from "./reducers/user";
 import sliceTheme from "./reducers/theme";
+import  sliceSms  from "./reducers/sms";
+
 import  slicePageStates  from "./reducers/pageStates";
 import  sliceContactsHistory from "./reducers/contacts/contactsHistory";
 import  sliceContactsList  from "./reducers/contacts/contactsList";
@@ -42,6 +44,7 @@ export const store = configureStore({
   reducer: {
     pageStates: slicePageStates,
     contacts:contacts,
+    sms:sliceSms,
     user: sliceUser,
     theme: sliceTheme,
 

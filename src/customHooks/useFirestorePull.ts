@@ -22,6 +22,7 @@ import {
 } from "../redux/reducers/contacts/contactsHistory";
 import { userSetNumber } from "../redux/reducers/user";
 import useSoundNotification from "./useSoundNotification";
+import { smsCreateHistory, smsSetNotification } from "../redux/reducers/sms";
 
 const useFirestorePull = () => {
   const { notificationSoundID, notificationVibrationID } = useAppSelector(
@@ -62,6 +63,8 @@ const useFirestorePull = () => {
             data.contacts.contactsHistory.contactsHistoryNotification
           )
         );
+        dispatch(smsSetNotification(data.sms.smsNotification))
+        dispatch(smsCreateHistory(data.sms.smsHistory))
         // console.log("Pobrano wszystkie stany z firestore");
       }
     } catch (error) {
@@ -82,6 +85,9 @@ const useFirestorePull = () => {
             data.contacts.contactsHistory.contactsHistoryNotification
           )
         );
+        // ======================================================================
+        dispatch(smsSetNotification(data.sms.smsNotification))
+        dispatch(smsCreateHistory(data.sms.smsHistory))
       }
     } catch (error) {
       console.error("Error firestorePullNotification : ", error);

@@ -66,9 +66,14 @@ const StyledSpaceKey = styled.button`
 interface KeyboardProps {
   setTxt: React.Dispatch<React.SetStateAction<string>>;
   txt: string;
+  closeKeyboard?: () => void;
 }
 
-export default function KeyboardQWERTY({ setTxt, txt }: KeyboardProps) {
+export default function KeyboardQWERTY({
+  setTxt,
+  txt,
+  closeKeyboard,
+}: KeyboardProps) {
   const [shift, setShift] = useState(false);
   const [specialSings, setSpecialSings] = useState(false);
   const { keyboardSoundEffect } = useSound();
@@ -91,22 +96,17 @@ export default function KeyboardQWERTY({ setTxt, txt }: KeyboardProps) {
     if (key === "Shift") {
       setShift(!shift);
     } else if (key === "Backspace") {
-      setTxt((prevTxt) => prevTxt.slice(0, -1));
+      if (txt.length === 0 && closeKeyboard) {
+        closeKeyboard();
+      } else {
+        setTxt((prevTxt) => prevTxt.slice(0, -1));
+      }
     } else if (key === "Special") {
       setSpecialSings(!specialSings);
     } else {
       const newKey = shift ? key.toUpperCase() : key;
       setTxt((prevTxt) => prevTxt + newKey);
       if (shift) setShift(false);
-    }
-  };
-
-  const Btn = (key: string) => {
-    keyboardSoundEffect();
-    if (key === "Backspace") {
-      setTxt((prevTxt) => prevTxt.slice(0, -1));
-    } else if (key.length === 1) {
-      setTxt((prevTxt) => prevTxt + key);
     }
   };
 
@@ -127,7 +127,7 @@ export default function KeyboardQWERTY({ setTxt, txt }: KeyboardProps) {
 
   const renderButton = (key: string) =>
     key === " " ? (
-      <StyledSpaceKey key={key} />
+      <StyledSpaceKey key={key} onClick={() => btnAction(key)} />
     ) : (
       <Key
         key={key}
@@ -139,16 +139,6 @@ export default function KeyboardQWERTY({ setTxt, txt }: KeyboardProps) {
         {renderSing(key)}
       </Key>
     );
-
-  useEffect(() => {
-    const keyDown = (e: KeyboardEvent) => {
-      Btn(e.key);
-    };
-    window.addEventListener("keydown", keyDown);
-    return () => {
-      window.removeEventListener("keydown", keyDown);
-    };
-  }, [setTxt, txt]);
 
   return (
     <KeyboardContainer>

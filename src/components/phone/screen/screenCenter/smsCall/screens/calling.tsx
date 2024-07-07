@@ -1,20 +1,20 @@
 import styled from "styled-components";
 import { useEffect, useState, useRef } from "react";
-import { useAppDispatch, useAppSelector } from "../../../../../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../../../../../../redux/hooks";
 
-import soundCalling from "../../../../../sounds/soundCalling.mp3";
-import soundCallingMissed from "../../../../../sounds/soundCallingMissed.mp3";
+import soundCalling from '../../../../../../sounds/soundCalling.mp3'
+import soundCallingMissed from '../../../../../../sounds/soundCallingMissed.mp3'
 
 import CallEndIcon from "@mui/icons-material/CallEnd";
-import useContacts from "../../../../../customHooks/useContacts";
-import useUtilities from "../../../../../customHooks/useUtilities";
-import useScreen from "../../../../../customHooks/useScreen";
-import { setCurrenBarTop } from "../../../../../redux/reducers/screenParts/screenBarTop";
+import useContacts from "../../../../../../customHooks/useContacts";
+import useUtilities from "../../../../../../customHooks/useUtilities";
+import useScreen from "../../../../../../customHooks/useScreen";
+import { setCurrenBarTop } from "../../../../../../redux/reducers/screenParts/screenBarTop";
 import {
   enumCurrentBarBottom,
   enumCurrentBarTop,
-} from "../../../../../redux/reducers/screenParts/enumsScreen";
-import { setCurrentBarBottom } from "../../../../../redux/reducers/screenParts/screenBarBottom";
+} from "../../../../../../redux/reducers/screenParts/enumsScreen";
+import { setCurrentBarBottom } from "../../../../../../redux/reducers/screenParts/screenBarBottom";
 
 const StyledBody = styled.div<{ $bg: string }>`
   background: ${(prop) => prop.$bg};
@@ -38,6 +38,10 @@ const StyledTitle = styled.div`
   margin-top: 50px;
   font-size: 2.5rem;
   color: ${(prop) => prop.theme.fonts.primary};
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 250px;
 `;
 
 const StyledDescriptiopn = styled.div`

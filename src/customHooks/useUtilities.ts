@@ -1,4 +1,5 @@
 import { useAppSelector } from "../redux/hooks";
+import { useMemo } from "react";
 
 const useUtilities = () => {
 
@@ -31,7 +32,7 @@ const useUtilities = () => {
     toWhoUid: string | null;
   }
   
-  interface DayEntry {
+  interface DayEntryCalls {
     day: number;
     month: string;
     year: number;
@@ -65,8 +66,8 @@ const useUtilities = () => {
     "Sobota",
   ];
   
-  function mapCallsByDay(arrHistory: CallHistory[]): DayEntry[] {
-    const result: DayEntry[] = [];
+  function mapCallsByDay(arrHistory: CallHistory[]): DayEntryCalls[] {
+    const result: DayEntryCalls[] = [];
   
     arrHistory.forEach((call) => {
       const date = new Date(call.unixTime);
@@ -113,7 +114,36 @@ const useUtilities = () => {
 // ===============================================================================================================================
 // ===============================================================================================================================
 
-  return { generateRandomGradient,mapCallsByDay };
+interface DataObject {
+  unixtime: number;
+  [key: string]: any;  
+}
+
+function mapMessagesByDay(objects: DataObject[]): DataObject[][] {
+  const groups: { [key: string]: DataObject[] } = {};
+
+  const now = new Date();
+  const polandOffset = now.getTimezoneOffset() + 60; 
+  const polandTime = new Date(now.getTime() + polandOffset * 60 * 1000);
+  const jan = new Date(polandTime.getFullYear(), 0, 1).getTimezoneOffset();
+  const jul = new Date(polandTime.getFullYear(), 6, 1).getTimezoneOffset();
+  const isDST = Math.max(jan, jul) !== polandTime.getTimezoneOffset();
+  
+  objects.forEach(obj => {
+    const date = new Date(obj.unixtime + (isDST?7200000:3600000)).toISOString().split('T')[0];
+    if (!groups[date]) {
+      groups[date] = [];
+    }
+    groups[date].push(obj);
+  });
+
+  return Object.values(groups);
+}
+
+// ===============================================================================================================================
+// ===============================================================================================================================
+
+  return { generateRandomGradient,mapCallsByDay,mapMessagesByDay };
 };
 
 export default useUtilities;

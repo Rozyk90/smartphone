@@ -93,7 +93,10 @@ const useCreateFirestore = () => {
         contacts: {
           contactsList,
           contactsHistory: { contactsHistory, contactsHistoryNotification },
-        },
+        },sms:{
+          smsNotification:false,
+          smsHistory:[]
+        }
       });
       console.log("Stworzono firestore poprawnie");
     }

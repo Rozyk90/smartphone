@@ -20,6 +20,7 @@ const StyledScreen = styled.div<StyledBGprops>`
   position: relative;
   width: 310px;
   height: 656px;
+  max-height:656px;
   border-radius: 20px;
 `;
 

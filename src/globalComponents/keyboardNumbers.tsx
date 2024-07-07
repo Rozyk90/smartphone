@@ -38,30 +38,26 @@ const Key = styled.button<{ $special: boolean }>`
 interface KeyboardProps {
   setNumber: React.Dispatch<React.SetStateAction<string>>;
   number: string;
+  closeKeyboard?: () => void;
+
 }
 
-export default function KeyboardNumbers({ setNumber, number }: KeyboardProps) {
+export default function KeyboardNumbers({ setNumber, number,closeKeyboard }: KeyboardProps) {
   const { keyboardSoundEffect } = useSound();
 
   const keyPress = (key: string) => {
     keyboardSoundEffect();
     const validKeys = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"];
     if (key === "←" || key === "Backspace") {
-      setNumber((prevNumber) => prevNumber.slice(0, -1));
+      if(number.length === 0 &&closeKeyboard){
+        closeKeyboard()
+      }else{
+        setNumber((prevNumber) => prevNumber.slice(0, -1));
+      }
     } else if (number.length < 9 && validKeys.includes(key)) {
       setNumber((prevNumber) => prevNumber + key);
     }
   };
-
-  useEffect(() => {
-    const keyDown = (e: KeyboardEvent) => {
-      keyPress(e.key);
-    };
-    window.addEventListener("keydown", keyDown);
-    return () => {
-      window.removeEventListener("keydown", keyDown);
-    };
-  }, [setNumber, number]);
 
   const keys = [
     { label: "1", special: false },

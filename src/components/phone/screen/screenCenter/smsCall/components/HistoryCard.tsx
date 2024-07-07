@@ -88,6 +88,10 @@ const StyledTxtArea = styled.div`
 const StyledName = styled.div`
   color: ${(prop) => prop.theme.fonts.primary};
   font-size: 0.8rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 150px;
 `;
 
 const StyledTime = styled.div`

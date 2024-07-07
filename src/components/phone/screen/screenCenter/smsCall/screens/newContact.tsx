@@ -1,25 +1,24 @@
 import styled from "styled-components";
-import { useAppDispatch, useAppSelector } from "../../../../../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../../../../../../redux/hooks";
 import { useEffect, useState } from "react";
-import { db } from "../../../../../firebase";
-import { collection, getDocs, query, where } from "firebase/firestore";
 
 import InputAdornment from "@mui/material/InputAdornment";
 import TextField from "@mui/material/TextField";
 import PersonAddAlt1RoundedIcon from "@mui/icons-material/PersonAddAlt1Rounded";
 import PhoneRoundedIcon from "@mui/icons-material/PhoneRounded";
-import KeyboardNumbers from "../../../../../globalComponents/keyboardNumbers";
-import KeyboardQWERTY from "../../../../../globalComponents/keyboardQWERTY";
+import KeyboardNumbers from "../../../../../../globalComponents/keyboardNumbers";
+import KeyboardQWERTY from "../../../../../../globalComponents/keyboardQWERTY";
 
-import { setCurrentScreen } from "../../../../../redux/reducers/screenParts/screenCenter";
-import { enumCurrentScreen } from "../../../../../redux/reducers/screenParts/enumsScreen";
+import { setCurrentScreen } from "../../../../../../redux/reducers/screenParts/screenCenter";
+import { enumCurrentScreen } from "../../../../../../redux/reducers/screenParts/enumsScreen";
 import {
   contactsListAddNew,
   contactsListUpdate,
-} from "../../../../../redux/reducers/contacts/contactsList";
-import useSound from "../../../../../customHooks/useSound";
-import useContacts from "../../../../../customHooks/useContacts";
-import useUtilities from "../../../../../customHooks/useUtilities";
+} from "../../../../../../redux/reducers/contacts/contactsList";
+import useSound from "../../../../../../customHooks/useSound";
+import useContacts from "../../../../../../customHooks/useContacts";
+import useUtilities from "../../../../../../customHooks/useUtilities";
+import { contactNewContactData } from "../../../../../../redux/reducers/contacts/contactsGeneral";
 
 const StyledBody = styled.div`
   height: 100%;
@@ -99,7 +98,7 @@ enum Keyboards {
 
 export default function NewContact() {
   const { generateRandomGradient } = useUtilities();
-  
+
   const [keyboardType, setKeyboardType] = useState<
     Keyboards.qwerty | Keyboards.numbers
   >(Keyboards.qwerty);
@@ -125,32 +124,46 @@ export default function NewContact() {
         dispatch(
           contactsListAddNew({ name, number, uid: firestoreUid, elementId })
         );
-        dispatch(setCurrentScreen(enumCurrentScreen.appContacts));
+        dispatch(setCurrentScreen(enumCurrentScreen.contacts));
       } catch (error) {
         console.error("Error:", error);
       }
     }
   };
-
+  
   const updateContact = () => {
     dispatch(contactsListUpdate({ name, number, uid, elementId }));
-    dispatch(setCurrentScreen(enumCurrentScreen.appContacts));
+    dispatch(setCurrentScreen(enumCurrentScreen.contacts));
+  };
+
+  const handleInputChange = (event: any): void => {
+    setName(event.target.value);
+  };
+
+  const handleInputChangeNumber = (event: any): void => {
+    const numbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
+    const newKey = event.key
+
+    if (newKey === "Backspace") {
+      setNumber((prevNumber) => prevNumber.slice(0, -1));
+    } else if (number.length < 9 && numbers.includes(newKey)) {
+      setNumber((prevNumber) => prevNumber + newKey);
+    }
   };
 
   useEffect(() => {
     const { name, number, uid, elementId } = newContactData;
-    if (name) {
-      setName(name);
-    }
-    if (number) {
-      setNumber(number);
-    }
-    if (uid) {
-      setUid(uid);
-    }
-    if (elementId) {
-      setElementId(elementId);
-    }
+
+    setName(name);
+    setNumber(number);
+    setUid(uid);
+    setElementId(elementId);
+
+    return () => {
+      dispatch(
+        contactNewContactData({ name: "", number: "", uid: null, elementId: 0 })
+      );
+    };
   }, []);
 
   return (
@@ -161,8 +174,10 @@ export default function NewContact() {
 
       <StyledInputsArea>
         <StyledInput
-          onClick={() => setKeyboardType(Keyboards.qwerty)}
+          onFocus={() => setKeyboardType(Keyboards.qwerty)}
+          onChange={handleInputChange}
           label="Nazwa"
+          autoComplete="off" 
           value={name}
           InputProps={{
             startAdornment: (
@@ -172,9 +187,12 @@ export default function NewContact() {
             ),
           }}
         />
+
         <StyledInput
-          onClick={() => setKeyboardType(Keyboards.numbers)}
+          onFocus={() => setKeyboardType(Keyboards.numbers)}
+          onKeyDown={handleInputChangeNumber}
           label="Numer"
+          autoComplete="off" 
           value={editContactNumber(number)}
           InputProps={{
             startAdornment: (
@@ -189,9 +207,7 @@ export default function NewContact() {
         <StyledBtn
           $off={false}
           onMouseDown={() => btnSoundEffect()}
-          onClick={() =>
-            dispatch(setCurrentScreen(enumCurrentScreen.appContacts))
-          }
+          onClick={() => dispatch(setCurrentScreen(enumCurrentScreen.contacts))}
         >
           Anuluj
         </StyledBtn>

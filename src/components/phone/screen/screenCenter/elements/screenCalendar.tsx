@@ -3,6 +3,7 @@ import React, { useState } from "react";
 
 import ArrowBackIosRoundedIcon from "@mui/icons-material/ArrowBackIosRounded";
 import ArrowForwardIosRoundedIcon from "@mui/icons-material/ArrowForwardIosRounded";
+import useSound from "../../../../../customHooks/useSound";
 
 const StyledBody = styled.div`
   display: flex;
@@ -79,7 +80,8 @@ const StyledDaysGrid = styled.div`
 `;
 
 const StyledDay = styled.div<{ $today: boolean }>`
-  background: ${(props) => (props.$today ? props.theme.backgrounds.off : "inherit")};
+  background: ${(props) =>
+    props.$today ? props.theme.backgrounds.off : "inherit"};
   font-size: 0.5rem;
   font-weight: bold;
   width: 11px;
@@ -124,6 +126,8 @@ const ScreenCalendar: React.FC = () => {
     "Grudzień",
   ];
 
+  const { btnSoundEffect } = useSound();
+
   const incrementYear = (): void => setYear(year + 1);
   const decrementYear = (): void => setYear(year - 1);
 
@@ -148,10 +152,7 @@ const ScreenCalendar: React.FC = () => {
             <StyledDay key={index} $today={false}></StyledDay>
           ))}
           {daysArray.map((day, index) => (
-            <StyledDay
-              key={index}
-              $today={isToday(year, month, day)}
-            >
+            <StyledDay key={index} $today={isToday(year, month, day)}>
               {day}
             </StyledDay>
           ))}
@@ -163,11 +164,17 @@ const ScreenCalendar: React.FC = () => {
   return (
     <StyledBody>
       <StyledYearControl>
-        <StyledButton onClick={decrementYear}>
+        <StyledButton
+          onClick={decrementYear}
+          onMouseDown={() => btnSoundEffect()}
+        >
           <ArrowBackIosRoundedIcon />
         </StyledButton>
         <span>{year}</span>
-        <StyledButton onClick={incrementYear}>
+        <StyledButton
+          onClick={incrementYear}
+          onMouseDown={() => btnSoundEffect()}
+        >
           <ArrowForwardIosRoundedIcon />
         </StyledButton>
       </StyledYearControl>

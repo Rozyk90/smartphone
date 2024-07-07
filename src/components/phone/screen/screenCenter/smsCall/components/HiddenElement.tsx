@@ -28,6 +28,8 @@ import useFirestorePush from "../../../../../../customHooks/useFirestorePush";
 import useContacts from "../../../../../../customHooks/useContacts";
 import { setCurrenBarTop } from "../../../../../../redux/reducers/screenParts/screenBarTop";
 import { setCurrentBarBottom } from "../../../../../../redux/reducers/screenParts/screenBarBottom";
+import { smsOpenWith } from "../../../../../../redux/reducers/sms";
+import {BtnCall,BtnSms,BtnInfo} from "./btnsSmall";
 
 const fadeIn = keyframes`
   0% {
@@ -99,45 +101,51 @@ export default function HiddenElement({
   const { pushCurrentScreen } = useScreen();
   const { getUnixTime } = useDate();
   const { firestorePushCallObj } = useFirestorePush();
-  const { findeContact,editContactNumber } = useContacts();
+  const { findeContact, editContactNumber } = useContacts();
 
-  const call = () => {
-    const callObj = {
-      unixTime: getUnixTime(),
-      elementId: getUnixTime(),
-      whoCall: phoneNumber,
-      whoCallUid: whoCallUid,
-      toWho: number,
-      toWhoUid: uid,
-    };
-    dispatch(contactSetCalling(number))
-    dispatch(contactsHistoryAdd(callObj));
-    dispatch(setCurrentScreen(enumCurrentScreen.calling));
-    dispatch(setCurrenBarTop(enumCurrentBarTop.transparent));
-    dispatch(setCurrentBarBottom(enumCurrentBarBottom.transparent));
-    pushCurrentScreen();
-    if (uid) {
-      firestorePushCallObj(uid, callObj);
-    }
-  };
+  // const call = () => {
+  //   const callObj = {
+  //     unixTime: getUnixTime(),
+  //     elementId: getUnixTime(),
+  //     whoCall: phoneNumber,
+  //     whoCallUid: whoCallUid,
+  //     toWho: number,
+  //     toWhoUid: uid,
+  //   };
+  //   dispatch(contactSetCalling(number));
+  //   dispatch(contactsHistoryAdd(callObj));
+  //   dispatch(setCurrentScreen(enumCurrentScreen.calling));
+  //   dispatch(setCurrenBarTop(enumCurrentBarTop.transparent));
+  //   dispatch(setCurrentBarBottom(enumCurrentBarBottom.transparent));
+  //   pushCurrentScreen();
+  //   if (uid) {
+  //     firestorePushCallObj(uid, callObj);
+  //   }
+  // };
 
-  const editContact = () => {
-    pushCurrentScreen();
-    dispatch(setCurrentScreen(enumCurrentScreen.newContact));
+  // const sms = () => {
+  //   dispatch(setCurrentScreen(enumCurrentScreen.conversation));
+  //   dispatch(smsOpenWith(number));
+  //   pushCurrentScreen();
+  // };
 
-    const contactId = findeContact(number);
-    if (contactId) {
-      dispatch(
-        contactNewContactData({ name, number, uid, elementId: contactId })
-      );
-      dispatch(contactActionTypeSet("update"));
-    } else {
-      dispatch(
-        contactNewContactData({ name, number, uid, elementId: getUnixTime() })
-      );
-      dispatch(contactActionTypeSet("addNew"));
-    }
-  };
+  // const editContact = () => {
+  //   pushCurrentScreen();
+  //   dispatch(setCurrentScreen(enumCurrentScreen.newContact));
+
+  //   const contactId = findeContact(number);
+  //   if (contactId) {
+  //     dispatch(
+  //       contactNewContactData({ name, number, uid, elementId: contactId })
+  //     );
+  //     dispatch(contactActionTypeSet("update"));
+  //   } else {
+  //     dispatch(
+  //       contactNewContactData({ name, number, uid, elementId: getUnixTime() })
+  //     );
+  //     dispatch(contactActionTypeSet("addNew"));
+  //   }
+  // };
 
   const deleteElement = () => {
     if (cardType === "history") {
@@ -147,26 +155,36 @@ export default function HiddenElement({
     }
   };
 
-
   return (
     <StyledHiddenBar>
       <StyledNumber>Telefon: {editContactNumber(number)}</StyledNumber>
       <StyledBtns>
-        <StyledIconBtn
+        {/* <StyledIconBtn
           onMouseDown={() => btnSoundEffect()}
           onClick={() => call()}
         >
-          <CallIcon />
-        </StyledIconBtn>
-        <StyledIconBtn>
+          <CallIcon /> 
+        </StyledIconBtn> */}
+
+        <BtnCall {...{number, uid }} />
+        <BtnSms {...{ name, number, uid, elementId, cardType }} />
+        <BtnInfo {...{ name, number, uid, elementId, cardType }} />
+
+        {/* <StyledIconBtn
+          onMouseDown={() => btnSoundEffect()}
+          onClick={() => sms()}
+        >
           <SmsIcon />
-        </StyledIconBtn>
-        <StyledIconBtn
+        </StyledIconBtn> */}
+
+        {/* <StyledIconBtn
           onMouseDown={() => btnSoundEffect()}
           onClick={() => editContact()}
         >
           <InfoIcon />
-        </StyledIconBtn>
+        </StyledIconBtn> */}
+
+
         <StyledIconBtn
           onMouseDown={() => btnSoundEffect()}
           onClick={() => deleteElement()}

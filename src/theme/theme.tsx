@@ -93,6 +93,8 @@ const darkModeTheme = {
   backgrounds: {
     primary: "#202020",
     off: "#1b1b1b",
+     medium:'#414040f5',
+    light:'#525252'
   },
   fonts: {
     primary: "#f5f5f5",
@@ -112,6 +114,9 @@ const lightModeTheme = {
   backgrounds: {
     primary: "#f5f5f5",
     off: "#1b1b1b",
+    medium:'#a8a8a8f5',
+    light:'#e0e0e0'
+
   },
   fonts: {
     primary: "#202020",
