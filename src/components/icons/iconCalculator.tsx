@@ -16,14 +16,14 @@ const StyledIcon = styled.button<{ $isButton: boolean }>`
   height: 50px;
   border: none;
   border-radius: 20px;
-  background: rgb(229, 52, 19);
-  background: linear-gradient(
-    342deg,
-    #44c063 30%,
-    rgba(220, 41, 97, 1) 60%
-  );
+background: rgb(34,166,34);
+background: linear-gradient(48deg, rgba(34,166,34,1) 28%, rgba(24,196,5,1) 100%);
   color: white;
   cursor: ${(prop) => (prop.$isButton ? "pointer" : "default")};
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
 `;
 
 export default function IconCalculator({ isButton = true }: { isButton?: boolean }) {

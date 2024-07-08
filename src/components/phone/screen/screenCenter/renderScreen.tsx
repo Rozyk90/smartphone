@@ -3,7 +3,7 @@ import { useAppDispatch, useAppSelector } from "../../../../redux/hooks";
 
 import { enumCurrentScreen } from "../../../../redux/reducers/screenParts/enumsScreen";
 
-import ScreenShop from "./elements/screenShop";
+import ScreenShop from "./elements/appShop/screenShop";
 import ScreenClock from "./elements/screenClock";
 import ScreenCalendar from "./elements/screenCalendar";
 import Calculator from "./elements/calculator";

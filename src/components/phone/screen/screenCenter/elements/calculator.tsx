@@ -6,53 +6,63 @@ import BackspaceOutlinedIcon from "@mui/icons-material/BackspaceOutlined";
 
 const StyledBody = styled.div<{ $darkMode: boolean }>`
   background: ${(prop) => prop.theme.backgrounds.primary};
-  width: 210px;
-  height: 330px;
-  border-radius: 10px;
-  border: 1px solid gray;
-  box-shadow: ${({ $darkMode }) => ($darkMode ? "none" : "5px 5px 5px gray")};
+  height: 600px;
+  padding:50px 20px;
+
 `;
 
 const StyledCalcScreen = styled.div`
-  color: ${(prop) => prop.theme.colors.primary};
-  font-size: 12px;
-  border-bottom: 1px solid gray;
-  height: 70px;
-  margin: 10px;
-  padding-bottom: 10px;
-  display: flex;
-  justify-content: end;
-  align-items: end;
-  flex-direction: column;
-  gap: 10px;
+  height: 150px;
 `;
 
-const StyledCalcToAdd = styled.div`
-  font-weight: 600;
+const StyledInput = styled.div`
+height:100px;
+color:${prop => prop.theme.colors.primary};
+  font-size: 2.5rem;
+  display:flex;
+  justify-content:end;
+
 `;
 
-const StyledResult = styled.div``;
-
-const StyledDelBtn = styled(BackspaceOutlinedIcon)`
-  && {
-    font-size: 10px;
-  }
+const StyledResult = styled.div`
+height:50px;
+color:${prop => prop.theme.colors.primary};
+  font-size: 1.2rem;
+    display:flex;
+  justify-content:end;
 `;
+
+
 
 const StyledCalcBtnsArea = styled.div`
-  height: 120px;
+margin-top:20px;
+  height: 350px;
   display: flex;
   flex-wrap: wrap;
   gap: 5px;
   justify-content: center;
 `;
 
+const StyledCalcBtnDel = styled.button`
+  border: none;
+  background: ${(prop) => prop.theme.colors.background};
+  color: ${(prop) => prop.theme.declain};
+  height: 60px;
+  width: 60px;
+  border-radius: 50%;
+  font-size: 1.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+`;
+
 const StyledCalcBtnC = styled.button`
   border: none;
   background: ${(prop) => prop.theme.colors.background};
   color: ${(prop) => prop.theme.declain};
-  height: 40px;
-  width: 40px;
+  height: 60px;
+  width: 60px;
   border-radius: 50%;
   font-size: 1.5rem;
   display: flex;
@@ -60,12 +70,18 @@ const StyledCalcBtnC = styled.button`
   align-items: center;
 `;
 
+const StyledEmptyBtn = styled.div`
+  height: 60px;
+  width: 60px;
+  border-radius: 50%;
+`
+
 const StyledCalcBtn = styled.button`
   border: none;
   background: ${(prop) => prop.theme.colors.background};
   color: ${(prop) => prop.theme.colors.primary};
-  height: 40px;
-  width: 40px;
+  height: 60px;
+  width: 60px;
   border-radius: 50%;
   font-size: 1.5rem;
   display: flex;
@@ -77,18 +93,17 @@ const StyledCalcBtnEqual = styled.button`
   border: none;
   background: ${(prop) => prop.theme.colors.primary};
   color: ${(prop) => prop.theme.colors.onPrimary};
-  height: 40px;
-  width: 40px;
+  height: 60px;
+  width: 60px;
   border-radius: 50%;
   font-size: 1.5rem;
-
   display: flex;
   justify-content: center;
   align-items: center;
 `;
 
 const BtnsArr = [
-  "%",
+
   "%",
   "/",
   "7",
@@ -103,6 +118,7 @@ const BtnsArr = [
   "2",
   "3",
   "+",
+  "x",
   "0",
   ".",
 ];
@@ -114,24 +130,28 @@ export default function Calculator() {
   const [result, setResult] = useState<number | null>(null);
 
   const handleButtonClick = (value: string) => {
-    // Obsługa kliknięcia na "="
+
     if (value === '=') {
-      handleCalculate(); // Oblicz wynik
-    } else if (['+', '-', '*', '/','%'].includes(value)) {
-      // Obsługa kliknięcia na operatory +, -, *, /
+      handleCalculate();
+    } else if (['+', '-', '*', '/', '%'].includes(value)) {
+
       if (input !== '') {
-        setInput(input + value); // Dodaj operator do input
+        setInput(input + value);
         setResult(null)
       } else if (result !== null) {
-        setInput(result.toString() + value); // Jeśli jest wynik, dodaj operator do wyniku
+        setInput(result.toString() + value);
       }
     } else {
-      setInput(input + value); // Dodaj cyfrę lub znak do input
+      setInput(input + value);
     }
   };
 
   const handleClear = () => {
     setInput('');
+    setResult(null);
+  };
+  const handleDel = () => {
+    setInput((prevInput) => prevInput.slice(0, -1));
     setResult(null);
   };
 
@@ -231,22 +251,28 @@ export default function Calculator() {
   return (
     <StyledBody $darkMode={darkMode}>
       <StyledCalcScreen>
-        <StyledCalcToAdd>{input || "0"}</StyledCalcToAdd>
+        <StyledInput>{input}</StyledInput>
         <StyledResult>{result !== null && result} </StyledResult>
-        <StyledDelBtn />
+
       </StyledCalcScreen>
 
       <StyledCalcBtnsArea>
         <StyledCalcBtnC onClick={() => handleClear()}>C</StyledCalcBtnC>
+        <StyledCalcBtnDel onClick={() => handleDel()}><BackspaceOutlinedIcon /></StyledCalcBtnDel>
         {BtnsArr.map((txt, id) => (
-          <StyledCalcBtn onClick={() => handleButtonClick(txt)} key={id}>
-            {txt}
-          </StyledCalcBtn>
+          txt === 'x' ? <StyledEmptyBtn />
+            :
+            <StyledCalcBtn onClick={() => handleButtonClick(txt)} key={id}>
+              {txt}
+            </StyledCalcBtn>
+
         ))}
         <StyledCalcBtnEqual onClick={() => handleCalculate()}>
           =
         </StyledCalcBtnEqual>
+
       </StyledCalcBtnsArea>
     </StyledBody>
+
   );
 }

@@ -16,7 +16,10 @@ const StyledIcon = styled.button<{ $isButton: boolean }>`
   background:white;
   color: #2a6c97;
   cursor: ${(prop) => (prop.$isButton ? "pointer" : "default")};
-`;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  `;
 
 export default function IconSms({
   isButton = true,

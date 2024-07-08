@@ -1,7 +1,9 @@
 import styled from "styled-components";
 import { useAppDispatch } from "../../redux/hooks";
-import { enumCurrentScreen } from "../../redux/reducers/screenParts/enumsScreen";
+import { enumCurrentBarBottom, enumCurrentBarTop, enumCurrentScreen } from "../../redux/reducers/screenParts/enumsScreen";
 import { setCurrentScreen } from "../../redux/reducers/screenParts/screenCenter";
+import { setCurrenBarTop } from "../../redux/reducers/screenParts/screenBarTop";
+import { setCurrentBarBottom } from "../../redux/reducers/screenParts/screenBarBottom";
 
 import LocalMallIcon from "@mui/icons-material/LocalMall";
 import useSound from "../../customHooks/useSound";
@@ -19,7 +21,10 @@ const StyledIcon = styled.button<{ $isButton: boolean }>`
   );
   color: white;
   cursor: ${(prop) => (prop.$isButton ? "pointer" : "default")};
-`;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  `;
 
 export default function IconShop({ isButton = true }: { isButton?: boolean }) {
   const dispatch = useAppDispatch();
@@ -27,6 +32,8 @@ export default function IconShop({ isButton = true }: { isButton?: boolean }) {
   const fn = () => {
     if (isButton) {
       dispatch(setCurrentScreen(enumCurrentScreen.screenShop));
+      dispatch(setCurrenBarTop(enumCurrentBarTop.bgPrimary))
+      dispatch(setCurrentBarBottom(enumCurrentBarBottom.bgPrimary))
       btnSoundEffect()
 
     }

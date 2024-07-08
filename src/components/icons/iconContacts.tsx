@@ -18,10 +18,12 @@ const StyledIcon = styled.button<{ $isButton: boolean }>`
   border: none;
   border-radius: 20px;
   background: #01a463;
-
   color: white;
   cursor: ${(prop) => (prop.$isButton ? "pointer" : "default")};
-`;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  `;
 
 export default function IconContacts({
   isButton = true,

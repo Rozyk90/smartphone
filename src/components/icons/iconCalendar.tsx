@@ -24,7 +24,10 @@ const StyledIcon = styled.button<{ $isButton: boolean }>`
   );
   color: white;
   cursor: ${(prop) => (prop.$isButton ? "pointer" : "default")};
-`;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  `;
 
 export default function IconCalendar({
   isButton = true,
