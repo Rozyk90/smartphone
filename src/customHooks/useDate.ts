@@ -37,7 +37,7 @@ const useDate = () => {
     });
 
     const dayName = date.toLocaleDateString(locale, { weekday: "long" });
-    const dayInArr = date.getDay()-1;
+    const dayInArr = date.getDay();
     const dayOfMonth = date.getDate()
     const monthName = date.toLocaleDateString(locale, { month: "long" });
     const monthInArr = date.getMonth();

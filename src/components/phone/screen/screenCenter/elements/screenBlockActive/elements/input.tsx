@@ -17,7 +17,7 @@ const StyledInput = styled(TextField)`
         border: 2px solid white; // Kolor ramki
       }
       &:hover fieldset {
-        border: 2px solid #2196f3; // Kolor ramki po najechaniu myszką
+        border: 2px solid white; // Kolor ramki po najechaniu myszką
       }
       &.Mui-focused fieldset {
         border: 2px solid white; // Kolor ramki po kliknięciu

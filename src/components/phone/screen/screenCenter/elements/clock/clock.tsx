@@ -1,10 +1,11 @@
 import styled from "styled-components";
 import { useState } from "react";
 
-import ContactsHistory from "./screens/contactsHistory";
-import ContactsList from "./screens/contactsList";
-import Keyboard from "./screens/keyboard";
-import useSound from "../../../../../customHooks/useSound";
+import ScreenAlarm from "./screens/screenAlarm";
+import ScreenStopwatch from "./screens/screenStopwatch";
+import ScreenTimer from "./screens/screenTimer";
+
+import useSound from "../../../../../../customHooks/useSound";
 
 const StyledBody = styled.div`
   background: ${(prop) => prop.theme.backgrounds.primary};
@@ -26,7 +27,6 @@ const StyledBody = styled.div`
     cursor: pointer;
   }
 `;
-
 
 const StyledBtnsArea = styled.div`
   padding-bottom: 10px;
@@ -59,63 +59,60 @@ const StyledBtn = styled.button<{ $selected: boolean }>`
     prop.$selected ? prop.theme.colors.primary : prop.theme.fonts.secondary};
 `;
 
-
 enum btnEnum {
-  keyboard = "Klawiatura",
-  contactsHistory = "Ostatnie",
-  contactsList = "Kontakty",
+  alarm = "Alarm",
+  stopwatch = "Stoper",
+  timer = "Minutnik",
 }
 
-export default function Contacts() {
-  const [selectedPage, setSelectedPage] = useState<btnEnum>(
-    btnEnum.contactsHistory
-  );
+export default function Clock() {
+  const [selectedPage, setSelectedPage] = useState<btnEnum>(btnEnum.alarm);
   const { btnSoundEffect } = useSound();
 
   return (
     <StyledBody>
-      {selectedPage === btnEnum.keyboard && <Keyboard />}
-      {selectedPage === btnEnum.contactsHistory && <ContactsHistory />}
-      {selectedPage === btnEnum.contactsList && <ContactsList />}
+      {selectedPage === btnEnum.alarm && <ScreenAlarm />}
+      {selectedPage === btnEnum.stopwatch && <ScreenStopwatch />}
+      {selectedPage === btnEnum.timer && <ScreenTimer />}
 
       <StyledBtnsArea>
-        <StyledBtnBox $selected={selectedPage === btnEnum.keyboard}>
+        <StyledBtnBox $selected={selectedPage === btnEnum.alarm}>
           <StyledBtn
             onMouseDown={() => {
               btnSoundEffect();
             }}
             onClick={() => {
-              setSelectedPage(btnEnum.keyboard);
+              setSelectedPage(btnEnum.alarm);
             }}
-            $selected={selectedPage === btnEnum.keyboard}
+            $selected={selectedPage === btnEnum.alarm}
           >
-            {btnEnum.keyboard}
+            {btnEnum.alarm}
           </StyledBtn>
         </StyledBtnBox>{" "}
-        <StyledBtnBox $selected={selectedPage === btnEnum.contactsHistory}>
+        <StyledBtnBox $selected={selectedPage === btnEnum.stopwatch}>
           <StyledBtn
             onMouseDown={() => {
               btnSoundEffect();
             }}
             onClick={() => {
-              setSelectedPage(btnEnum.contactsHistory);
+              setSelectedPage(btnEnum.stopwatch);
             }}
-            $selected={selectedPage === btnEnum.contactsHistory}
+            $selected={selectedPage === btnEnum.stopwatch}
           >
-            {btnEnum.contactsHistory}
+            {btnEnum.stopwatch}
           </StyledBtn>
         </StyledBtnBox>
-        <StyledBtnBox $selected={selectedPage === btnEnum.contactsList}>
+        <StyledBtnBox $selected={selectedPage === btnEnum.timer}>
           <StyledBtn
             onMouseDown={() => {
               btnSoundEffect();
             }}
             onClick={() => {
-              setSelectedPage(btnEnum.contactsList);
+              setSelectedPage(btnEnum.timer);
             }}
-            $selected={selectedPage === btnEnum.contactsList}
+            $selected={selectedPage === btnEnum.timer}
           >
-            {btnEnum.contactsList}
+            {btnEnum.timer}
           </StyledBtn>
         </StyledBtnBox>
       </StyledBtnsArea>

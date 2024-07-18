@@ -2,8 +2,8 @@ import styled from "styled-components";
 import { useEffect, useState, useRef } from "react";
 import { useAppDispatch, useAppSelector } from "../../../../../../redux/hooks";
 
-import soundCalling from '../../../../../../sounds/soundCalling.mp3'
-import soundCallingMissed from '../../../../../../sounds/soundCallingMissed.mp3'
+import soundCalling from '../../../../../../sounds/other/soundCalling.mp3'
+import soundCallingMissed from '../../../../../../sounds/other/soundCallingMissed.mp3'
 
 import CallEndIcon from "@mui/icons-material/CallEnd";
 import useContacts from "../../../../../../customHooks/useContacts";

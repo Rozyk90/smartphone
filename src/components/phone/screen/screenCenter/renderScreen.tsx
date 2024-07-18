@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from "../../../../redux/hooks";
 import { enumCurrentScreen } from "../../../../redux/reducers/screenParts/enumsScreen";
 
 import ScreenShop from "./elements/appShop/screenShop";
-import ScreenClock from "./elements/screenClock";
+import Clock from "./elements/clock/clock";
 import ScreenCalendar from "./elements/screenCalendar";
 import Calculator from "./elements/calculator";
 import Contacts from "./smsCall/contacts";
@@ -38,6 +38,9 @@ import ScreenCountdown from "./settings/settingsScreen/screenCountdown";
 import SettingsTheme from "./settings/settingsTheme/settingsTheme";
 import SettingsThemeBG from "./settings/settingsTheme/themeBackgrounds";
 import SettingsThemeColors from "./settings/settingsTheme/themeColors";
+import ShopCatList from "./elements/appShop/shopCatList";
+import GameMemory from "./games/memory/gameMemory";
+import NewAlarm from "./elements/clock/screens/newAlarm";
 
 
 const StyledScreenBody = styled.div`
@@ -51,6 +54,7 @@ export default function ScreenCenter() {
 
   return (
     <StyledScreenBody>
+      {currentScreen === enumCurrentScreen.screenMain && <ScreenMain />}
       {currentScreen === enumCurrentScreen.screenNone && <ScreenNone />}
       {currentScreen === enumCurrentScreen.screenStartupAnimation && (
         <ScreenStartupAnimation />
@@ -61,13 +65,14 @@ export default function ScreenCenter() {
       {currentScreen === enumCurrentScreen.screenActiveBlocked && (
         <ScreenBlockActive />
       )}
-      {currentScreen === enumCurrentScreen.screenMain && <ScreenMain />}
+      {/* =============================================================== */}
       {currentScreen === enumCurrentScreen.calling && <Calling/>}
       {currentScreen === enumCurrentScreen.sms && <Sms/>}
       {currentScreen === enumCurrentScreen.conversation && <Conversation/>}
       {currentScreen === enumCurrentScreen.newConversation && <NewConversation/>}
+      {currentScreen === enumCurrentScreen.contacts && <Contacts />}
+      {currentScreen === enumCurrentScreen.newContact && <NewContact />}
 
-      {/* =============================================================== */}
 
       {currentScreen === enumCurrentScreen.settingsMain && <SettingsMain />}
       {currentScreen === enumCurrentScreen.settingsBattery && (
@@ -110,13 +115,20 @@ export default function ScreenCenter() {
       {currentScreen === enumCurrentScreen.settingsScreenCountdown && (
         <ScreenCountdown />
       )}
+      {/* =============================================================== */}
 
       {currentScreen === enumCurrentScreen.screenShop && <ScreenShop />}
-      {currentScreen === enumCurrentScreen.screenClock && <ScreenClock />}
+      {currentScreen === enumCurrentScreen.shopCatList && <ShopCatList />}
+
+      {/* =============================================================== */}
+
+      {currentScreen === enumCurrentScreen.clock && <Clock />}
+      {currentScreen === enumCurrentScreen.newAlarm && <NewAlarm />}
       {currentScreen === enumCurrentScreen.calculator && <Calculator />}
       {currentScreen === enumCurrentScreen.screenCalendar && <ScreenCalendar />}
-      {currentScreen === enumCurrentScreen.contacts && <Contacts />}
-      {currentScreen === enumCurrentScreen.newContact && <NewContact />}
+      {currentScreen === enumCurrentScreen.gameMemory && <GameMemory />}
+ 
+
     </StyledScreenBody>
   );
 }

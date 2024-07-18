@@ -12,18 +12,30 @@ import { setCurrentBarBottom } from "../../redux/reducers/screenParts/screenBarB
 import PhoneIcon from "@mui/icons-material/Phone";
 import useSound from "../../customHooks/useSound";
 
-const StyledIcon = styled.button<{ $isButton: boolean }>`
+const StyledIconBtn = styled.button`
   width: 50px;
   height: 50px;
   border: none;
   border-radius: 20px;
   background: #01a463;
   color: white;
-  cursor: ${(prop) => (prop.$isButton ? "pointer" : "default")};
+  cursor: pointer;
   display: flex;
   justify-content: center;
   align-items: center;
-  `;
+`;
+
+const StyledIcon = styled.div`
+  width: 50px;
+  height: 50px;
+  border: none;
+  border-radius: 20px;
+  background: #01a463;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
 
 export default function IconContacts({
   isButton = true,
@@ -32,21 +44,24 @@ export default function IconContacts({
 }) {
   const dispatch = useAppDispatch();
   const { btnSoundEffect } = useSound();
+
   const fn = () => {
-    if (isButton) {
-      dispatch(setCurrentScreen(enumCurrentScreen.contacts));
-      dispatch(setCurrenBarTop(enumCurrentBarTop.bgPrimary));
-      dispatch(setCurrentBarBottom(enumCurrentBarBottom.bgPrimary));
-      btnSoundEffect();
-    }
+    dispatch(setCurrentScreen(enumCurrentScreen.contacts));
+    dispatch(setCurrenBarTop(enumCurrentBarTop.bgPrimary));
+    dispatch(setCurrentBarBottom(enumCurrentBarBottom.bgPrimary));
+    btnSoundEffect();
   };
-  return (
-    <StyledIcon
-      $isButton={isButton}
+
+  return isButton ? (
+    <StyledIconBtn
       onClick={() => {
         fn();
       }}
     >
+      <PhoneIcon fontSize="large" />
+    </StyledIconBtn>
+  ) : (
+    <StyledIcon>
       <PhoneIcon fontSize="large" />
     </StyledIcon>
   );

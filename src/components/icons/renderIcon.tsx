@@ -9,6 +9,7 @@ import IconCalendar from "./iconCalendar";
 import IconContacts from "./iconContacts";
 import IconSms from "./iconSms";
 import IconCalculator from "./iconCalculator";
+import IconGameMemory from "./iconGameMemory";
 
 interface StyledIconProps {
   $isVisible: boolean;
@@ -47,6 +48,7 @@ export default function RenderIcon({
       {icon === enumIcons.contacts && <IconContacts />}
       {icon === enumIcons.sms && <IconSms />}
       {icon === enumIcons.calculator && <IconCalculator />}
+      {icon === enumIcons.gameMemory && <IconGameMemory />}
 
     </StyledIcon>
   );
@@ -70,6 +72,8 @@ function RenderIconSmall({ icon }: { icon: enumIcons }) {
       {icon === enumIcons.contacts && <IconContacts isButton={false} />}
       {icon === enumIcons.sms && <IconSms isButton={false} />}
       {icon === enumIcons.calculator && <IconCalculator isButton={false} />}
+      {icon === enumIcons.gameMemory && <IconGameMemory isButton={false}/>}
+
     </StyledIconSmall>
   );
 }

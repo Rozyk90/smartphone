@@ -7,7 +7,5 @@ export enum enumIcons {
     contacts = 'contacts',
     sms = 'sms',
     calculator='calculator',
-    randomGame='random game',
-
-
+    gameMemory='Memory',
 }

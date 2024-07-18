@@ -189,7 +189,6 @@ export default function Conversation() {
   const handleKeyPress = (event: any) => {
     if (event.key === "Enter" && message.length !== 0) {
       send();
-      console.log("robie to",message)
     } else if (event.key === "Backspace" && message.length === 0) {
       setShowKeyboard(false);
     }
@@ -320,8 +319,8 @@ export default function Conversation() {
           autoComplete="off"
           onChange={handleInputChange}
           onKeyDown={handleKeyPress}
-          value={message}
           placeholder="SMS"
+          value={message}
           onFocus={() => setShowKeyboard(true)}
         />
         <StyledSendBtn $active={message !== ""} onClick={() => send()}>

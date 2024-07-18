@@ -34,9 +34,14 @@ export enum enumCurrentScreen {
   // ==============================================================
   // ==========================APPS================================
   screenShop = "screenShop",
-  screenClock = "screenClock",
+  shopCatList = "shopCatList",
+  // ==============================================================
+
+  clock = "clock",
+  newAlarm = 'newAlarm',
   screenCalendar = "screenCalendar",
   calculator = "calculator",
+  gameMemory = "gameMemory",
   // ==============================================================
   // ==========================SMS&CALL================================
   contacts = "contacts",

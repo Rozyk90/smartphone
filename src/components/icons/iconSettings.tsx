@@ -8,7 +8,7 @@ import { setCurrentBarBottom } from "../../redux/reducers/screenParts/screenBarB
 import SettingsIcon from "@mui/icons-material/Settings";
 import useSound from "../../customHooks/useSound";
 
-const StyledIcon = styled.button<{ $isButton: boolean }>`
+const StyledIconBtn = styled.button`
   width: 50px;
   height: 50px;
   border: none;
@@ -19,11 +19,27 @@ const StyledIcon = styled.button<{ $isButton: boolean }>`
     rgba(50, 71, 91, 1) 60%
   );
   color: white;
-  cursor: ${(prop) => (prop.$isButton ? "pointer" : "default")};
+  cursor: pointer;
   display: flex;
   justify-content: center;
   align-items: center;
-  `;
+`;
+
+const StyledIcon = styled.div`
+  width: 50px;
+  height: 50px;
+  border: none;
+  border-radius: 20px;
+  background: radial-gradient(
+    circle,
+    rgba(41, 58, 101, 1) 30%,
+    rgba(50, 71, 91, 1) 60%
+  );
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
 
 export default function IconSettings({
   isButton = true,
@@ -31,22 +47,25 @@ export default function IconSettings({
   isButton?: boolean;
 }) {
   const dispatch = useAppDispatch();
-  const {btnSoundEffect} = useSound()
+  const { btnSoundEffect } = useSound();
+
   const fn = () => {
-    if (isButton) {
-      dispatch(setCurrentScreen(enumCurrentScreen.settingsMain));
-      dispatch(setCurrenBarTop(enumCurrentBarTop.bgPrimary))
-      dispatch(setCurrentBarBottom(enumCurrentBarBottom.bgPrimary))
-      btnSoundEffect()
-    }
+    dispatch(setCurrentScreen(enumCurrentScreen.settingsMain));
+    dispatch(setCurrenBarTop(enumCurrentBarTop.bgPrimary));
+    dispatch(setCurrentBarBottom(enumCurrentBarBottom.bgPrimary));
+    btnSoundEffect();
   };
-  return (
-    <StyledIcon
-      $isButton={isButton}
+
+  return isButton ? (
+    <StyledIconBtn
       onClick={() => {
         fn();
       }}
     >
+      <SettingsIcon fontSize="large" />
+    </StyledIconBtn>
+  ) : (
+    <StyledIcon>
       <SettingsIcon fontSize="large" />
     </StyledIcon>
   );

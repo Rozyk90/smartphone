@@ -7,6 +7,12 @@ import sliceModal from "./reducers/modal";
 import sliceUser from "./reducers/user";
 import sliceTheme from "./reducers/theme";
 import  sliceSms  from "./reducers/sms";
+import  sliceApps  from "./reducers/apps";
+
+
+import  sliceAlarm  from "./reducers/clock/alarm";
+import  sliceStopwatch  from "./reducers/clock/stopwatch";
+import  sliceTimer  from "./reducers/clock/timer";
 
 import  slicePageStates  from "./reducers/pageStates";
 import  sliceContactsHistory from "./reducers/contacts/contactsHistory";
@@ -29,24 +35,34 @@ const screen = combineReducers({
   barBottom: screenBarBottom,
   general: screenGeneral,
 });
+
 const sound = combineReducers({
   systemVibration: sliceSystemVibrations,
   systemSounds: sliceSystemSounds,
   general: sliceSoundGeneral,
 });
+
 const contacts = combineReducers({
   history:sliceContactsHistory,
   list:sliceContactsList,
   general:sliceContactsGeneral,
 });
 
+const clock = combineReducers({
+  alarm:sliceAlarm,
+  stopwatch:sliceStopwatch,
+  timer:sliceTimer
+});
+
 export const store = configureStore({
   reducer: {
     pageStates: slicePageStates,
+    apps:sliceApps,
     contacts:contacts,
     sms:sliceSms,
     user: sliceUser,
     theme: sliceTheme,
+    clock: clock,
 
     basicStates: basicStates,
     battery: sliceBattery,

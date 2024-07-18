@@ -1,25 +1,26 @@
 import styled from "styled-components";
 import { useAppDispatch } from "../../redux/hooks";
 import {
-  enumCurrentBarBottom,
-  enumCurrentBarTop,
   enumCurrentScreen,
+  enumCurrentBarTop,
+  enumCurrentBarBottom,
 } from "../../redux/reducers/screenParts/enumsScreen";
 import { setCurrentScreen } from "../../redux/reducers/screenParts/screenCenter";
+import VideogameAssetIcon from "@mui/icons-material/VideogameAsset";
+import useSound from "../../customHooks/useSound";
 import { setCurrenBarTop } from "../../redux/reducers/screenParts/screenBarTop";
 import { setCurrentBarBottom } from "../../redux/reducers/screenParts/screenBarBottom";
-import CalendarMonthRoundedIcon from "@mui/icons-material/CalendarMonthRounded";
-import useSound from "../../customHooks/useSound";
 
 const StyledIconBtn = styled.button`
   width: 50px;
   height: 50px;
   border: none;
   border-radius: 20px;
+  background: rgb(96, 85, 213);
   background: linear-gradient(
     175deg,
-    rgba(0, 143, 170, 1) 30%,
-    rgba(0, 129, 182, 1) 60%
+    rgba(96, 85, 213, 1) 30%,
+    rgba(63, 76, 155, 1) 60%
   );
   color: white;
   cursor: pointer;
@@ -33,10 +34,11 @@ const StyledIcon = styled.div`
   height: 50px;
   border: none;
   border-radius: 20px;
+  background: rgb(96, 85, 213);
   background: linear-gradient(
     175deg,
-    rgba(0, 143, 170, 1) 30%,
-    rgba(0, 129, 182, 1) 60%
+    rgba(96, 85, 213, 1) 30%,
+    rgba(63, 76, 155, 1) 60%
   );
   color: white;
   display: flex;
@@ -44,32 +46,26 @@ const StyledIcon = styled.div`
   align-items: center;
 `;
 
-export default function IconCalendar({
+export default function IconGameMemory({
   isButton = true,
 }: {
   isButton?: boolean;
 }) {
   const dispatch = useAppDispatch();
   const { btnSoundEffect } = useSound();
-
   const fn = () => {
-      dispatch(setCurrentScreen(enumCurrentScreen.screenCalendar));
-      dispatch(setCurrenBarTop(enumCurrentBarTop.bgPrimary));
-      dispatch(setCurrentBarBottom(enumCurrentBarBottom.bgPrimary));
-      btnSoundEffect();
+    dispatch(setCurrentScreen(enumCurrentScreen.gameMemory));
+    dispatch(setCurrenBarTop(enumCurrentBarTop.bgPrimary));
+    dispatch(setCurrentBarBottom(enumCurrentBarBottom.bgPrimary));
+    btnSoundEffect();
   };
-
   return isButton ? (
-    <StyledIconBtn
-      onClick={() => {
-        fn();
-      }}
-    >
-      <CalendarMonthRoundedIcon fontSize="large" />
+    <StyledIconBtn onClick={() => fn()}>
+      <VideogameAssetIcon fontSize="large" />
     </StyledIconBtn>
   ) : (
     <StyledIcon>
-      <CalendarMonthRoundedIcon fontSize="large" />
+      <VideogameAssetIcon fontSize="large" />
     </StyledIcon>
   );
 }
