@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
+import { useAppSelector } from "../../../redux/hooks";
+import useDate from "../../../customHooks/useDate";
 
 const StyledClock = styled.div``;
 
@@ -21,32 +23,45 @@ type Sizes = {
 };
 
 export default function Clock(props: Sizes) {
-  const now = new Date();
-  const [time, setTime] = useState(now);
+  const {getPolishTime,getUnixTime} = useDate()
+  const [time, setTime] = useState(getUnixTime());
 
-  const hour = time.getHours();
-  const min = time.getMinutes();
+  const {isRunning,unixtimeWhenRing} = useAppSelector(state => state.clock.timer)
+
+  const hour = getPolishTime(time).hours
+  const min = getPolishTime(time).minutes
+
+
+
+
+
+
+
+
 
   useEffect(() => {
+    console.log("sprawdzam",getUnixTime()>unixtimeWhenRing)
+
+
+
     const updateTime = () => {
-      const now = new Date();
-      setTime(now);
+      setTime(getUnixTime);
     };
 
-    const interval = setInterval(updateTime, 1000);
+    const clock = setTimeout(updateTime, 1000);
 
-    return () => clearInterval(interval);
-  }, []);
+    return () => clearTimeout(clock);
+  }, [time]);
 
   return (
     <StyledClock>
       {props.size === "small" ? (
         <StyledClockSmall>
-          {hour}:{min < 10 ? `0${min}` : min}
+          {hour}:{min}
         </StyledClockSmall>
       ) : (
         <StyledClockLarge>
-          {hour}:{min < 10 ? `0${min}` : min}
+          {hour}:{min}
         </StyledClockLarge>
       )}
     </StyledClock>

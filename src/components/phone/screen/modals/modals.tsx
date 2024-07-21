@@ -3,6 +3,7 @@ import { useAppSelector } from "../../../../redux/hooks";
 
 import { enumCurrentModal } from "../../../../redux/reducers/modal";
 import ModalTurnOffBtns from "./elements/modalTurnOffBtns/modalTurnOffBtns";
+import ModalAlarmRinging from "./elements/alarmRinging/modalAlarmRinging";
 
 const StyledModals = styled.div`
   position: absolute;
@@ -20,6 +21,8 @@ export default function Modals() {
       {currentModal === enumCurrentModal.modalTurnOffBtns && (
         <ModalTurnOffBtns />
       )}
+
+      {currentModal === enumCurrentModal.modalAlarmRinging && <ModalAlarmRinging/>}
     </StyledModals>
   );
 }

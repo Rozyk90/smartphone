@@ -1,8 +1,9 @@
 import styled from "styled-components";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import TimerClock from "../elements/timeSetter";
 import useDate from "../../../../../../../customHooks/useDate";
 import useSound from "../../../../../../../customHooks/useSound";
+import NotificationsActiveRoundedIcon from "@mui/icons-material/NotificationsActiveRounded";
 import {
   useAppDispatch,
   useAppSelector,
@@ -26,7 +27,33 @@ const StyledSetter = styled.div`
   align-items: center;
 `;
 
-const StyledTimer = styled.div``;
+const StyledCountdown = styled.div``;
+
+const StyledTimer = styled.div`
+  margin-top: 50px;
+  height: 280px;
+  width: 280px;
+  border: 7px solid ${(prop) => prop.theme.colors.background};
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 50px;
+  && {
+    color: ${(prop) => prop.theme.colors.primary};
+  }
+`;
+
+const StyledTime = styled.div`
+  font-size: 3rem;
+`;
+
+const StyledBtns = styled.div`
+  margin-top: 150px;
+  display: flex;
+  justify-content: space-around;
+`;
 
 const StyledBtnBasic = styled.button`
   background: ${(prop) => prop.theme.off};
@@ -73,9 +100,11 @@ const StyledBtnStop = styled.button`
   cursor: pointer;
 `;
 export default function ScreenTimer() {
+  const [mounted, setMounted] = useState(false);
   const [hour, setHour] = useState(0);
   const [minute, setMinute] = useState(15);
   const [second, setSecond] = useState(0);
+  const [countdown, setCountdown] = useState(0);
 
   const {
     isRunning,
@@ -83,13 +112,14 @@ export default function ScreenTimer() {
     unixtimeStartBreak,
     breaks,
     unixtimeWhenRing,
+    unixtimeTimerLength,
   } = useAppSelector((state) => state.clock.timer);
 
   const dispatch = useAppDispatch();
-  const { getUnixTime,getPolishTime } = useDate();
+  const { getUnixTime, getPolishTime } = useDate();
   const { btnSoundEffect } = useSound();
 
-  function calculateAlarmTime(): number {
+  function calculateAlarmRingTime(): number {
     const totalMilliseconds =
       hour * 60 * 60 * 1000 + minute * 60 * 1000 + second * 1000;
     const currentTime = getUnixTime();
@@ -102,13 +132,58 @@ export default function ScreenTimer() {
   }
 
   const startTimer = () => {
-    console.log("pdpalam")
     dispatch(
-      timerStart({ startTime: getUnixTime(), ringTime: calculateAlarmTime() })
+      timerStart({
+        startTime: getUnixTime(),
+        ringTime: calculateAlarmRingTime(),
+      })
     );
+    setCountdown(calculateAlarmRingTime() - getUnixTime());
   };
 
-  const polishTime = getPolishTime(unixtimeWhenRing)
+  const resumeTimer = () => {
+    const currentbreak = getUnixTime() - unixtimeStartBreak;
+    dispatch(timerResume({ breakLength: currentbreak }));
+  };
+
+  const formatTime = (time: number) => {
+    const seconds = Math.floor(time / 1000);
+    const getSeconds = `0${seconds % 60}`.slice(-2);
+    const minutes = Math.floor(seconds / 60);
+    const getMinutes = `0${minutes % 60}`.slice(-2);
+    const getHours = `0${Math.floor(minutes / 60)}`.slice(-2);
+
+    if (getHours !== "00") {
+      return `${getHours} : ${getMinutes} : ${getSeconds}`;
+    } else {
+      return `${getMinutes} : ${getSeconds}`;
+    }
+  };
+
+  const breaksTime = breaks.reduce(
+    (accumulator, currentValue) => accumulator + currentValue,
+    0
+  );
+  const polishTime = getPolishTime(unixtimeWhenRing + breaksTime);
+
+  useEffect(() => {
+    if (!mounted) {
+      setMounted((prev) => !prev);
+      if (isRunning) {
+        setCountdown(unixtimeWhenRing + breaksTime - getUnixTime());
+      } else {
+        setCountdown(unixtimeWhenRing + breaksTime - unixtimeStartBreak);
+      }
+    }
+
+    if (isRunning) {
+      const intervalId = setInterval(() => {
+        setCountdown((prevCountdown) => prevCountdown - 1000);
+      }, 1000);
+
+      return () => clearInterval(intervalId);
+    }
+  }, [mounted, isRunning, countdown]);
 
   return (
     <StyledBody>
@@ -122,24 +197,47 @@ export default function ScreenTimer() {
             second={second}
             setSecond={setSecond}
           />
-          <StyledBtnColor
-            onMouseDown={btnSoundEffect}
-            onClick={() => startTimer()}
-          >
+          <StyledBtnColor onMouseDown={btnSoundEffect} onClick={startTimer}>
             Start
           </StyledBtnColor>
         </StyledSetter>
       )}
 
-      {unixtimeStart !== 0 && <StyledTimer>odliczanie
-        dzien - {polishTime.dayName}
-        <p></p>
-        godzina - {polishTime.hours}
-        <p></p>
-        
-        miniua - {polishTime.minutes}
-        
-        </StyledTimer>}
+      {unixtimeStart !== 0 && (
+        <StyledCountdown>
+          <StyledTimer>
+            <div>{formatTime(unixtimeTimerLength)}</div>
+
+            <StyledTime>{formatTime(countdown)}</StyledTime>
+
+            <div>
+              <NotificationsActiveRoundedIcon fontSize="small" />
+              {`${polishTime.hours}:${polishTime.minutes}`}
+            </div>
+          </StyledTimer>
+
+          <StyledBtns>
+            {isRunning ? (
+              <>
+                <StyledBtnStop
+                  onClick={() =>
+                    dispatch(timerStop({ breakTime: getUnixTime() }))
+                  }
+                >
+                  Wstrzymaj
+                </StyledBtnStop>
+              </>
+            ) : (
+              <>
+                <StyledBtnBasic onClick={() => dispatch(timerReset())}>
+                  Usuń
+                </StyledBtnBasic>
+                <StyledBtnColor onClick={resumeTimer}>Wznów</StyledBtnColor>
+              </>
+            )}
+          </StyledBtns>
+        </StyledCountdown>
+      )}
     </StyledBody>
   );
 }

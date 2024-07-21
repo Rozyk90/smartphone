@@ -52,6 +52,7 @@ export const sliceStopwatch = createSlice({
         state.lapTimes.unshift(action.payload.lapObj)
       state.lapBreaks = []
     },
+    
     stopwatchResume:(state,action:PayloadAction<{breakTime:number}>)=>{
       state.isRunning = true;
       state.breaks.push(action.payload.breakTime)

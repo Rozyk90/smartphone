@@ -10,20 +10,34 @@ export enum enumModalTurnOffBtnsFocus {
 
 export enum enumCurrentModal {
   modalNone = 'modalNone',
-  modalTurnOffBtns = 'modalTurnOffBtns'
+  modalTurnOffBtns = 'modalTurnOffBtns',
+  modalAlarmRinging = 'modalAlarmRinging',
 }
 
+
+interface alarmData {
+  alarmType:'alarm'|'timer'
+  title:string
+description:string
+}
 
 interface modal {
   isModalActive: boolean,
   currentModal:enumCurrentModal
   turnOffBtnsFocus:enumModalTurnOffBtnsFocus
+  alarmData:alarmData
 };
 
 const initialState: modal = {
-  isModalActive:false,
-  currentModal:enumCurrentModal.modalNone,
-  turnOffBtnsFocus:enumModalTurnOffBtnsFocus.all
+  isModalActive:true,
+  currentModal:enumCurrentModal.modalAlarmRinging,
+  turnOffBtnsFocus:enumModalTurnOffBtnsFocus.all,
+  alarmData:{
+    alarmType:'timer',
+    title:'asdada',
+    description:'bcbvc b c b c'
+
+  }
 }
 
 export const sliceModal = createSlice({
