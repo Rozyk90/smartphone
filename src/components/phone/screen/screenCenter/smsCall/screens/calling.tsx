@@ -68,6 +68,7 @@ export default function Calling() {
     audio.preload = "none";
     return audio;
   });
+  
   const [missedSound] = useState(() => {
     const audio = new Audio(soundCallingMissed);
     audio.preload = "none";

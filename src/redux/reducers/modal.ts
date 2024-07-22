@@ -29,8 +29,8 @@ interface modal {
 };
 
 const initialState: modal = {
-  isModalActive:true,
-  currentModal:enumCurrentModal.modalAlarmRinging,
+  isModalActive:false,
+  currentModal:enumCurrentModal.modalNone,
   turnOffBtnsFocus:enumModalTurnOffBtnsFocus.all,
   alarmData:{
     alarmType:'timer',

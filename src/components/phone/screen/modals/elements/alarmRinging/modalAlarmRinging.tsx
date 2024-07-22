@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import useUtilities from "../../../../../../customHooks/useUtilities";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../../../../../redux/hooks";
 import useDate from "../../../../../../customHooks/useDate";
 import ClearRoundedIcon from "@mui/icons-material/ClearRounded";
@@ -10,6 +10,7 @@ import {
   setCurrentModal,
 } from "../../../../../../redux/reducers/modal";
 import useSound from "../../../../../../customHooks/useSound";
+import alarm from "../../../../../../sounds/other/alarm.mp3";
 
 const StyledBody = styled.div<{ $bg: string }>`
   background: ${(prop) => prop.$bg};
@@ -58,10 +59,32 @@ export default function ModalAlarmRinging() {
   const dispatch = useAppDispatch();
   const day = getPolishTime(getUnixTime());
 
+  const [alarmSound] = useState(() => {
+    const audio = new Audio(alarm);
+    audio.preload = "none";
+    return audio;
+  });
+
+  const playAlarmSound = () => {
+    alarmSound.play();
+  };
+
   const turnOff = () => {
     dispatch(modalTurnOff());
     dispatch(setCurrentModal(enumCurrentModal.modalNone));
+
+    alarmSound.pause();
+    alarmSound.currentTime = 0;
+    alarmSound.removeEventListener("ended", playAlarmSound);
   };
+
+  useEffect(() => {
+    if (alarmSound) {
+      playAlarmSound();
+
+      alarmSound.addEventListener("ended", playAlarmSound);
+    }
+  }, []);
 
   return (
     <StyledBody $bg={gradient}>

@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { useAppSelector } from "../../../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import useDate from "../../../customHooks/useDate";
+import { enumCurrentModal, modalTurnOn, setCurrentModal } from "../../../redux/reducers/modal";
+import { timerReset } from "../../../redux/reducers/clock/timer";
 
 const StyledClock = styled.div``;
 
@@ -10,7 +12,7 @@ const StyledClockSmall = styled.div`
 `;
 const StyledClockLarge = styled.div`
   font-size: 45px;
-  color: white;
+  color: ${prop => prop.theme.white};
 `;
 
 export enum enumClockSizes {
@@ -26,12 +28,16 @@ export default function Clock(props: Sizes) {
   const {getPolishTime,getUnixTime} = useDate()
   const [time, setTime] = useState(getUnixTime());
 
-  const {isRunning,unixtimeWhenRing} = useAppSelector(state => state.clock.timer)
+  const {isRunning,unixtimeWhenRing,breaks} = useAppSelector(state => state.clock.timer)
+const dispatch = useAppDispatch()
 
   const hour = getPolishTime(time).hours
   const min = getPolishTime(time).minutes
 
-
+  const breaksTime = breaks.reduce(
+    (accumulator, currentValue) => accumulator + currentValue,
+    0
+  );
 
 
 
@@ -40,8 +46,12 @@ export default function Clock(props: Sizes) {
 
 
   useEffect(() => {
-    console.log("sprawdzam",getUnixTime()>unixtimeWhenRing)
 
+    if(getUnixTime()>unixtimeWhenRing + breaksTime && isRunning){
+      dispatch(setCurrentModal(enumCurrentModal.modalAlarmRinging))
+      dispatch(modalTurnOn())
+      dispatch(timerReset())
+    }
 
 
     const updateTime = () => {
@@ -51,7 +61,7 @@ export default function Clock(props: Sizes) {
     const clock = setTimeout(updateTime, 1000);
 
     return () => clearTimeout(clock);
-  }, [time]);
+  }, [time,unixtimeWhenRing,isRunning]);
 
   return (
     <StyledClock>
