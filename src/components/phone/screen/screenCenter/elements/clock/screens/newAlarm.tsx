@@ -286,7 +286,7 @@ export default function NewAlarm() {
               <StyledSunday
                 key={day}
                 onClick={() => dayFn(day)}
-                onMouseDown={() => btnSoundEffect()}
+                onMouseDown={btnSoundEffect}
                 $selected={days.includes(day)}
               >
                 {day[0]}
@@ -307,27 +307,22 @@ export default function NewAlarm() {
         <StyledNap>
           Drzemka
           <StyledSwitch
-            onMouseDown={() => btnSoundEffect()}
+            checked={nap}
+            onMouseDown={btnSoundEffect}
             onClick={() => setNap(!nap)}
           />
         </StyledNap>
       </StyledDateArea>
       <StyledBtns>
         {!showKeyboard && alarmToEditId && (
-          <StyledBtnDel
-            onMouseDown={() => btnSoundEffect()}
-            onClick={() => remove()}
-          >
+          <StyledBtnDel onMouseDown={btnSoundEffect} onClick={remove}>
             Usuń
           </StyledBtnDel>
         )}
-        <StyledBtn
-          onMouseDown={() => btnSoundEffect()}
-          onClick={() => cancel()}
-        >
+        <StyledBtn onMouseDown={btnSoundEffect} onClick={cancel}>
           Anuluj
         </StyledBtn>
-        <StyledBtn onMouseDown={() => btnSoundEffect()} onClick={() => save()}>
+        <StyledBtn onMouseDown={btnSoundEffect} onClick={save}>
           Zapisz
         </StyledBtn>
       </StyledBtns>

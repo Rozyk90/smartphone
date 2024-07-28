@@ -23,6 +23,7 @@ import {
 import { userSetNumber } from "../redux/reducers/user";
 import useSoundNotification from "./useSoundNotification";
 import { smsCreateHistory, smsSetNotification } from "../redux/reducers/sms";
+import { alarmCreateList } from "../redux/reducers/clock/alarm";
 
 const useFirestorePull = () => {
   const { notificationSoundID, notificationVibrationID } = useAppSelector(
@@ -65,6 +66,7 @@ const useFirestorePull = () => {
         );
         dispatch(smsSetNotification(data.sms.smsNotification))
         dispatch(smsCreateHistory(data.sms.smsHistory))
+        dispatch(alarmCreateList(data.alarms))
         // console.log("Pobrano wszystkie stany z firestore");
       }
     } catch (error) {

@@ -38,11 +38,14 @@ export default function FirestorePushEffect() {
   } = useAppSelector((state) => state.sound.systemVibration);
 
   const { contactsList } = useAppSelector((state) => state.contacts.list);
-  const { contactsHistory,contactsHistoryNotification } = useAppSelector((state) => state.contacts.history);
-  const {smsHistory,smsNotification} = useAppSelector(state=>state.sms)
+  const { contactsHistory, contactsHistoryNotification } = useAppSelector(
+    (state) => state.contacts.history
+  );
+  const { smsHistory, smsNotification } = useAppSelector((state) => state.sms);
+  const { alarms } = useAppSelector((state) => state.clock.alarm);
 
   // ==========================================================================
-  
+
   const { updateFirestore } = useFirestorePush();
 
   useEffect(() => {
@@ -75,7 +78,10 @@ export default function FirestorePushEffect() {
     vibrationLockUnlockScreen,
     contactsList,
     contactsHistory,
-    contactsHistoryNotification,smsHistory,smsNotification
+    contactsHistoryNotification,
+    smsHistory,
+    smsNotification,
+    alarms,
   ]);
 
   return null;

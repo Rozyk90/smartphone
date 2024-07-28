@@ -49,6 +49,8 @@ const useFirestorePush = () => {
     (state) => state.contacts.history
   );
   const { smsHistory, smsNotification } = useAppSelector((state) => state.sms);
+  const { alarms } = useAppSelector((state) => state.clock.alarm);
+
   // =============================================================================================================================
 
   const updateFirestore = async (uid: string) => {
@@ -102,6 +104,7 @@ const useFirestorePush = () => {
             smsHistory,
             smsNotification,
           },
+          alarms,
         });
         console.log("Dokument zaktualizowany pomyślnie");
       } catch (error) {

@@ -38,6 +38,8 @@ const useCreateFirestore = () => {
   const { contactsHistory, contactsHistoryNotification } = useAppSelector(
     (state) => state.contacts.history
   );
+  const { alarms } = useAppSelector((state) => state.clock.alarm);
+
 
   const createFirestore = async (
     uid: string,
@@ -96,7 +98,7 @@ const useCreateFirestore = () => {
         },sms:{
           smsNotification:false,
           smsHistory:[]
-        }
+        },alarms:alarms
       });
       console.log("Stworzono firestore poprawnie");
     }
