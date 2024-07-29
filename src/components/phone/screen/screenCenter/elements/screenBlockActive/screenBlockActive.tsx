@@ -6,13 +6,13 @@ import { useAppDispatch, useAppSelector } from "../../../../../../redux/hooks";
 import { signOut } from "firebase/auth";
 import { auth } from "../../../../../../firebase";
 
-import Calendar from "../../../../../apps/calendar/calendar";
-import Clock from "../../../../../apps/clock/clock";
+import Calendar from "../../../../../time/calendar";
+import Clock from "../../../../../time/clocks";
 import ActionBtn from "./elements/actionBtn";
 import Finger from "./elements/finger";
 import Inputs from "./elements/inputs";
 
-import { enumClockSizes } from "../../../../../apps/clock/clock";
+import { enumClockSizes } from "../../../../../time/clocks";
 
 import {
   enumCurrentBarBottom,

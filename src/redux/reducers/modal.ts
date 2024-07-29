@@ -18,7 +18,7 @@ export enum enumCurrentModal {
 interface alarmData {
   alarmType:'alarm'|'timer'
   title:string
-description:string
+description:string|null
 }
 
 interface modal {
@@ -34,8 +34,8 @@ const initialState: modal = {
   turnOffBtnsFocus:enumModalTurnOffBtnsFocus.all,
   alarmData:{
     alarmType:'timer',
-    title:'asdada',
-    description:'bcbvc b c b c'
+    title:'tytułłł',
+    description:null
 
   }
 }
@@ -55,10 +55,14 @@ export const sliceModal = createSlice({
     },
     setTurnOffBtnsFocus:(state,action:PayloadAction<enumModalTurnOffBtnsFocus>)=>{
       state.turnOffBtnsFocus = action.payload
+    },
+    setAlarmData:(state,action:PayloadAction<alarmData>)=>{
+      state.alarmData = action.payload
+
     }
   },
 });
 
-export const {modalTurnOn,modalTurnOff,setCurrentModal,setTurnOffBtnsFocus} = sliceModal.actions;
+export const {modalTurnOn,modalTurnOff,setCurrentModal,setTurnOffBtnsFocus,setAlarmData} = sliceModal.actions;
 
 export default sliceModal.reducer;

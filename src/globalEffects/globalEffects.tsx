@@ -4,6 +4,7 @@ import FirestorePushEffect from "./effects/firestorePushEffect";
 import NotificationSoundEffect from "./effects/notificationSoundEffect";
 import InteractionDetectEffect from "./effects/interactionDetectEffect";
 import RealtimeDataEffect from "./effects/realtimeDataEffect";
+import TimeEffect from "./effects/timeEffect";
 
 export default function GlobalEffects() {
   return (
@@ -14,6 +15,7 @@ export default function GlobalEffects() {
       <NotificationSoundEffect />
       <InteractionDetectEffect />
       <RealtimeDataEffect />
+      <TimeEffect/>
     </>
   );
 }

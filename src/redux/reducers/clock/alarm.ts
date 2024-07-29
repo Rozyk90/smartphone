@@ -19,7 +19,6 @@ interface state {
 const initialState: state = {
   alarmToEditId:null,
   alarms: [
-
   ],
 };
 

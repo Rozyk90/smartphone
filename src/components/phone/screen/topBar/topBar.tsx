@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
-import Clock from "../../../apps/clock/clock";
-import { enumClockSizes } from "../../../apps/clock/clock";
+import Clock from "../../../time/clocks";
+import { enumClockSizes } from "../../../time/clocks";
 import IconList from "./notificationList";
 import TopBarBattery from "../../../functionalities/battery/topBarBattery";
 import { useAppSelector } from "../../../../redux/hooks";

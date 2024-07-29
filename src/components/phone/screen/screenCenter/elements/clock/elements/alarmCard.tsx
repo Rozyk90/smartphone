@@ -1,9 +1,16 @@
 import styled from "styled-components";
-import { useAppDispatch, useAppSelector } from "../../../../../../../redux/hooks";
+import {
+  useAppDispatch,
+  useAppSelector,
+} from "../../../../../../../redux/hooks";
 import Switch from "@mui/material/Switch";
 import useSound from "../../../../../../../customHooks/useSound";
 import useDate from "../../../../../../../customHooks/useDate";
-import { alarmToEditSet, alarmTurnOff, alarmTurnOn } from "../../../../../../../redux/reducers/clock/alarm";
+import {
+  alarmToEditSet,
+  alarmTurnOff,
+  alarmTurnOn,
+} from "../../../../../../../redux/reducers/clock/alarm";
 import { setCurrentScreen } from "../../../../../../../redux/reducers/screenParts/screenCenter";
 import { enumCurrentScreen } from "../../../../../../../redux/reducers/screenParts/enumsScreen";
 import useScreen from "../../../../../../../customHooks/useScreen";
@@ -21,7 +28,7 @@ const StyledCardBtn = styled.button`
   border: none;
   border-top-left-radius: 14px;
   border-bottom-left-radius: 14px;
-  background:none;
+  background: none;
   position: absolute;
   height: 92px;
   width: 210px;
@@ -81,9 +88,7 @@ const StyledDay = styled.div<{ $active: boolean; $selected: boolean }>`
     width: 3px;
     height: 3px;
     background: ${(prop) =>
-    prop.$active
-      ? prop.theme.colors.primary
-      : prop.theme.fonts.secondary};
+      prop.$active ? prop.theme.colors.primary : prop.theme.fonts.secondary};
     transform: translateX(-50%);
   }
 `;
@@ -120,12 +125,11 @@ interface AlarmCardProps {
 }
 
 export default function AlarmCard(props: AlarmCardProps) {
-  const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch();
   const { btnSoundEffect } = useSound();
-  const {pushCurrentScreen} = useScreen()
+  const { pushCurrentScreen } = useScreen();
 
-  const hours = [10, 11, 12];
-  const minuts = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+  const numbersToEdit = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
   const days = [
     "poniedziałek",
     "wtorek",
@@ -138,33 +142,41 @@ export default function AlarmCard(props: AlarmCardProps) {
 
   const alarm = props.alarm;
 
-  const editAlarm = () =>{
-    dispatch(alarmToEditSet(alarm.unixtimeId))
-    dispatch(setCurrentScreen(enumCurrentScreen.newAlarm))
-    pushCurrentScreen()
-  }
+  const editAlarm = () => {
+    dispatch(alarmToEditSet(alarm.unixtimeId));
+    dispatch(setCurrentScreen(enumCurrentScreen.newAlarm));
+    pushCurrentScreen();
+  };
 
   const switchAlarm = () => {
-    const alarmState = alarm.active
-    dispatch(alarmState?alarmTurnOff(alarm.unixtimeId):alarmTurnOn(alarm.unixtimeId))
-
+    const alarmState = alarm.active;
+    dispatch(
+      alarmState
+        ? alarmTurnOff(alarm.unixtimeId)
+        : alarmTurnOn(alarm.unixtimeId)
+    );
   };
 
   return (
     <StyledBody>
-      <StyledCardBtn onMouseDown={()=>btnSoundEffect()} onClick={()=>editAlarm()} />
+      <StyledCardBtn
+        onMouseDown={() => btnSoundEffect()}
+        onClick={() => editAlarm()}
+      />
       <StyledTitle $active={alarm.active}>{alarm.title}</StyledTitle>
 
       <StyledDate>
         <StyledTime $active={alarm.active}>
-          {hours.includes(alarm.hour) ? alarm.hour : `0${alarm.hour}`}:
-          {minuts.includes(alarm.minute) ? `0${alarm.minute}` : alarm.minute}
+          {numbersToEdit.includes(alarm.hour) ? `0${alarm.hour}` : alarm.hour}:
+          {numbersToEdit.includes(alarm.minute)
+            ? `0${alarm.minute}`
+            : alarm.minute}
         </StyledTime>
 
         <StyledDays>
           {days.map((day, id) => (
             <StyledDay
-            key={day}
+              key={day}
               $active={alarm.active}
               $selected={alarm.days.includes(day)}
             >
@@ -176,7 +188,7 @@ export default function AlarmCard(props: AlarmCardProps) {
         <StyledSwitchBox>
           <StyledSwitch
             checked={alarm.active}
-            onChange={()=>switchAlarm()}
+            onChange={() => switchAlarm()}
             onMouseDown={() => btnSoundEffect()}
           />
         </StyledSwitchBox>

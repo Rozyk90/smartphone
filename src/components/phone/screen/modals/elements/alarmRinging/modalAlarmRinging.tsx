@@ -7,6 +7,7 @@ import ClearRoundedIcon from "@mui/icons-material/ClearRounded";
 import {
   enumCurrentModal,
   modalTurnOff,
+  setAlarmData,
   setCurrentModal,
 } from "../../../../../../redux/reducers/modal";
 import useSound from "../../../../../../customHooks/useSound";
@@ -16,7 +17,7 @@ const StyledBody = styled.div<{ $bg: string }>`
   background: ${(prop) => prop.$bg};
   height: 100%;
   width: 100%;
-  border-radius: 20px;
+  border-radius: 14px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -29,17 +30,44 @@ const StyledHour = styled.div`
 const StyledDay = styled.div`
   font-size: 1.2rem;
   color: ${(prop) => prop.theme.fonts.primary};
+  width: 200px;
+  text-align: center;
 `;
 
 const StyledTitle = styled.div`
-  margin-top: 60px;
+  color: ${(prop) => prop.theme.fonts.primary};
+  margin-top: 20px;
   font-size: 2rem;
+  text-align: center;
+  width: 280px;
+  height: 195px;
+  max-height: 195px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  white-space: normal;
+  -webkit-line-clamp: 5;
 `;
 
-const StyledDescription = styled.div``;
+const StyledDescription = styled.div`
+  color: ${(prop) => prop.theme.fonts.primary};
+  margin-top: 10px;
+  font-size: 1rem;
+  text-align: center;
+  width: 280px;
+  height: 60px;
+  max-height: 60px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  white-space: normal;
+  -webkit-line-clamp: 3; 
+`;
 
 const StyledBtn = styled.div`
-  margin-top: 150px;
+  margin-top: 10px;
   background: ${(prop) => prop.theme.backgrounds.primary};
   height: 70px;
   width: 70px;
@@ -57,6 +85,7 @@ export default function ModalAlarmRinging() {
   const [gradient, setGradient] = useState(generateRandomGradient);
   const { alarmData } = useAppSelector((state) => state.modal);
   const dispatch = useAppDispatch();
+
   const day = getPolishTime(getUnixTime());
 
   const [alarmSound] = useState(() => {
@@ -72,6 +101,8 @@ export default function ModalAlarmRinging() {
   const turnOff = () => {
     dispatch(modalTurnOff());
     dispatch(setCurrentModal(enumCurrentModal.modalNone));
+    dispatch(setAlarmData({alarmType:'alarm',title:'',description:null}))
+
 
     alarmSound.pause();
     alarmSound.currentTime = 0;
@@ -90,7 +121,13 @@ export default function ModalAlarmRinging() {
     <StyledBody $bg={gradient}>
       <StyledHour>{`${day.hours}:${day.minutes}`}</StyledHour>
 
-      <StyledDay>{`${day.dayName} ${day.dayOfMonth}.${day.monthOfYear}.${day.year}`}</StyledDay>
+      <StyledDay>
+      <div>
+      {`${day.dayOfMonth} ${day.monthName} ${day.year}`}
+      </div>
+      <div>{`${day.dayName}`}</div>
+      
+      </StyledDay>
 
       <StyledTitle>{alarmData.title}</StyledTitle>
       <StyledDescription>{alarmData.description}</StyledDescription>
