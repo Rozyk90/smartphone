@@ -37,7 +37,11 @@ const initialState: state = {
       category: enumCategories.Utilities,
       core: false,
     },
-    { title: enumIcons.gameMemory, category: enumCategories.Games, core: false },
+    {
+      title: enumIcons.gameMemory,
+      category: enumCategories.Games,
+      core: false,
+    },
   ],
 };
 
@@ -45,12 +49,12 @@ export const sliceApps = createSlice({
   name: "apps",
   initialState,
   reducers: {
-    setOpenCategory: (state,action:PayloadAction<enumCategories>) =>{
-        state.openCategory = action.payload
-    }
+    setOpenCategory: (state, action: PayloadAction<enumCategories>) => {
+      state.openCategory = action.payload;
+    },
   },
 });
 
-export const {setOpenCategory,} = sliceApps.actions;
+export const { setOpenCategory } = sliceApps.actions;
 
 export default sliceApps.reducer;

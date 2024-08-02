@@ -13,8 +13,8 @@ import {
 
 import TitleWithBack from "../../../../../../globalComponents/titleWithBack";
 
-import BtnCardSwitch from "../../../../../../globalComponents/btnCardSwitch";
-import BtnCard from "../../../../../../globalComponents/btnCard";
+import BtnCardSwitch from "../elements/btnCardSwitch";
+import BtnCard from "../elements/btnCard";
 import { setCurrentScreen } from "../../../../../../redux/reducers/screenParts/screenCenter";
 import { enumCurrentScreen } from "../../../../../../redux/reducers/screenParts/enumsScreen";
 import { convertTime } from "./screenCountdown";

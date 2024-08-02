@@ -18,13 +18,19 @@ const initialState: battery = {
   isShowingValue: true,
   isFastCharging: true,
   isBatteryProtection: true,
-  isBatteryDescription: true, // is not ussing right now
+  isBatteryDescription: true,
 };
 
 export const sliceBattery = createSlice({
   name: "battery",
   initialState,
   reducers: {
+    batteryDefault: (state) => {
+      state.isShowingValue = true;
+      state.isFastCharging = true;
+      state.isBatteryProtection = true;
+      state.isBatteryDescription = true;
+    },
     batteryUpdate: (state, action: PayloadAction<number>) => {
       state.battery = action.payload;
     },
@@ -76,6 +82,7 @@ export const sliceBattery = createSlice({
 });
 
 export const {
+  batteryDefault,
   batteryUpdate,
   plugStatus,
   chargingStatus,

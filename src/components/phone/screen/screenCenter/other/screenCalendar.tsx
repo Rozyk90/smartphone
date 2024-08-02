@@ -20,6 +20,7 @@ const StyledYearControl = styled.div`
   display: flex;
   align-items: center;
   margin-bottom: 10px;
+  color: ${prop=>prop.theme.fonts.primary};
 
   span {
     font-size: 1.4rem;
@@ -56,6 +57,7 @@ const StyledMonthContainer = styled.div`
 
 const StyledMonthName = styled.div`
   font-weight: bold;
+  color: ${prop=>prop.theme.fonts.primary};
 `;
 
 const StyledWeekDays = styled.div`
@@ -69,7 +71,7 @@ const StyledDayName = styled.div<{ $isN: boolean }>`
   font-size: 0.65rem;
   font-weight: bold;
   width: 11px;
-  color: ${(props) => (props.$isN ? props.theme.declain : "inherit")};
+  color: ${(props) => (props.$isN ? props.theme.declain : props.theme.fonts.primary)};
 `;
 
 const StyledDaysGrid = styled.div`
@@ -85,7 +87,7 @@ const StyledDay = styled.div<{ $today: boolean }>`
   font-size: 0.5rem;
   font-weight: bold;
   width: 11px;
-  color: ${(props) => (props.$today ? props.theme.white : "inherit")};
+  color: ${(props) => (props.$today ? props.theme.white : props.theme.fonts.primary)};
   border-radius: 2px;
 `;
 

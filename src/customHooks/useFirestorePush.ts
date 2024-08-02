@@ -1,16 +1,6 @@
 import { useAppSelector } from "../redux/hooks";
 import { db } from "../firebase";
-import {
-  collection,
-  doc,
-  getDoc,
-  setDoc,
-  updateDoc,
-  arrayUnion,
-  where,
-  query,
-} from "firebase/firestore";
-import { stat } from "fs";
+import { doc, getDoc, updateDoc, arrayUnion } from "firebase/firestore";
 
 const useFirestorePush = () => {
   const screenGrid = useAppSelector((state) => state.screen.center.screenGrid);
@@ -106,7 +96,6 @@ const useFirestorePush = () => {
           },
           alarms,
         });
-        console.log("Dokument zaktualizowany pomyślnie");
       } catch (error) {
         console.error("Błąd podczas aktualizacji dokumentu: ", error);
       }

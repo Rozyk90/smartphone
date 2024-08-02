@@ -13,7 +13,7 @@ import {
 } from "../../../../../../redux/reducers/sound/systemSounds";
 
 import TitleWithBack from "../../../../../../globalComponents/titleWithBack";
-import BtnCardSwitch from "../../../../../../globalComponents/btnCardSwitch";
+import BtnCardSwitch from "../elements/btnCardSwitch";
 
 const StyledBody = styled.div`
   background: ${(prop) => prop.theme.backgrounds.primary};

@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
-import BtnCardIcon from "../../../../../../globalComponents/btnCardIcon";
-
+import BtnCardIcon from "../elements/btnCardIcon";
 import TitleLarge from "../../../../../../globalComponents/titleLarge";
 import { cards } from "./elements/cards";
 

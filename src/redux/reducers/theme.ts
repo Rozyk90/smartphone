@@ -25,6 +25,12 @@ export const sliceTheme = createSlice({
   name: "theme",
   initialState,
   reducers: {
+    themeDefault: (state) => {
+      state.darkMode = false;
+      state.darkModeAuto = true;
+      state.currentTheme = enumTheme.themeBasic;
+      state.background = { group: "gradients", id: 0 };
+    },
     setDarkModeOn: (state) => {
       state.darkMode = true;
     },
@@ -44,21 +50,18 @@ export const sliceTheme = createSlice({
       state.background = action.payload;
     },
     themeFirestoreUpdate: (state, action) => {
-      const {
-        darkMode,
-        darkModeAuto,
-        currentTheme,
-        background,
-      } = action.payload;
-      state.darkMode = darkMode
-      state.darkModeAuto = darkModeAuto
-      state.currentTheme = currentTheme
-      state.background = background
+      const { darkMode, darkModeAuto, currentTheme, background } =
+        action.payload;
+      state.darkMode = darkMode;
+      state.darkModeAuto = darkModeAuto;
+      state.currentTheme = currentTheme;
+      state.background = background;
     },
   },
 });
 
 export const {
+  themeDefault,
   setDarkModeOn,
   setDarkModeOff,
   setTheme,

@@ -16,15 +16,27 @@ type Conversation = {
 
 interface smsState {
   smsTo: string;
-  smsNotification:boolean
+  smsNotification: boolean;
   smsHistory: Conversation[];
 }
 
 const initialState: smsState = {
   smsTo: "",
-  smsNotification:false,
+  smsNotification: true,
   smsHistory: [
-
+    {
+      elementId: 123123123,
+      smsToNumber: "828459806",
+      smsToUid: "r8dCTJS3LAY2BosrYTu5EUBaLfb2",
+      conversation: [
+        {
+          unixtime: 1722447242000,
+          unixtimeId: 1722447242,
+          authorNumber: "828459806",
+          txt: "Hej! Ciesze się, że tu jesteś. Twoja opinia jest dla mnie bardzo ważna. Jeśli masz jakieś sugestie, napisz je tutaj. Dzięki i pozdrawiam :)",
+        },
+      ],
+    },
   ],
 };
 
@@ -32,10 +44,30 @@ export const sliceSms = createSlice({
   name: "sms",
   initialState,
   reducers: {
+    smsDefault: (state) => {
+      state.smsTo = "";
+      state.smsNotification = true;
+      state.smsHistory = [
+        {
+          elementId: 123123123,
+          smsToNumber: "828459806",
+          smsToUid: "r8dCTJS3LAY2BosrYTu5EUBaLfb2",
+          conversation: [
+            {
+              unixtime: 1722447242000,
+              unixtimeId: 1722447242,
+              authorNumber: "828459806",
+              txt: "Hej! Ciesze się, że tu jesteś. Twoja opinia jest dla mnie bardzo ważna. Jeśli masz jakieś sugestie, napisz je tutaj. Dzięki i pozdrawiam :)",
+            },
+          ],
+        },
+      ];
+    },
     smsOpenWith: (state, action) => {
       state.smsTo = action.payload;
-    },smsSetNotification:(state,action)=>{
-      state.smsNotification = action.payload
+    },
+    smsSetNotification: (state, action) => {
+      state.smsNotification = action.payload;
     },
     smsCreateHistory: (state, action) => {
       state.smsHistory = action.payload;
@@ -60,6 +92,12 @@ export const sliceSms = createSlice({
   },
 });
 
-export const { smsOpenWith,smsSetNotification, smsCreateHistory, smsPushMessage } = sliceSms.actions;
+export const {
+  smsDefault,
+  smsOpenWith,
+  smsSetNotification,
+  smsCreateHistory,
+  smsPushMessage,
+} = sliceSms.actions;
 
 export default sliceSms.reducer;

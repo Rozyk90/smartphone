@@ -5,7 +5,6 @@ import { useAppSelector } from "../redux/hooks";
 import soundsList from "../sounds/notificationSounds/notificationSounds";
 import vibrationSounds from "../sounds/vibrationSounds/vibrationSounds";
 
-
 const useSoundNotification = () => {
   const [sound, setSound] = useState(new Audio());
   const [vibration, setVibration] = useState(new Audio());
@@ -31,7 +30,6 @@ const useSoundNotification = () => {
     };
   }, []);
 
-
   const notificationSoundEffect = () => {
     const selectedSound = soundsList.find(
       (sound) => sound.id === notificationSoundID
@@ -47,7 +45,6 @@ const useSoundNotification = () => {
     }
 
     if (selectedVibration && mode === enumSoundModes.vibration && isOn) {
-
       vibration.src = selectedVibration.path;
       vibration.volume = 1;
       vibration.play();

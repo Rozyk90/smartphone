@@ -34,6 +34,11 @@ export const sliceContactsGeneral = createSlice({
     contactSetCalling: (state, action) => {
       state.callingNumber = action.payload;
     },
+    contactGeneralDefault: (state) => {
+      state.newContactData = { name: "", number: "", uid: "", elementId: 0 };
+      state.contactActionType = "addNew";
+      state.callingNumber = "";
+    },
   },
 });
 
@@ -41,6 +46,7 @@ export const {
   contactNewContactData,
   contactActionTypeSet,
   contactSetCalling,
+  contactGeneralDefault,
 } = sliceContactsGeneral.actions;
 
 export default sliceContactsGeneral.reducer;

@@ -9,36 +9,34 @@ export enum enumModalTurnOffBtnsFocus {
 }
 
 export enum enumCurrentModal {
-  modalNone = 'modalNone',
-  modalTurnOffBtns = 'modalTurnOffBtns',
-  modalAlarmRinging = 'modalAlarmRinging',
+  modalNone = "modalNone",
+  modalTurnOffBtns = "modalTurnOffBtns",
+  modalAlarmRinging = "modalAlarmRinging",
 }
 
-
 interface alarmData {
-  alarmType:'alarm'|'timer'
-  title:string
-description:string|null
+  alarmType: "alarm" | "timer";
+  title: string;
+  description: string | null;
 }
 
 interface modal {
-  isModalActive: boolean,
-  currentModal:enumCurrentModal
-  turnOffBtnsFocus:enumModalTurnOffBtnsFocus
-  alarmData:alarmData
-};
+  isModalActive: boolean;
+  currentModal: enumCurrentModal;
+  turnOffBtnsFocus: enumModalTurnOffBtnsFocus;
+  alarmData: alarmData;
+}
 
 const initialState: modal = {
-  isModalActive:false,
-  currentModal:enumCurrentModal.modalNone,
-  turnOffBtnsFocus:enumModalTurnOffBtnsFocus.all,
-  alarmData:{
-    alarmType:'timer',
-    title:'tytułłł',
-    description:null
-
-  }
-}
+  isModalActive: false,
+  currentModal: enumCurrentModal.modalNone,
+  turnOffBtnsFocus: enumModalTurnOffBtnsFocus.all,
+  alarmData: {
+    alarmType: "timer",
+    title: "tytułłł",
+    description: null,
+  },
+};
 
 export const sliceModal = createSlice({
   name: "modal",
@@ -50,19 +48,27 @@ export const sliceModal = createSlice({
     modalTurnOff: (state) => {
       state.isModalActive = false;
     },
-    setCurrentModal:(state,action:PayloadAction<enumCurrentModal>)=>{
-      state.currentModal = action.payload
+    setCurrentModal: (state, action: PayloadAction<enumCurrentModal>) => {
+      state.currentModal = action.payload;
     },
-    setTurnOffBtnsFocus:(state,action:PayloadAction<enumModalTurnOffBtnsFocus>)=>{
-      state.turnOffBtnsFocus = action.payload
+    setTurnOffBtnsFocus: (
+      state,
+      action: PayloadAction<enumModalTurnOffBtnsFocus>
+    ) => {
+      state.turnOffBtnsFocus = action.payload;
     },
-    setAlarmData:(state,action:PayloadAction<alarmData>)=>{
-      state.alarmData = action.payload
-
-    }
+    setAlarmData: (state, action: PayloadAction<alarmData>) => {
+      state.alarmData = action.payload;
+    },
   },
 });
 
-export const {modalTurnOn,modalTurnOff,setCurrentModal,setTurnOffBtnsFocus,setAlarmData} = sliceModal.actions;
+export const {
+  modalTurnOn,
+  modalTurnOff,
+  setCurrentModal,
+  setTurnOffBtnsFocus,
+  setAlarmData,
+} = sliceModal.actions;
 
 export default sliceModal.reducer;

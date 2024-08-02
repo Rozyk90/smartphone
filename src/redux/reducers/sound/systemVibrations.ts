@@ -19,6 +19,12 @@ export const sliceSystemVibrations = createSlice({
   name: "vibrations",
   initialState,
   reducers: {
+    systemVibrationDefault: (state) => {
+      state.vibrationTouch = true;
+      state.vibrationKeyboard = true;
+      state.vibrationCharger = true;
+      state.vibrationLockUnlockScreen = true;
+    },
     setVibrationTouchOn: (state) => {
       state.vibrationTouch = true;
     },
@@ -59,6 +65,7 @@ export const sliceSystemVibrations = createSlice({
 });
 
 export const {
+  systemVibrationDefault,
   setVibrationTouchOn,
   setVibrationTouchOff,
   setVibrationKeyboardOn,

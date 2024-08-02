@@ -5,9 +5,10 @@ import useSoundNotification from "../../customHooks/useSoundNotification";
 export default function NotificationSoundEffect() {
   const [mounted, setMounted] = useState(false);
 
-  const wasInteraction = useAppSelector(
-    (state) => state.pageStates.wasInteraction
+  const {wasInteraction,doFirstUpdate} = useAppSelector(
+    (state) => state.pageStates
   );
+  const {isLogged} = useAppSelector(state => state.user)
   const { contactsHistory, contactsHistoryNotification } = useAppSelector(
     (state) => state.contacts.history
   );
@@ -20,10 +21,10 @@ export default function NotificationSoundEffect() {
   }, []);
 
   useEffect(() => {
-    if ((contactsHistoryNotification || smsNotification) && mounted && wasInteraction) {
+    if ((contactsHistoryNotification || smsNotification) && mounted && wasInteraction && isLogged && !doFirstUpdate) {
       notificationSoundEffect();
     }
-  }, [contactsHistory, contactsHistoryNotification, smsHistory, smsNotification]);
+  }, [contactsHistory, contactsHistoryNotification, smsHistory]);
 
   return null;
 }

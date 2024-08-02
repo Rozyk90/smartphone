@@ -29,6 +29,14 @@ export const sliceSoundGeneral = createSlice({
   name: "general",
   initialState,
   reducers: {
+    soundGeneralDefault:(state) =>{
+      state.mode = enumSoundModes.on
+      state.volume = 50
+      state.callSoundID = 0
+      state.notificationSoundID = 0
+      state.callVibrationID = 0
+      state.notificationVibrationID = 0
+    },
     setSoundOn: (state) => {
       state.mode = enumSoundModes.on;
       state.volume = 20;
@@ -74,7 +82,7 @@ export const sliceSoundGeneral = createSlice({
   },
 });
 
-export const {
+export const {soundGeneralDefault,
   setSoundOn,
   setSoundVibration,
   setSoundOff,

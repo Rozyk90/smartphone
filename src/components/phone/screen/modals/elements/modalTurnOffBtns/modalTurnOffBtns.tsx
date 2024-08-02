@@ -13,9 +13,6 @@ import {
   setTurnOffBtnsFocus,
 } from "../../../../../../redux/reducers/modal";
 
-import { enumCurrentBarBottom } from "../../../../../../redux/reducers/screenParts/enumsScreen";
-import { setCurrentBarBottom } from "../../../../../../redux/reducers/screenParts/screenBarBottom";
-
 import BtnTurnOff from "./Btns/btnTurnOff";
 import BtnReset from "./Btns/btnReset";
 import BtnSos from "./Btns/btnSos";
@@ -25,13 +22,12 @@ const StyledPhoneTurnOffModal = styled.div`
   width: 100%;
   background: #2c2c2cc7;
   backdrop-filter: blur(10px);
-  border-radius: 20px;
+  border-radius: 16px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 30px;
-  border: 1px solid red;
   position: relative;
 `;
 
@@ -98,7 +94,11 @@ export default function ModalTurnOffBtns() {
         </StyledDescription>
       )}
 
-      <StyledButton onClick={()=>{clickScreen();}}>
+      <StyledButton
+        onClick={() => {
+          clickScreen();
+        }}
+      >
         <ArrowBackIosRoundedIcon fontSize="small" />
       </StyledButton>
     </StyledPhoneTurnOffModal>

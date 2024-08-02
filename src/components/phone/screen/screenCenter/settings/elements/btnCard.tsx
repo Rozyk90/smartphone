@@ -1,6 +1,5 @@
 import styled from "styled-components";
-import useSound from "../customHooks/useSound";
-
+import useSound from "../../../../../../customHooks/useSound";
 const StyledCardTitle = styled.button`
   background: ${(prop) => prop.theme.colors.background};
   border: none;

@@ -10,6 +10,7 @@ import { smsPushMessage } from "../../../../../../redux/reducers/sms";
 import useFirestorePush from "../../../../../../customHooks/useFirestorePush";
 import useUtilities from "../../../../../../customHooks/useUtilities";
 import { BtnInfo, BtnCall } from "../components/btnsSmall";
+import { smsSetNotification } from "../../../../../../redux/reducers/sms";
 
 const StyledBody = styled.div<{ $keyboard: boolean }>`
   background: ${(prop) => prop.theme.backgrounds.primary};
@@ -40,9 +41,9 @@ const StyledTopBar = styled.div`
   justify-content: space-between;
   align-items: center;
   position: fixed;
-  top: 40px;
-  width: 290px;
-  height: 40px;
+  top: 45px;
+  width: 310px;
+  height: 50px;
 `;
 
 const StyledBarBtns = styled.div`
@@ -106,13 +107,12 @@ const StyledLastMessageTime = styled.div<{ $myMessage: boolean }>`
 
 const StyledInputArea = styled.div<{ $keyboard: boolean }>`
   width: 310px;
-  height: 60px;
+  height: 65px;
   display: flex;
   justify-content: space-around;
   align-items: center;
   position: fixed;
   bottom: ${(prop) => (prop.$keyboard ? "250px" : "50px")};
-  left: 5px;
   background: ${(prop) => prop.theme.backgrounds.primary};
 `;
 
@@ -123,7 +123,6 @@ const StyledKeyboardArea = styled.div`
   justify-content: space-around;
   position: fixed;
   bottom: 40px;
-  left: 5px;
   background: ${(props) => props.theme.backgrounds.primary};
 `;
 
@@ -172,16 +171,14 @@ export default function Conversation() {
   const { findContactName, editContactNumber, findeContactUid } = useContacts();
 
   const dispatch = useAppDispatch();
-
   const isContact = findContactName(smsTo);
-
   const conversationObj = smsHistory.find((conv) => conv.smsToNumber === smsTo);
-
   const sortedMessages = conversationObj?.conversation
     ? mapMessagesByDay(conversationObj.conversation)
     : [];
 
   const handleInputChange = (event: any): void => {
+    dispatch(smsSetNotification(false));
     setMessage(event.target.value);
     setShowKeyboard(true);
   };
@@ -321,7 +318,10 @@ export default function Conversation() {
           onKeyDown={handleKeyPress}
           placeholder="SMS"
           value={message}
-          onFocus={() => setShowKeyboard(true)}
+          onFocus={() => {
+            setShowKeyboard(true);
+            dispatch(smsSetNotification(false));
+          }}
         />
         <StyledSendBtn $active={message !== ""} onClick={() => send()}>
           <SendIcon />
@@ -330,7 +330,11 @@ export default function Conversation() {
 
       <StyledKeyboardArea>
         {(showKeyboard || message) && (
-          <KeyboardQWERTY setTxt={setMessage} txt={message} closeKeyboard={()=>setShowKeyboard(false)} />
+          <KeyboardQWERTY
+            setTxt={setMessage}
+            txt={message}
+            closeKeyboard={() => setShowKeyboard(false)}
+          />
         )}
       </StyledKeyboardArea>
     </StyledBody>

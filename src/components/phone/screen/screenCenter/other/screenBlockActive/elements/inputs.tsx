@@ -1,17 +1,13 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 
-import {
-  useAppSelector,
-  useAppDispatch,
-} from "../../../../../../../redux/hooks";
+import { useAppDispatch } from "../../../../../../../redux/hooks";
 
-import { auth, db } from "../../../../../../../firebase";
+import { auth } from "../../../../../../../firebase";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
 } from "firebase/auth";
-import { doc, setDoc } from "firebase/firestore";
 
 import {
   enumCurrentBarBottom,
@@ -24,18 +20,20 @@ import {
   userSetNumber,
 } from "../../../../../../../redux/reducers/user";
 
-import ToggleButton from "@mui/material/ToggleButton";
-import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import Input from "./input";
 import ActionBtn from "./actionBtn";
 import { generateEmailError, generatePassError, enumErrors } from "./errors";
 import { phoneUnlocked } from "../../../../../../../redux/reducers/basicStates";
-
 import useSound from "../../../../../../../customHooks/useSound";
 import useCreateFirestore from "../../../../../../../customHooks/useCreateFirestore";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
+import useScreen from "../../../../../../../customHooks/useScreen";
 
 const StyledInputs = styled.div`
-  margin-bottom: 50px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 `;
 
 export enum enumBtns {
@@ -43,37 +41,37 @@ export enum enumBtns {
   btnRegistration = "registration",
 }
 
-const StyledBtnsGroup = styled(ToggleButtonGroup)``;
-
 export default function Inputs() {
   const [selectedBtn, setSelectedBtn] = useState(enumBtns.btnLogin);
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState("");
   const [pass, setPass] = useState("");
   const [passError, setPassError] = useState("");
+  const [value, setValue] = React.useState(0);
 
   const dispatch = useAppDispatch();
 
   const { lockSoundEffect } = useSound();
   const { createFirestore } = useCreateFirestore();
+  const {screenCountdownUpdate} = useScreen()
 
-  const setBtn = () => {
-    resetErrors();
+  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setSelectedBtn(
-      selectedBtn === enumBtns.btnLogin
-        ? enumBtns.btnRegistration
-        : enumBtns.btnLogin
+      newValue === 0 ? enumBtns.btnLogin : enumBtns.btnRegistration
     );
+    setValue(newValue);
   };
 
   const changeEmail = (event: any) => {
     resetErrors();
     setEmail(event.target.value);
+    screenCountdownUpdate()
   };
 
   const changePass = (event: any) => {
     resetErrors();
     setPass(event.target.value);
+    screenCountdownUpdate()
   };
 
   const resetErrors = () => {
@@ -139,19 +137,15 @@ export default function Inputs() {
 
   return (
     <>
-      <StyledBtnsGroup
-        color="primary"
-        value={selectedBtn}
-        exclusive
-        onChange={setBtn}
+      <Tabs
+        value={value}
+        onChange={handleChange}
+        aria-label="basic tabs example"
       >
-        <ToggleButton value={enumBtns.btnLogin} sx={{ color: "white" }}>
-          Logowanie
-        </ToggleButton>
-        <ToggleButton value={enumBtns.btnRegistration} sx={{ color: "white" }}>
-          Rejestracja
-        </ToggleButton>
-      </StyledBtnsGroup>
+        <Tab label="Logowanie" />
+        <Tab label="Rejestracja" />
+      </Tabs>
+
       <StyledInputs>
         <Input
           value={email}

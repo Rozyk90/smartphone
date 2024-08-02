@@ -1,21 +1,12 @@
-import styled from "styled-components";
-import { useState } from "react";
+import styled, { keyframes, css } from "styled-components";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
-
-import Button from "@mui/material/Button";
 
 import Phone from "./phone/phone";
 import Charger from "./charger/charger";
-
 import { phoneRotate } from "../redux/reducers/basicStates";
 import { plugStatus, chargingStatus } from "../redux/reducers/battery";
 import CounterActiveScreen from "./functionalities/counterActiveScreen";
-import {
-  setDarkModeOff,
-  setDarkModeOn,
-  setTheme,
-} from "../redux/reducers/theme";
-import useSoundNotification from "../customHooks/useSoundNotification";
+import ScreenRotationAltRoundedIcon from "@mui/icons-material/ScreenRotationAltRounded";
 
 const StyledDesign = styled.div`
   display: flex;
@@ -26,6 +17,7 @@ const StyledDesign = styled.div`
 const StyledHeader = styled.div`
   flex: 0 1 auto;
   text-align: center;
+  margin: 50px 0px;
 `;
 
 const StyledMain = styled.div`
@@ -35,46 +27,52 @@ const StyledMain = styled.div`
   align-items: flex-end;
   z-index: 1;
 `;
+
 const StyledSide = styled.div`
   width: 200px;
   height: 100%;
 `;
 
+const rotate180 = (isVertical: boolean) => keyframes`
+  0% {
+    transform: rotate(${isVertical ? "0deg" : "180deg"});
+    animation-timing-function: ease-in;
+  }
+  50% {
+    transform: rotate(${isVertical ? "-90deg" : "90deg"});
+    animation-timing-function: ease-out;
+  }
+  100% {
+    transform: rotate(${isVertical ? "-180deg" : "0deg"});
+    animation-timing-function: ease-in;
+  }
+`;
+
+const StyledRotateBtn = styled.button<{ $isVertical: boolean }>`
+  height: 80px;
+  width: 80px;
+  border-radius: 50%;
+  border: 3px solid black;
+  background: rgb(6, 131, 161);
+  background: radial-gradient(circle, #9aeccd 10%, #1ed2ff 50%, #1e90ff 80%);
+  cursor: pointer;
+  transition: transform 2s ease-in-out;
+
+  :hover {
+    transition: scale(1.2) 2s;
+  }
+
+  ${({ $isVertical }) => css`
+    transform: rotate(${$isVertical ? "0deg" : "180deg"});
+    animation: ${rotate180($isVertical)} 2s forwards;
+  `}
+`;
+
 export default function Components() {
+  const { isVertical } = useAppSelector((state) => state.basicStates);
+  const { isCharging } = useAppSelector((state) => state.battery);
+  const time = useAppSelector(state => state.screen.general.countDown)
   const dispatch = useAppDispatch();
-  const currentScreen = useAppSelector(
-    (state) => state.screen.center.currentScreen
-  );
-
-  const isLogged = useAppSelector((state) => state.user.isLogged);
-  const uid = useAppSelector((state) => state.user.uid);
-  const { isOn, isLocked } = useAppSelector((state) => state.basicStates);
-
-  const id = useAppSelector((state) => state.theme.background.id);
-  const isCharging = useAppSelector((state) => state.battery.isCharging);
-  const modalIsActive = useAppSelector((state) => state.modal.isModalActive);
-  const { countDown, countDownTimerSelected, isScreenOn, reversingBoard } =
-    useAppSelector((state) => state.screen.general);
-  const { isBatteryProtection, isBatteryDescription } = useAppSelector(
-    (state) => state.battery
-  );
-  const { darkMode, currentTheme, darkModeAuto } = useAppSelector(
-    (state) => state.theme
-  );
-  const topBar = useAppSelector((state) => state.screen.barTop.currentBarTop);
-  const {
-    vibrationTouch,
-    vibrationKeyboard,
-    vibrationCharger,
-    vibrationLockUnlockScreen,
-  } = useAppSelector((state) => state.sound.systemVibration);
-  const { soundTouch, soundKeyboard, soundCharger, soundLockUnlockScreen } =
-    useAppSelector((state) => state.sound.systemSounds);
-  const { notificationSoundID, notificationVibrationID } = useAppSelector(
-    (state) => state.sound.general
-  );
-  const { mode, volume } = useAppSelector((state) => state.sound.general);
-
 
   const rotatePhone = () => {
     if (isCharging) {
@@ -92,49 +90,18 @@ export default function Components() {
     }
   };
 
-  const zrobTo = () => {
-
-  };
-
   return (
     <StyledDesign>
       <StyledHeader>
-        telefon dziala?= {isOn.toString()}
-        <p></p>
-        telefon zablokowany? = {isLocked.toString()}
-        <p></p>
-        aktualny ekran = {currentScreen}
-        <p></p>
-        czas - {countDown / 1000}
-        <p></p>
-        wybrany czas = {countDownTimerSelected / 1000}
-        <p></p>
-        rodzaj dzwieku - {mode}
-        <p></p>
-        głosnosc - {volume}
-        <p></p>
-        uid = {uid}
-        <p></p>
-        {notificationSoundID} = id powiadomienia
-        <p></p>
-        {notificationVibrationID} = id powiadomienia vibracja
-        <p></p>
-        <Button variant="contained" onClick={() => rotatePhone()}>
-          Obrot
-        </Button>
-        <Button variant="contained" onClick={() => zrobTo()}>
-          X
-        </Button>
+        <StyledRotateBtn $isVertical={isVertical} onClick={rotatePhone}>
+          <ScreenRotationAltRoundedIcon fontSize="large" />
+        </StyledRotateBtn>
       </StyledHeader>
-      test@o2.pl / test123
       <StyledMain>
-        <StyledSide></StyledSide>
-        <Phone></Phone>
-
-        <StyledSide></StyledSide>
-        <>
-          <CounterActiveScreen />
-        </>
+        <StyledSide />
+        <Phone />
+        <StyledSide />
+        <CounterActiveScreen />
       </StyledMain>
       <Charger />
     </StyledDesign>

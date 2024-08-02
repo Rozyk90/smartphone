@@ -41,12 +41,12 @@ const StyledScreenMod = styled.div<{ $bg: string }>`
   background: ${(prop) => prop.$bg};
   display: flex;
   justify-content: center;
+  align-items: center;
 `;
 
 const StyledScreenCard = styled.div<{ $card: string }>`
-  height: 40px;
-  width: 80px;
-  margin-top: 20px;
+  height: 70px;
+  width: 100px;
   padding: 10px;
   border-radius: 12px;
   background: ${(prop) => prop.$card};
@@ -54,7 +54,13 @@ const StyledScreenCard = styled.div<{ $card: string }>`
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  gap: 10px;
+
+  div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+  }
 `;
 
 const StyledScreenDot = styled.div<{ $dot: string }>`
@@ -79,13 +85,14 @@ const mods = [
   },
   {
     bg: darkModeTheme.backgrounds.primary,
-    card: colors[enumTheme.themeBasic].background,
+    card: colors[enumTheme.themeBasic].darkBackground,
     dot: colors[enumTheme.themeBasic].primary,
     font: darkModeTheme.fonts.primary,
   },
 ];
 
 const StyledBtns = styled(RadioGroup)`
+margin-top: 15px;
   && {
     display: flex;
     flex-direction: row;
@@ -113,7 +120,7 @@ const StyledRadio = styled(Radio)<{ $isActive: boolean }>`
 export default function SampleTheme() {
   const { darkMode } = useAppSelector((state) => state.theme);
   const dispatch = useAppDispatch();
-  const {btnSoundEffect} = useSound()
+  const { btnSoundEffect } = useSound();
 
   return (
     <StyledBody>
@@ -121,11 +128,14 @@ export default function SampleTheme() {
         {mods.map((mod, id) => (
           <StyledScreenMod key={id} $bg={mod.bg}>
             <StyledScreenCard $card={mod.card}>
-              <StyledScreenDot $dot={mod.dot} />
-              <StyledScreenFont $font={mod.font} />
-
-              <StyledScreenDot $dot={mod.dot} />
-              <StyledScreenFont $font={mod.font} />
+              <div>
+                <StyledScreenDot $dot={mod.dot} />
+                <StyledScreenFont $font={mod.font} />
+              </div>
+              <div>
+                <StyledScreenDot $dot={mod.dot} />
+                <StyledScreenFont $font={mod.font} />
+              </div>
             </StyledScreenCard>
           </StyledScreenMod>
         ))}
@@ -136,7 +146,7 @@ export default function SampleTheme() {
           $isActive={!darkMode}
           checked={!darkMode}
           onClick={() => dispatch(setDarkModeOff())}
-          onMouseDown={()=>btnSoundEffect()}
+          onMouseDown={() => btnSoundEffect()}
           value="Jasny"
           control={<StyledRadio $isActive={!darkMode} />}
           label="Jasny"
@@ -146,7 +156,7 @@ export default function SampleTheme() {
           $isActive={darkMode}
           checked={darkMode}
           onClick={() => dispatch(setDarkModeOn())}
-          onMouseDown={()=>btnSoundEffect()}
+          onMouseDown={() => btnSoundEffect()}
           value="Ciemny"
           control={<StyledRadio $isActive={darkMode} />}
           label="Ciemny"

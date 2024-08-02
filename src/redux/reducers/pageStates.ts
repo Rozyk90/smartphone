@@ -14,7 +14,10 @@ export const slicePageStates = createSlice({
   name: "pageStates",
   initialState,
   reducers: {
-    pageFirstUpdateDone: (state) => {
+    pageFirstUpdateOn: (state) => {
+      state.doFirstUpdate = true;
+    },
+    pageFirstUpdateOff: (state) => {
       state.doFirstUpdate = false;
     },
     pageFirstInteraction: (state) => {
@@ -23,6 +26,6 @@ export const slicePageStates = createSlice({
   },
 });
 
-export const { pageFirstUpdateDone,pageFirstInteraction } = slicePageStates.actions;
+export const { pageFirstUpdateOn,pageFirstUpdateOff,pageFirstInteraction } = slicePageStates.actions;
 
 export default slicePageStates.reducer;

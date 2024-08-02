@@ -12,13 +12,17 @@ import {
 
 import ChargingDescription from "../../../../functionalities/battery/chargingDescription";
 import ChargingSpiner from "../../../../functionalities/battery/chargingSpiner";
+import {
+  countDownUpdateTime,
+  screenTurnOn,
+} from "../../../../../redux/reducers/screenParts/screenGeneral";
 
-const StyledBody = styled.button<{$isOn:boolean}>`
+const StyledBody = styled.button<{ $isOn: boolean }>`
   background: #1b1b1b;
   border: none;
   height: 100%;
   width: 100%;
-  cursor: ${prop => prop.$isOn? "pointer":'arrow'}
+  cursor: ${(prop) => (prop.$isOn ? "pointer" : "arrow")};
 `;
 
 const StyledDescriptionPosition = styled.div`
@@ -30,7 +34,9 @@ const StyledSpinerPosition = styled.div`
 
 export default function ScreenNone() {
   const { isOn, isRestarting } = useAppSelector((state) => state.basicStates);
-  const isCharging = useAppSelector((state) => state.battery.isCharging);
+  const { isCharging, isBatteryDescription } = useAppSelector(
+    (state) => state.battery
+  );
   const dispatch = useAppDispatch();
 
   const fn = () => {
@@ -38,16 +44,20 @@ export default function ScreenNone() {
       dispatch(setCurrenBarTop(enumCurrentBarTop.transparent));
       dispatch(setCurrentScreen(enumCurrentScreen.screenActiveBlocked));
       dispatch(setCurrentBarBottom(enumCurrentBarBottom.transparentEmpty));
+
+      dispatch(screenTurnOn());
+      dispatch(countDownUpdateTime(10000));
     }
   };
 
   return (
-    <StyledBody $isOn={isOn}
+    <StyledBody
+      $isOn={isOn}
       onDoubleClick={() => {
         fn();
       }}
     >
-      {isOn && isCharging && !isRestarting && (
+      {isOn && isCharging && !isRestarting && isBatteryDescription && (
         <StyledDescriptionPosition>
           <ChargingDescription />
         </StyledDescriptionPosition>

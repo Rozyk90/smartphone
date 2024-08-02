@@ -19,6 +19,12 @@ export const sliceSystemSounds = createSlice({
   name: "sounds",
   initialState,
   reducers: {
+    systemSoundDefault: (state) => {
+      state.soundTouch = true;
+      state.soundKeyboard = true;
+      state.soundCharger = true;
+      state.soundLockUnlockScreen = true;
+    },
     setSoundTouchOn: (state) => {
       state.soundTouch = true;
     },
@@ -54,7 +60,7 @@ export const sliceSystemSounds = createSlice({
   },
 });
 
-export const {
+export const {systemSoundDefault,
   setSoundTouchOn,
   setSoundTouchOff,
   setSoundKeyboardOn,

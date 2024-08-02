@@ -1,4 +1,3 @@
-import * as React from "react";
 import styled from "styled-components";
 import { useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../../../../redux/hooks";
@@ -24,6 +23,7 @@ import { setCurrentScreen } from "../../../../../../redux/reducers/screenParts/s
 import { userLogout } from "../../../../../../redux/reducers/user";
 import { phoneUnlocked } from "../../../../../../redux/reducers/basicStates";
 import useSound from "../../../../../../customHooks/useSound";
+import useDefaultSetup from "../../../../../../customHooks/useDefaultSetup";
 
 const StyledBody = styled.div`
   height: 100%;
@@ -37,11 +37,16 @@ const StyledContainerCalendar = styled.div`
   text-align: center;
 `;
 const StyledContainerLogin = styled.div`
+  border: 3px solid white;
+  border-radius: 15px;
+  background: #ffffff8d;
+  margin: 60px 20px;
+  padding: 10px 0px;
   text-align: center;
-  padding-top: 50px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 20px;
 `;
 
 export default function ScreenBlockActive() {
@@ -50,10 +55,12 @@ export default function ScreenBlockActive() {
 
   const dispatch = useAppDispatch();
   const { lockSoundEffect } = useSound();
+  const { setDefaultSetup } = useDefaultSetup();
 
   const logout = async () => {
-    dispatch(userLogout);
     await signOut(auth);
+    dispatch(userLogout);
+    setDefaultSetup();
   };
 
   const showInp = () => {
@@ -75,11 +82,15 @@ export default function ScreenBlockActive() {
       <StyledContainerCalendar>
         <Calendar />
       </StyledContainerCalendar>
-      <StyledContainerLogin>
-        {!isLogged && showInputs && <Inputs />}
-        {!showInputs && <Finger onClick={isLogged ? setMainScreen : showInp} />}
-        {isLogged && !showInputs && <ActionBtn txt="Wyloguj się" fn={logout} />}
-      </StyledContainerLogin>
+
+      {!showInputs ? (
+        <Finger onClick={isLogged ? setMainScreen : showInp} />
+      ) : (
+        <StyledContainerLogin>
+          {!isLogged && <Inputs />}
+          {isLogged && <ActionBtn txt="Wyloguj się" fn={logout} />}
+        </StyledContainerLogin>
+      )}
     </StyledBody>
   );
 }

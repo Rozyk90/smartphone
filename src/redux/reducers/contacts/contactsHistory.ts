@@ -41,7 +41,10 @@ export const sliceContactsHistory = createSlice({
     },
     contactsHistoryNotificationSet: (state,action:PayloadAction<Notifications>) => {
       state.contactsHistoryNotification = action.payload
-    },
+    },contactsHistoryDefault:(state) =>{
+      state.contactsHistory = []
+      state.contactsHistoryNotification=false
+    }
 
   },
 });
@@ -51,6 +54,7 @@ export const {
   contactsHistoryDelete,
   contactsHistoryCreate,
   contactsHistoryNotificationSet,
+  contactsHistoryDefault
 } = sliceContactsHistory.actions;
 
 export default sliceContactsHistory.reducer;

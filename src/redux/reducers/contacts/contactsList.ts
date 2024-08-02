@@ -40,6 +40,9 @@ export const sliceContactsList = createSlice({
         (contact) => contact.elementId !== action.payload
       );
     },
+    contactsListDefault: (state) => {
+      state.contactsList = [];
+    },
   },
 });
 
@@ -48,6 +51,7 @@ export const {
   contactsListUpdate,
   contactsListAddNew,
   contactsListDelete,
+  contactsListDefault,
 } = sliceContactsList.actions;
 
 export default sliceContactsList.reducer;

@@ -12,14 +12,13 @@ import GppBadRoundedIcon from "@mui/icons-material/GppBadRounded";
 
 const StyledBody = styled.div`
   background: ${(prop) => prop.theme.backgrounds.primary};
-  height: 100%;
+  height: 600px;
   max-height: 600px;
-  padding: 50px 10px;
+  padding: 0px 10px;
   overflow: auto;
   display: flex;
   gap: 18px;
   flex-direction: column;
-  padding: 0px 10px;
   &::-webkit-scrollbar {
     width: 10px;
   }
@@ -35,8 +34,7 @@ const StyledBody = styled.div`
 const StyledAppCard = styled.button`
   border: none;
   border-radius: 10px;
-  box-shadow: 3px 3px 3px 3px #dddddd;
-  background: ${(prop) => prop.theme.backgrounds.primary};
+  background: ${(prop) => prop.theme.colors.background};
   min-height: 70px;
   max-height: 70px;
   display: flex;

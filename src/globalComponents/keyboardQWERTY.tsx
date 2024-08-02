@@ -4,6 +4,9 @@ import BackspaceRoundedIcon from "@mui/icons-material/BackspaceRounded";
 import FileUploadRoundedIcon from "@mui/icons-material/FileUploadRounded";
 import SpaceBarRoundedIcon from "@mui/icons-material/SpaceBarRounded";
 import useSound from "../customHooks/useSound";
+import { enumCurrentScreen } from "../redux/reducers/screenParts/enumsScreen";
+import { useAppDispatch, useAppSelector } from "../redux/hooks";
+import { smsSetNotification } from "../redux/reducers/sms";
 
 const KeyboardContainer = styled.div`
   display: flex;
@@ -76,6 +79,8 @@ export default function KeyboardQWERTY({
 }: KeyboardProps) {
   const [shift, setShift] = useState(false);
   const [specialSings, setSpecialSings] = useState(false);
+  const {currentScreen} = useAppSelector(state=> state.screen.center)
+  const dispatch = useAppDispatch()
   const { keyboardSoundEffect } = useSound();
 
   const specialRow = ["!", "?", "#", "@", "%", ":", "&", "*", "(", ")"];
@@ -92,6 +97,9 @@ export default function KeyboardQWERTY({
   const specialSingsList = ["Shift", "Special", "Backspace"];
 
   const btnAction = (key: string) => {
+    if(currentScreen === enumCurrentScreen.conversation){
+      dispatch(smsSetNotification(false))
+    }
     keyboardSoundEffect();
     if (key === "Shift") {
       setShift(!shift);

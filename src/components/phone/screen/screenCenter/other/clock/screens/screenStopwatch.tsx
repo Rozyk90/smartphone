@@ -235,7 +235,7 @@ export default function ScreenStopwatch() {
     }
 
     return () => clearInterval(interval);
-  }, [isRunning, getUnixTime, unixtimeStart,mounted]);
+  }, [isRunning, getUnixTime, unixtimeStart, mounted]);
 
   return (
     <StyledBody>
@@ -245,29 +245,27 @@ export default function ScreenStopwatch() {
       </StyleTimerDisplay>
 
       <StyledResults>
-        {lapTimes.length>0&&<>
-        
-        
+        {lapTimes.length > 0 && (
+          <>
             <StyledResultsTitle>
-          <div>Pomiar</div>
-          <div>Czasy okrążeń</div>
-          <div>Czas ogółem</div>
-        </StyledResultsTitle>
+              <div>Pomiar</div>
+              <div>Czasy okrążeń</div>
+              <div>Czas ogółem</div>
+            </StyledResultsTitle>
 
-        <StyledResultsContainer>
-
-          {lapTimes.map((result) => (
-            <StyledResult key={result.overallTime}>
-              <div>{result.id}</div>
-              <div>{result.lapTime}</div>
-              <StyledResultColorTime>{result.overallTime}</StyledResultColorTime>
-            </StyledResult>
-          ))}
-        </StyledResultsContainer>
-        
-        
-        </>}
-
+            <StyledResultsContainer>
+              {lapTimes.map((result,id) => (
+                <StyledResult key={id}>
+                  <div>{result.id}</div>
+                  <div>{result.lapTime}</div>
+                  <StyledResultColorTime>
+                    {result.overallTime}
+                  </StyledResultColorTime>
+                </StyledResult>
+              ))}
+            </StyledResultsContainer>
+          </>
+        )}
       </StyledResults>
 
       <StyledButtons>

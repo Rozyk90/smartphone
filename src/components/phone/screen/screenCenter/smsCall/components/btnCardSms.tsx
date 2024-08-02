@@ -67,6 +67,7 @@ const StyledTimeArea = styled.div`
   min-width: 40px;
   text-align: center;
   font-size: 0.8rem;
+  color: ${(prop) => prop.theme.fonts.primary};
 `;
 
 type Prop = {
@@ -78,17 +79,18 @@ export default function BtnCardSms({ number, lastMessage }: Prop) {
   const { generateRandomGradient } = useUtilities();
   const { btnSoundEffect } = useSound();
   const { findContactName } = useContacts();
-  const {pushCurrentScreen} = useScreen()
+  const { pushCurrentScreen } = useScreen();
 
-  const { getIsToday, getPolishTime } = useDate(); const [gradient] = useState(generateRandomGradient());
+  const { getIsToday, getPolishTime } = useDate();
+  const [gradient] = useState(generateRandomGradient());
 
-  const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch();
 
-  const openConversation = () =>{
-    dispatch(smsOpenWith(number))
-    pushCurrentScreen()
-    dispatch(setCurrentScreen(enumCurrentScreen.conversation))
-  }
+  const openConversation = () => {
+    dispatch(smsOpenWith(number));
+    pushCurrentScreen();
+    dispatch(setCurrentScreen(enumCurrentScreen.conversation));
+  };
 
   const timeObj = getPolishTime(lastMessage.unixtime);
   const time = () => {
@@ -98,7 +100,12 @@ export default function BtnCardSms({ number, lastMessage }: Prop) {
   };
 
   return (
-    <StyledBody onClick={() => {openConversation()}} onMouseDown={() => btnSoundEffect()}>
+    <StyledBody
+      onClick={() => {
+        openConversation();
+      }}
+      onMouseDown={() => btnSoundEffect()}
+    >
       <StyledIconArea>
         <StyledIcon $bg={gradient}>K</StyledIcon>
       </StyledIconArea>

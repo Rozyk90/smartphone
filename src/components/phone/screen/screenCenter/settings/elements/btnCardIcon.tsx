@@ -1,11 +1,12 @@
 import styled from "styled-components";
 
-import { useAppDispatch, useAppSelector } from "../redux/hooks";
-import { setCurrentScreen } from "../redux/reducers/screenParts/screenCenter";
-import { CardProp } from "../components/phone/screen/screenCenter/settings/settingsMain/elements/cards";
-import { reversingBoardPush } from "../redux/reducers/screenParts/screenGeneral";
-import useSound from "../customHooks/useSound";
-import useScreen from "../customHooks/useScreen";
+import { useAppDispatch } from "../../../../../../redux/hooks";
+
+import { setCurrentScreen } from "../../../../../../redux/reducers/screenParts/screenCenter";
+import { CardProp } from "../settingsMain/elements/cards";
+
+import useSound from "../../../../../../customHooks/useSound";
+import useScreen from "../../../../../../customHooks/useScreen";
 
 const StyledBtn = styled.button`
   background: ${(prop) => prop.theme.colors.background};

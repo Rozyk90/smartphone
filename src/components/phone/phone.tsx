@@ -10,7 +10,7 @@ import { enumCurrentScreen } from "../../redux/reducers/screenParts/enumsScreen"
 
 const StyledPhone = styled.div<{ $vertical: boolean }>`
   position: relative;
-  height: 680px;
+  height: 700px;
   width: 320px;
   border: 5px solid black;
   box-shadow: 0px 0px 0px 2px #7a7a7a,

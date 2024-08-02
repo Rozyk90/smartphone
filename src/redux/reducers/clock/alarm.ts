@@ -61,9 +61,13 @@ export const sliceAlarm = createSlice({
         state.alarms[alarmIndex].active = false;
       }
     },
+    alarmDefault:(state) =>{
+      state.alarmToEditId = null
+      state.alarms = []
+    }
   },
 });
 
-export const {alarmCreateList,alarmToEditSet, alarmAdd, alarmUpdate, alarmRemove,alarmTurnOn,alarmTurnOff } = sliceAlarm.actions;
+export const {alarmCreateList,alarmToEditSet, alarmAdd, alarmUpdate, alarmRemove,alarmTurnOn,alarmTurnOff,alarmDefault } = sliceAlarm.actions;
 
 export default sliceAlarm.reducer;

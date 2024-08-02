@@ -33,6 +33,7 @@ const StyledBar = styled.div`
   height: 26px;
   width: 280px;
   background: #e8e8e8;
+  margin-top: 15px;
 `;
 
 const StyledGreenLane = styled.div<{ $progres: number }>`
@@ -45,7 +46,7 @@ const StyledGreenLane = styled.div<{ $progres: number }>`
 
 const StyledBarBorder = styled.div`
   background: rgba(0, 0, 0, 0);
-  height: 26px;
+  height: 36px;
   border-radius: 20px;
   border: 5px solid ${prop=>prop.theme.backgrounds.primary};
   position: relative;

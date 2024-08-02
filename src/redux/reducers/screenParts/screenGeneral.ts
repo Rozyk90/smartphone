@@ -1,7 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { enumCurrentScreen } from "./enumsScreen";
 
-
 interface state {
   isScreenOn: boolean;
   countDown: number;
@@ -43,6 +42,9 @@ export const screenGeneralSlice = createSlice({
     reversingBoardClear: (state) => {
       state.reversingBoard = [];
     },
+    screenGeneralDefault: (state) => {
+      state.countDownTimerSelected = 15000;
+    },
   },
 });
 
@@ -54,6 +56,7 @@ export const {
   reversingBoardPush,
   reversingBoardPop,
   reversingBoardClear,
+  screenGeneralDefault,
 } = screenGeneralSlice.actions;
 
 export default screenGeneralSlice.reducer;

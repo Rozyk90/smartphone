@@ -4,10 +4,10 @@ import vib3 from '../vibrationSounds/vibra3.mp3'
 import vib4 from '../vibrationSounds/vibra4.mp3'
 
 const vibrationSounds = [
-    { id: 0, name: 'aaaaa', path: vib1 },
-    { id: 1, name: 'bbbbb', path: vib2 },
-    { id: 2, name: 'ccccc', path: vib3 },
-    { id: 3, name: 'ddddd', path: vib4 },
+    { id: 0, name: 'HumVibe', path: vib1 },
+    { id: 1, name: 'TremorBuzz', path: vib2 },
+    { id: 2, name: 'VibroPulse', path: vib3 },
+    { id: 3, name: 'RumbleTick', path: vib4 },
 
   ];
   

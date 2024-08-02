@@ -7,8 +7,7 @@ import BackspaceOutlinedIcon from "@mui/icons-material/BackspaceOutlined";
 const StyledBody = styled.div<{ $darkMode: boolean }>`
   background: ${(prop) => prop.theme.backgrounds.primary};
   height: 600px;
-  padding:50px 20px;
-
+  padding: 50px 20px;
 `;
 
 const StyledCalcScreen = styled.div`
@@ -16,26 +15,23 @@ const StyledCalcScreen = styled.div`
 `;
 
 const StyledInput = styled.div`
-height:100px;
-color:${prop => prop.theme.colors.primary};
+  height: 100px;
+  color: ${(prop) => prop.theme.colors.primary};
   font-size: 2.5rem;
-  display:flex;
-  justify-content:end;
-
+  display: flex;
+  justify-content: end;
 `;
 
 const StyledResult = styled.div`
-height:50px;
-color:${prop => prop.theme.colors.primary};
+  height: 50px;
+  color: ${(prop) => prop.theme.colors.primary};
   font-size: 1.2rem;
-    display:flex;
-  justify-content:end;
+  display: flex;
+  justify-content: end;
 `;
 
-
-
 const StyledCalcBtnsArea = styled.div`
-margin-top:20px;
+  margin-top: 20px;
   height: 350px;
   display: flex;
   flex-wrap: wrap;
@@ -54,7 +50,6 @@ const StyledCalcBtnDel = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-
 `;
 
 const StyledCalcBtnC = styled.button`
@@ -74,7 +69,7 @@ const StyledEmptyBtn = styled.div`
   height: 60px;
   width: 60px;
   border-radius: 50%;
-`
+`;
 
 const StyledCalcBtn = styled.button`
   border: none;
@@ -103,7 +98,6 @@ const StyledCalcBtnEqual = styled.button`
 `;
 
 const BtnsArr = [
-
   "%",
   "/",
   "7",
@@ -130,14 +124,12 @@ export default function Calculator() {
   const [result, setResult] = useState<number | null>(null);
 
   const handleButtonClick = (value: string) => {
-
-    if (value === '=') {
+    if (value === "=") {
       handleCalculate();
-    } else if (['+', '-', '*', '/', '%'].includes(value)) {
-
-      if (input !== '') {
+    } else if (["+", "-", "*", "/", "%"].includes(value)) {
+      if (input !== "") {
         setInput(input + value);
-        setResult(null)
+        setResult(null);
       } else if (result !== null) {
         setInput(result.toString() + value);
       }
@@ -147,7 +139,7 @@ export default function Calculator() {
   };
 
   const handleClear = () => {
-    setInput('');
+    setInput("");
     setResult(null);
   };
   const handleDel = () => {
@@ -159,23 +151,20 @@ export default function Calculator() {
     try {
       const calculationResult = evaluateExpression(input);
       setResult(calculationResult);
-      setInput(''); // Wyczyść input po obliczeniu
+      setInput("");
     } catch (error) {
       setResult(null);
-      alert('Błąd w obliczeniach');
+      alert("Błąd w obliczeniach");
     }
   };
 
   const evaluateExpression = (expression: string): number => {
-    // Usunięcie białych znaków
     expression = expression.replace(/\s+/g, "");
 
-    // Dodanie obsługi procentów
     expression = expression.replace(/(\d+)%/g, (_, num) =>
       String(Number(num) / 100)
     );
 
-    // Parsowanie wyrażenia z uwzględnieniem nawiasów
     const parse = (): number => {
       let stack: number[] = [];
       let num = "";
@@ -247,32 +236,31 @@ export default function Calculator() {
     return parse();
   };
 
-
   return (
     <StyledBody $darkMode={darkMode}>
       <StyledCalcScreen>
         <StyledInput>{input}</StyledInput>
         <StyledResult>{result !== null && result} </StyledResult>
-
       </StyledCalcScreen>
 
       <StyledCalcBtnsArea>
         <StyledCalcBtnC onClick={() => handleClear()}>C</StyledCalcBtnC>
-        <StyledCalcBtnDel onClick={() => handleDel()}><BackspaceOutlinedIcon /></StyledCalcBtnDel>
-        {BtnsArr.map((txt, id) => (
-          txt === 'x' ? <StyledEmptyBtn />
-            :
+        <StyledCalcBtnDel onClick={() => handleDel()}>
+          <BackspaceOutlinedIcon />
+        </StyledCalcBtnDel>
+        {BtnsArr.map((txt, id) =>
+          txt === "x" ? (
+            <StyledEmptyBtn key={id} />
+          ) : (
             <StyledCalcBtn onClick={() => handleButtonClick(txt)} key={id}>
               {txt}
             </StyledCalcBtn>
-
-        ))}
+          )
+        )}
         <StyledCalcBtnEqual onClick={() => handleCalculate()}>
           =
         </StyledCalcBtnEqual>
-
       </StyledCalcBtnsArea>
     </StyledBody>
-
   );
 }

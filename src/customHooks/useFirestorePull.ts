@@ -1,13 +1,4 @@
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
-import { db } from "../firebase";
-import {
-  getDoc,
-  doc,
-  collection,
-  getDocs,
-  query,
-  where,
-} from "firebase/firestore";
 import { batteryFirestoreUpdate } from "../redux/reducers/battery";
 import { themeFirestoreUpdate } from "../redux/reducers/theme";
 import { soundGeneralFirestoreUpdate } from "../redux/reducers/sound/general";
@@ -21,24 +12,42 @@ import {
   contactsHistoryNotificationSet,
 } from "../redux/reducers/contacts/contactsHistory";
 import { userSetNumber } from "../redux/reducers/user";
-import useSoundNotification from "./useSoundNotification";
 import { smsCreateHistory, smsSetNotification } from "../redux/reducers/sms";
 import { alarmCreateList } from "../redux/reducers/clock/alarm";
 
 const useFirestorePull = () => {
-  const { notificationSoundID, notificationVibrationID } = useAppSelector(
-    (state) => state.sound.general
-  );
-  const isOn = useAppSelector((state) => state.basicStates.isOn);
-  const { mode, volume } = useAppSelector((state) => state.sound.general);
-  const contactsHistoryNotification = useAppSelector(
-    (state) => state.contacts.history.contactsHistoryNotification
-  );
+  const { smsHistory } = useAppSelector((state) => state.sms);
+  const { contactsHistory } = useAppSelector((state) => state.contacts.history);
 
   const dispatch = useAppDispatch();
-  const { notificationSoundEffect } = useSoundNotification();
 
   // =======================================================================================
+
+  const deepEqual = (obj1: any, obj2: any): boolean => {
+    if (obj1 === obj2) return true;
+
+    if (
+      typeof obj1 !== "object" ||
+      obj1 === null ||
+      typeof obj2 !== "object" ||
+      obj2 === null
+    ) {
+      return false;
+    }
+
+    const keys1 = Object.keys(obj1);
+    const keys2 = Object.keys(obj2);
+
+    if (keys1.length !== keys2.length) return false;
+
+    for (const key of keys1) {
+      if (!keys2.includes(key) || !deepEqual(obj1[key], obj2[key])) {
+        return false;
+      }
+    }
+
+    return true;
+  };
 
   const firestorePullLarge = async (data: any) => {
     try {
@@ -64,10 +73,9 @@ const useFirestorePull = () => {
             data.contacts.contactsHistory.contactsHistoryNotification
           )
         );
-        dispatch(smsSetNotification(data.sms.smsNotification))
-        dispatch(smsCreateHistory(data.sms.smsHistory))
-        dispatch(alarmCreateList(data.alarms))
-        // console.log("Pobrano wszystkie stany z firestore");
+        dispatch(smsSetNotification(data.sms.smsNotification));
+        dispatch(smsCreateHistory(data.sms.smsHistory));
+        dispatch(alarmCreateList(data.alarms));
       }
     } catch (error) {
       console.error("Error firestorePullLarge : ", error);
@@ -79,17 +87,27 @@ const useFirestorePull = () => {
   const firestorePullNotification = async (data: any) => {
     try {
       if (data) {
-        dispatch(
-          contactsHistoryCreate(data.contacts.contactsHistory.contactsHistory)
-        );
-        dispatch(
-          contactsHistoryNotificationSet(
-            data.contacts.contactsHistory.contactsHistoryNotification
+        if (
+          !deepEqual(
+            data.contacts.contactsHistory.contactsHistory,
+            contactsHistory
           )
-        );
+        ) {
+          dispatch(
+            contactsHistoryCreate(data.contacts.contactsHistory.contactsHistory)
+          );
+          dispatch(
+            contactsHistoryNotificationSet(
+              data.contacts.contactsHistory.contactsHistoryNotification
+            )
+          );
+        }
         // ======================================================================
-        dispatch(smsSetNotification(data.sms.smsNotification))
-        dispatch(smsCreateHistory(data.sms.smsHistory))
+
+        if (!deepEqual(data.sms.smsHistory, smsHistory)) {
+          dispatch(smsSetNotification(data.sms.smsNotification));
+          dispatch(smsCreateHistory(data.sms.smsHistory));
+        }
       }
     } catch (error) {
       console.error("Error firestorePullNotification : ", error);

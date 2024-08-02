@@ -4,7 +4,7 @@ import { useAppSelector, useAppDispatch } from "../../../../../../redux/hooks";
 
 import TitleWithBack from "../../../../../../globalComponents/titleWithBack";
 import SoundMode from "./elements/soundMode";
-import BtnCard from "../../../../../../globalComponents/btnCard";
+import BtnCard from "../elements/btnCard";
 import { setCurrentScreen } from "../../../../../../redux/reducers/screenParts/screenCenter";
 import { enumCurrentScreen } from "../../../../../../redux/reducers/screenParts/enumsScreen";
 

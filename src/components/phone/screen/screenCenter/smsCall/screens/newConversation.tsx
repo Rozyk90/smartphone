@@ -11,15 +11,12 @@ import ContactCard from "../components/contactCard";
 import { smsOpenWith } from "../../../../../../redux/reducers/sms";
 import { setCurrentScreen } from "../../../../../../redux/reducers/screenParts/screenCenter";
 import { enumCurrentScreen } from "../../../../../../redux/reducers/screenParts/enumsScreen";
-import useSound from "../../../../../../customHooks/useSound";
 import InputAdornment from "@mui/material/InputAdornment";
 import PhoneRoundedIcon from "@mui/icons-material/PhoneRounded";
 
-
-
 const StyledBody = styled.div<{ $keyboard: boolean }>`
   background: ${(prop) => prop.theme.backgrounds.primary};
-  height: ${(prop) => (prop.$keyboard ? "380px" : "590px")};
+  height: ${(prop) => (prop.$keyboard ? "390px" : "590px")};
   padding: 10px 10px 0px 10px;
   overflow: auto;
   display: flex;
@@ -79,7 +76,9 @@ const StyledStartNewBtn = styled.button<{ $number: boolean }>`
 `;
 
 const StyledContacts = styled.div`
-  padding-top: 20px;
+  padding-top: 25px;
+  margin-top: 10px;
+  margin-bottom: 10px;
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -102,7 +101,7 @@ export default function NewConversation() {
   const dispatch = useAppDispatch();
 
   const openConversation = (number: string) => {
-    if (number.length===9) {
+    if (number.length === 9) {
       dispatch(smsOpenWith(number));
       dispatch(setCurrentScreen(enumCurrentScreen.conversation));
     }
@@ -110,7 +109,7 @@ export default function NewConversation() {
 
   const handleInputChangeNumber = (event: any): void => {
     const numbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
-    const newKey = event.key
+    const newKey = event.key;
 
     if (newKey === "Backspace") {
       setNumber((prevNumber) => prevNumber.slice(0, -1));
@@ -123,12 +122,11 @@ export default function NewConversation() {
     <StyledBody $keyboard={showKeyboard}>
       <TitleWithBack title="Nowa rozmowa" />
       <StyledInputArea>
-
-<StyledInput
+        <StyledInput
           onFocus={() => setShowKeyboard(true)}
           onKeyDown={handleInputChangeNumber}
           label="Numer"
-          autoComplete="off" 
+          autoComplete="off"
           value={editContactNumber(number)}
           InputProps={{
             startAdornment: (
@@ -138,8 +136,6 @@ export default function NewConversation() {
             ),
           }}
         />
-
-
 
         <StyledStartNewBtn
           $number={number.length === 9}
@@ -162,7 +158,11 @@ export default function NewConversation() {
 
       <StyledKeyboardArea>
         {(showKeyboard || number) && (
-          <KeyboardNumbers setNumber={setNumber} number={number} closeKeyboard={()=>setShowKeyboard(false)} />
+          <KeyboardNumbers
+            setNumber={setNumber}
+            number={number}
+            closeKeyboard={() => setShowKeyboard(false)}
+          />
         )}
       </StyledKeyboardArea>
     </StyledBody>

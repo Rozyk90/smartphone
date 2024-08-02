@@ -2,14 +2,13 @@ import styled from "styled-components";
 import Button from "@mui/material/Button";
 
 const StyledBtn = styled(Button)`
-margin-top: 20px;
   && {
-    color: white;
+    color: #1976d2;
     transition: 0.5s;
     font-weight: bold;
     &:hover {
-      color: #2196f3;
-      background: #ffffffe1;
+      color: white;
+      background: #1976d2;
     }
   }
 `;

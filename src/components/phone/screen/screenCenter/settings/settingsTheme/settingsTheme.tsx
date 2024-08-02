@@ -1,10 +1,9 @@
 import styled from "styled-components";
-import { useState } from "react";
+import { useAppDispatch,useAppSelector } from "../../../../../../redux/hooks";
 
 import TitleWithBack from "../../../../../../globalComponents/titleWithBack";
 import ScreenPreview from "./elements/screenPreview";
-import BtnCard from "../../../../../../globalComponents/btnCard";
-import { useAppDispatch,useAppSelector } from "../../../../../../redux/hooks";
+import BtnCard from "../elements/btnCard";
 import { setCurrentScreen } from "../../../../../../redux/reducers/screenParts/screenCenter";
 import { enumCurrentScreen } from "../../../../../../redux/reducers/screenParts/enumsScreen";
 import useScreen from "../../../../../../customHooks/useScreen";

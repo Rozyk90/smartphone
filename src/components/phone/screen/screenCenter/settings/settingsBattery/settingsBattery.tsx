@@ -13,7 +13,7 @@ import {
 } from "../../../../../../redux/reducers/battery";
 
 import BatteryStatus from "./elements/batteryStatus";
-import BtnCardSwitch from "../../../../../../globalComponents/btnCardSwitch";
+import BtnCardSwitch from "../elements/btnCardSwitch";
 import TitleWithBack from "../../../../../../globalComponents/titleWithBack";
 
 const StyledBody = styled.div`

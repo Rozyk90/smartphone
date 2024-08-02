@@ -3,7 +3,10 @@ import FingerprintIcon from "@mui/icons-material/Fingerprint";
 
 const StyledButton = styled(FingerprintIcon)`
   cursor: pointer;
-  margin-top: 200px;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: 300px;
   margin-bottom: 50px;
   && {
     color: white;
@@ -20,7 +23,7 @@ export default function Finger(props: BtnProps) {
   return (
     <StyledButton
       onClick={() => {
-        props.onClick()
+        props.onClick();
       }}
     />
   );

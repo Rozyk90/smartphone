@@ -31,7 +31,7 @@ const StyledBody = styled.div`
 const StyledBtnsArea = styled.div`
   padding-bottom: 10px;
   width: 310px;
-  height: 50px;
+  height: 60px;
   display: flex;
   justify-content: space-around;
   position: absolute;

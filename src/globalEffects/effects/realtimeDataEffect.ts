@@ -5,7 +5,7 @@ import { db } from "../../firebase";
 import { doc, onSnapshot } from "firebase/firestore";
 
 import { userSetNumber } from "../../redux/reducers/user";
-import { pageFirstUpdateDone } from "../../redux/reducers/pageStates";
+import { pageFirstUpdateOff } from "../../redux/reducers/pageStates";
 import useFirestorePull from "../../customHooks/useFirestorePull";
 
 const RealtimeDataEffect = () => {
@@ -15,11 +15,7 @@ const RealtimeDataEffect = () => {
     (state) => state.pageStates.doFirstUpdate
   );
 
-
-
   const dispatch = useAppDispatch();
-
-
   const { firestorePullLarge, firestorePullNotification } = useFirestorePull();
 
   useEffect(() => {
@@ -32,7 +28,7 @@ const RealtimeDataEffect = () => {
         const userObj = docSnapshot.data();
         if (doFirstUpdate && userObj) {
           dispatch(userSetNumber(userObj.user.phoneNumber));
-          dispatch(pageFirstUpdateDone());
+          dispatch(pageFirstUpdateOff());
           firestorePullLarge(userObj);
         } else if (userObj) {
           firestorePullNotification(userObj);

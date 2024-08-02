@@ -61,7 +61,7 @@ const useScreen = () => {
   }
 
   const screenCountdownUpdate = () => {
-    const shortTime = 10000;
+    const shortTime = 15000;
     if (currentScreen === enumCurrentScreen.screenActiveBlocked) {
       dispatch(countDownUpdateTime(shortTime));
     } else {

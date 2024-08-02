@@ -4,9 +4,9 @@ import { useAppDispatch, useAppSelector } from "../../../../../../redux/hooks";
 
 import TaskAltRoundedIcon from "@mui/icons-material/TaskAltRounded";
 import { enumTheme, colors } from "../../../../../../theme/theme";
-import theme, { setTheme } from "../../../../../../redux/reducers/theme";
+import { setTheme } from "../../../../../../redux/reducers/theme";
 import ScreenCalculator from "./elements/screenCalculator";
-import BtnCardSwitch from "../../../../../../globalComponents/btnCardSwitch";
+import BtnCardSwitch from "../elements/btnCardSwitch";
 import ScreenSettings from "./elements/screenSettings";
 import useSound from "../../../../../../customHooks/useSound";
 
@@ -35,7 +35,7 @@ const StyledSwitchBox = styled.div`
 const StyledColorsArea = styled.div`
   background: ${(prop) => prop.theme.colors.background};
   border-radius: 16px;
-height: 130px;
+  height: 130px;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -53,7 +53,7 @@ const StyledColorsBox = styled.div`
   gap: 12px;
   flex-wrap: wrap;
   justify-content: center;
-  padding:5px 0px;
+  padding: 5px 0px;
 `;
 
 const StyledColor = styled.button<{ $color: string }>`
@@ -82,7 +82,7 @@ const StyledColorsShadow = styled.div`
 export default function SettingsThemeColors() {
   const { currentTheme } = useAppSelector((state) => state.theme);
   const dispatch = useAppDispatch();
-  const {btnSoundEffect} = useSound()
+  const { btnSoundEffect } = useSound();
 
   const setNewTheme = (theme: enumTheme) => {
     dispatch(setTheme(theme));
@@ -118,7 +118,7 @@ export default function SettingsThemeColors() {
                 key={id}
                 $color={color.primary}
                 onClick={() => setNewTheme(color.name)}
-                onMouseDown={()=>btnSoundEffect()}
+                onMouseDown={() => btnSoundEffect()}
               >
                 {color.name === currentTheme && <StyledSelectedMarker />}
               </StyledColor>

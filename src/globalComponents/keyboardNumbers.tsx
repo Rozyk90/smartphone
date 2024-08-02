@@ -8,7 +8,7 @@ const KeyboardContainer = styled.div`
   gap: 10px;
   padding: 15px;
   background: ${(prop) => prop.theme.backgrounds.primary};
-  height: 170px;
+  height: 200px;
   max-width: 400px;
   margin: 0 auto;
 `;
@@ -39,7 +39,6 @@ interface KeyboardProps {
   setNumber: React.Dispatch<React.SetStateAction<string>>;
   number: string;
   closeKeyboard?: () => void;
-
 }
 
 export default function KeyboardNumbers({ setNumber, number,closeKeyboard }: KeyboardProps) {

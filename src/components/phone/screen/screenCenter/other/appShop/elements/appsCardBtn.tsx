@@ -12,9 +12,8 @@ import { screenGridAddIcon } from "../../../../../../../redux/reducers/screenPar
 import useSound from "../../../../../../../customHooks/useSound";
 
 const StyledAppCard = styled.button`
-  border: none;
+  border: 2px solid rgb(229, 52, 19);
   border-radius: 10px;
-  box-shadow: 3px 3px 3px 3px #dddddd;
   background: ${(prop) => prop.theme.backgrounds.primary};
   height: 70px;
   min-height: 70px;
@@ -23,6 +22,10 @@ const StyledAppCard = styled.button`
   align-items: center;
   justify-content: flex-start;
   cursor: pointer;
+  transition: border-radius 0.5s;
+  &:hover {
+    border-radius: 25px;
+  }
 `;
 
 const StyledAppLogo = styled.div`
@@ -33,19 +36,24 @@ const StyledAppLogo = styled.div`
   justify-content: center;
 `;
 
-const StyledAppTitle = styled.div`
+const StyledAppTitle = styled.div<{ $darkMode: boolean }>`
   height: 60px;
   width: 145px;
   display: flex;
   align-items: center;
   justify-content: center;
+  color: ${(prop) => (prop.$darkMode ? "rgb(229, 52, 19)" : "black")};
+  text-transform: capitalize;
 `;
 
-const StyledAppStatusIcon = styled.div`
+const StyledAppStatusIcon = styled.div<{ $darkMode: boolean }>`
   height: 60px;
   display: flex;
   align-items: center;
   justify-content: center;
+  && {
+    color: ${(prop) => (prop.$darkMode ? "rgb(229, 52, 19)" : "black")};
+  }
 `;
 
 interface App {
@@ -56,6 +64,7 @@ interface App {
 
 export default function AppsCardBtn(app: App) {
   const screenGrid = useAppSelector((state) => state.screen.center.screenGrid);
+  const { darkMode } = useAppSelector((state) => state.theme);
   const dispatch = useAppDispatch();
   const { btnSoundEffect } = useSound();
   const addIcon = (newIcon: enumIcons) => {
@@ -72,8 +81,8 @@ export default function AppsCardBtn(app: App) {
       <StyledAppLogo>
         <RenderIconSmall icon={app.title} />
       </StyledAppLogo>
-      <StyledAppTitle>{app.title}</StyledAppTitle>
-      <StyledAppStatusIcon>
+      <StyledAppTitle $darkMode={darkMode}>{app.title}</StyledAppTitle>
+      <StyledAppStatusIcon $darkMode={darkMode}>
         {screenGrid.includes(app.title) ? (
           <FileDownloadDoneIcon />
         ) : (

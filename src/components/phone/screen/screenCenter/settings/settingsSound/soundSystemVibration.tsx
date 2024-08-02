@@ -12,7 +12,7 @@ import {
   setVibrationLockUnlockScreenOff,
 } from "../../../../../../redux/reducers/sound/systemVibrations";
 import TitleWithBack from "../../../../../../globalComponents/titleWithBack";
-import BtnCardSwitch from "../../../../../../globalComponents/btnCardSwitch";
+import BtnCardSwitch from "../elements/btnCardSwitch";
 
 const StyledBody = styled.div`
   background: ${(prop) => prop.theme.backgrounds.primary};
