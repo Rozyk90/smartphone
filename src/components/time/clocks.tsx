@@ -9,7 +9,7 @@ const StyledClockSmall = styled.div`
 `;
 const StyledClockLarge = styled.div`
   font-size: 45px;
-  color: ${(prop) => prop.theme.white};
+  color: ${prop => prop.theme.fonts.primary};
 `;
 
 export enum enumClockSizes {

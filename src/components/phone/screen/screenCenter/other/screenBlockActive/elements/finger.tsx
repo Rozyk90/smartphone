@@ -3,13 +3,8 @@ import FingerprintIcon from "@mui/icons-material/Fingerprint";
 
 const StyledButton = styled(FingerprintIcon)`
   cursor: pointer;
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  margin-top: 300px;
-  margin-bottom: 50px;
   && {
-    color: white;
+    color: ${(prop) => prop.theme.fonts.primary};
     height: 60px;
     width: 60px;
   }

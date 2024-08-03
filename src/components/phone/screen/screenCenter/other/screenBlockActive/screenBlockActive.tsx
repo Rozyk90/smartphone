@@ -28,6 +28,7 @@ import useDefaultSetup from "../../../../../../customHooks/useDefaultSetup";
 const StyledBody = styled.div`
   height: 100%;
   width: 100%;
+
 `;
 const StyledContainerClock = styled.div`
   padding-top: 100px;
@@ -36,6 +37,14 @@ const StyledContainerClock = styled.div`
 const StyledContainerCalendar = styled.div`
   text-align: center;
 `;
+const StyledBtnsContainer = styled.div`
+margin-top: 250px;
+display:flex;
+flex-direction: column;
+align-items: center;
+gap: 40px;
+`
+
 const StyledContainerLogin = styled.div`
   border: 3px solid white;
   border-radius: 15px;
@@ -84,12 +93,12 @@ export default function ScreenBlockActive() {
       </StyledContainerCalendar>
 
       {!showInputs ? (
-        <Finger onClick={isLogged ? setMainScreen : showInp} />
-      ) : (
-        <StyledContainerLogin>
-          {!isLogged && <Inputs />}
+        <StyledBtnsContainer>
+          <Finger onClick={isLogged ? setMainScreen : showInp} />
           {isLogged && <ActionBtn txt="Wyloguj się" fn={logout} />}
-        </StyledContainerLogin>
+        </StyledBtnsContainer>
+      ) : (
+        <StyledContainerLogin>{!isLogged && <Inputs />}</StyledContainerLogin>
       )}
     </StyledBody>
   );

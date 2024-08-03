@@ -33,7 +33,7 @@ const initialState: modal = {
   turnOffBtnsFocus: enumModalTurnOffBtnsFocus.all,
   alarmData: {
     alarmType: "timer",
-    title: "tytułłł",
+    title: "",
     description: null,
   },
 };

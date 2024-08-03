@@ -63,6 +63,7 @@ const StyledAppTitle = styled.div`
   overflow: hidden;
   text-overflow: ellipsis;
   text-transform: capitalize;
+  color: ${prop =>prop.theme.fonts.primary};
 `;
 
 const StyledAppStatusIcon = styled.div`
@@ -70,6 +71,7 @@ const StyledAppStatusIcon = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  color: ${prop =>prop.theme.fonts.primary};
 `;
 
 export default function SettingsApps() {

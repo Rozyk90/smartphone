@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { useEffect, useState } from "react";
 
 const StyledCalendar = styled.div`
-  color: ${prop => prop.theme.white};
+  color: ${prop => prop.theme.fonts.primary};
 `;
 
 export default function Calendar() {

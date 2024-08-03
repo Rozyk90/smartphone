@@ -53,7 +53,7 @@ const StyledBtns = styled(RadioGroup)`
 const StyledLabel = styled(FormControlLabel)<{ $isActive: boolean }>`
   && {
     color: ${(props) =>
-      props.$isActive ? props.theme.colors.primary : props.theme.colors.off};
+      props.$isActive ? props.theme.colors.primary : props.theme.fonts.primary};
     & .MuiFormControlLabel-label {
       font-size: 13px;
       font-weight: 600;

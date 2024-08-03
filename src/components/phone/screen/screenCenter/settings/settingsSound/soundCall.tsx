@@ -45,6 +45,7 @@ const StyledLabel = styled(FormControlLabel)`
     border-radius: 14px;
     background: ${(prop) => prop.theme.colors.background};
     margin-left: 16px;
+    color: ${(prop) => prop.theme.fonts.primary};
     cursor: pointer;
   }
 `;
