@@ -71,7 +71,6 @@ const StyledRotateBtn = styled.button<{ $isVertical: boolean }>`
 export default function Components() {
   const { isVertical } = useAppSelector((state) => state.basicStates);
   const { isCharging } = useAppSelector((state) => state.battery);
-  const time = useAppSelector(state => state.screen.general.countDown)
   const dispatch = useAppDispatch();
 
   const rotatePhone = () => {

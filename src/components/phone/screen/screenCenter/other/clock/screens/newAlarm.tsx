@@ -157,7 +157,7 @@ export default function NewAlarm() {
   const [showKeyboard, setShowKeyboard] = useState(false);
 
   const dispatch = useAppDispatch();
-  const { backToPreviousScreen } = useScreen();
+  const { backToPreviousScreen, screenCountdownUpdate } = useScreen();
   const { btnSoundEffect } = useSound();
   const { getUnixTime } = useDate();
 
@@ -185,9 +185,11 @@ export default function NewAlarm() {
   const handleInputChange = (event: any): void => {
     setTitle(event.target.value);
     setShowKeyboard(true);
+    screenCountdownUpdate();
   };
 
   const handleKeyPress = (event: any) => {
+    screenCountdownUpdate();
     if (event.key === "Enter" && title.length !== 0) {
       setShowKeyboard(false);
     } else if (event.key === "Backspace" && title.length === 0) {

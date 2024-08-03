@@ -13,6 +13,7 @@ import { setCurrentScreen } from "../../../../../../redux/reducers/screenParts/s
 import { enumCurrentScreen } from "../../../../../../redux/reducers/screenParts/enumsScreen";
 import InputAdornment from "@mui/material/InputAdornment";
 import PhoneRoundedIcon from "@mui/icons-material/PhoneRounded";
+import useScreen from "../../../../../../customHooks/useScreen";
 
 const StyledBody = styled.div<{ $keyboard: boolean }>`
   background: ${(prop) => prop.theme.backgrounds.primary};
@@ -53,13 +54,24 @@ const StyledInput = styled(TextField)`
       .MuiOutlinedInput-notchedOutline {
         border-color: ${(prop) => prop.theme.colors.primary};
       }
+
+      .MuiOutlinedInput-input {
+        color: ${(prop) => prop.theme.fonts.primary};
+      }
     }
+
     .MuiInputLabel-root {
       color: ${(prop) => prop.theme.colors.primary};
       &.Mui-focused {
         color: ${(prop) => prop.theme.colors.primary};
       }
     }
+  }
+`;
+
+const StyledIcon = styled(PhoneRoundedIcon)`
+  && {
+    color: ${(prop) => prop.theme.fonts.primary};
   }
 `;
 
@@ -98,6 +110,7 @@ export default function NewConversation() {
   const [showKeyboard, setShowKeyboard] = useState(false);
   const { contactsList } = useAppSelector((state) => state.contacts.list);
   const { editContactNumber } = useContacts();
+  const { screenCountdownUpdate } = useScreen();
   const dispatch = useAppDispatch();
 
   const openConversation = (number: string) => {
@@ -107,9 +120,10 @@ export default function NewConversation() {
     }
   };
 
-  const handleInputChangeNumber = (event: any): void => {
+  const handleInputChangeNumber = (event: any) => {
     const numbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
     const newKey = event.key;
+    screenCountdownUpdate();
 
     if (newKey === "Backspace") {
       setNumber((prevNumber) => prevNumber.slice(0, -1));
@@ -131,7 +145,7 @@ export default function NewConversation() {
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
-                <PhoneRoundedIcon />
+                <StyledIcon />
               </InputAdornment>
             ),
           }}

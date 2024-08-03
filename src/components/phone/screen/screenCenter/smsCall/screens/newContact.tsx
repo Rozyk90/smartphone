@@ -19,6 +19,7 @@ import useSound from "../../../../../../customHooks/useSound";
 import useContacts from "../../../../../../customHooks/useContacts";
 import useUtilities from "../../../../../../customHooks/useUtilities";
 import { contactNewContactData } from "../../../../../../redux/reducers/contacts/contactsGeneral";
+import useScreen from "../../../../../../customHooks/useScreen";
 
 const StyledBody = styled.div`
   height: 100%;
@@ -63,6 +64,9 @@ const StyledInput = styled(TextField)`
       .MuiOutlinedInput-notchedOutline {
         border-color: ${(prop) => prop.theme.colors.primary};
       }
+      .MuiOutlinedInput-input {
+        color: ${(prop) => prop.theme.fonts.primary};
+      }
     }
     .MuiInputLabel-root {
       color: ${(prop) => prop.theme.colors.primary};
@@ -73,6 +77,17 @@ const StyledInput = styled(TextField)`
   }
 `;
 
+const StyledIconName = styled(PersonAddAlt1RoundedIcon)`
+  && {
+    color: ${(prop) => prop.theme.fonts.primary};
+  }
+`;
+
+const StyledIconNumber = styled(PhoneRoundedIcon)`
+  && {
+    color: ${(prop) => prop.theme.fonts.primary};
+  }
+`;
 const StyledButtonsArea = styled.div`
   height: 50px;
   padding: 0px 20px;
@@ -114,6 +129,7 @@ export default function NewContact() {
 
   const dispatch = useAppDispatch();
 
+  const { screenCountdownUpdate } = useScreen();
   const { btnSoundEffect } = useSound();
   const { editContactNumber, findeContactUid } = useContacts();
 
@@ -136,13 +152,15 @@ export default function NewContact() {
     dispatch(setCurrentScreen(enumCurrentScreen.contacts));
   };
 
-  const handleInputChange = (event: any): void => {
+  const handleInputChange = (event: any) => {
+    screenCountdownUpdate()
     setName(event.target.value);
   };
 
-  const handleInputChangeNumber = (event: any): void => {
+  const handleInputChangeNumber = (event: any) => {
     const numbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
     const newKey = event.key
+    screenCountdownUpdate()
 
     if (newKey === "Backspace") {
       setNumber((prevNumber) => prevNumber.slice(0, -1));
@@ -182,7 +200,7 @@ export default function NewContact() {
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
-                <PersonAddAlt1RoundedIcon />
+                <StyledIconName />
               </InputAdornment>
             ),
           }}
@@ -197,7 +215,7 @@ export default function NewContact() {
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
-                <PhoneRoundedIcon />
+                <StyledIconNumber />
               </InputAdornment>
             ),
           }}

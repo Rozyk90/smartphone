@@ -11,6 +11,7 @@ import useFirestorePush from "../../../../../../customHooks/useFirestorePush";
 import useUtilities from "../../../../../../customHooks/useUtilities";
 import { BtnInfo, BtnCall } from "../components/btnsSmall";
 import { smsSetNotification } from "../../../../../../redux/reducers/sms";
+import useScreen from "../../../../../../customHooks/useScreen";
 
 const StyledBody = styled.div<{ $keyboard: boolean }>`
   background: ${(prop) => prop.theme.backgrounds.primary};
@@ -169,21 +170,24 @@ export default function Conversation() {
   const { mapMessagesByDay } = useUtilities();
 
   const { findContactName, editContactNumber, findeContactUid } = useContacts();
-
+  const {screenCountdownUpdate} = useScreen()
   const dispatch = useAppDispatch();
+
   const isContact = findContactName(smsTo);
   const conversationObj = smsHistory.find((conv) => conv.smsToNumber === smsTo);
   const sortedMessages = conversationObj?.conversation
     ? mapMessagesByDay(conversationObj.conversation)
     : [];
 
-  const handleInputChange = (event: any): void => {
+  const handleInputChange = (event: any) => {
+    screenCountdownUpdate()
     dispatch(smsSetNotification(false));
     setMessage(event.target.value);
     setShowKeyboard(true);
   };
 
   const handleKeyPress = (event: any) => {
+    screenCountdownUpdate()
     if (event.key === "Enter" && message.length !== 0) {
       send();
     } else if (event.key === "Backspace" && message.length === 0) {
