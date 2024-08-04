@@ -23,7 +23,6 @@ export const sliceContactsList = createSlice({
       state.contactsList = action.payload;
     },
     contactsListAddNew: (state, action: PayloadAction<Contact>) => {
-      console.log("dodajemy nowy kontakt redux");
       state.contactsList.push(action.payload);
     },
     contactsListUpdate: (state, action: PayloadAction<Contact>) => {
@@ -32,7 +31,6 @@ export const sliceContactsList = createSlice({
       });
       if (index !== -1) {
         state.contactsList[index] = action.payload;
-        console.log("poprawiamy kontakt");
       }
     },
     contactsListDelete: (state, action: PayloadAction<number>) => {
