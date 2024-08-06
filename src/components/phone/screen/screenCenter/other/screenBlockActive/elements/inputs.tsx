@@ -33,13 +33,19 @@ import useScreen from "../../../../../../../customHooks/useScreen";
 const StyledInputs = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 12px;
 `;
 
 export enum enumBtns {
   btnLogin = "login",
   btnRegistration = "registration",
 }
+
+const StyledDescription = styled.div`
+  font-size: 0.6rem;
+  width: 260px;
+  color: ${prop=>prop.theme.fonts.secondary};
+`;
 
 export default function Inputs() {
   const [selectedBtn, setSelectedBtn] = useState(enumBtns.btnLogin);
@@ -53,7 +59,7 @@ export default function Inputs() {
 
   const { lockSoundEffect } = useSound();
   const { createFirestore } = useCreateFirestore();
-  const {screenCountdownUpdate} = useScreen()
+  const { screenCountdownUpdate } = useScreen();
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setSelectedBtn(
@@ -65,13 +71,13 @@ export default function Inputs() {
   const changeEmail = (event: any) => {
     resetErrors();
     setEmail(event.target.value);
-    screenCountdownUpdate()
+    screenCountdownUpdate();
   };
 
   const changePass = (event: any) => {
     resetErrors();
     setPass(event.target.value);
-    screenCountdownUpdate()
+    screenCountdownUpdate();
   };
 
   const resetErrors = () => {
@@ -167,6 +173,10 @@ export default function Inputs() {
         }
         fn={selectedBtn === enumBtns.btnLogin ? loginAcc : createAcc}
       ></ActionBtn>
+      <StyledDescription>
+        *Podany email nie jest weryfikowany. Możesz użyć dowolnego adresu, np.
+        123@gmail.com
+      </StyledDescription>
     </>
   );
 }

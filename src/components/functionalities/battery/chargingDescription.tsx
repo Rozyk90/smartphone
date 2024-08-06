@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { useEffect, useState } from "react";
 
-import { useAppSelector, useAppDispatch } from "../../../redux/hooks";
+import { useAppSelector } from "../../../redux/hooks";
 
 import { TimersCharging } from "../../charger/timers";
 import ReturnBatteryIcon from "./returnBatteryIcon";
@@ -52,8 +52,7 @@ function CountDescription() {
   const { isCharging, battery, isFastCharging, isBatteryProtection } =
     useAppSelector((state) => state.battery);
   const { isOn } = useAppSelector((state) => state.basicStates);
-  const {isScreenOn}= useAppSelector(state => state.screen.general)
-  
+  const { isScreenOn } = useAppSelector((state) => state.screen.general);
 
   const countTime = () => {
     const toCharge = (isBatteryProtection ? 85 : 100) - battery;
@@ -83,17 +82,15 @@ function CountDescription() {
     isBatteryProtection,
   ]);
 
-
-
   return (
     <StyledBatteryLvl>
       <StyledIcon>
-    <BatteryIcon style={{ fontSize: "1.2rem" }}/>
+        <BatteryIcon style={{ fontSize: "1.2rem" }} />
         {battery}%
       </StyledIcon>
       {countTime()} min do pełnego naładowania
     </StyledBatteryLvl>
-  )
+  );
 }
 
 // ==========================================================================

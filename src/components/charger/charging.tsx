@@ -11,9 +11,11 @@ export default function Charging() {
     useAppSelector((state) => state.battery);
   const { isOn } = useAppSelector((state) => state.basicStates);
   const {isScreenOn}= useAppSelector(state => state.screen.general)
+  
   useEffect(() => {
     if (isCharging) {
       let timer = TimersCharging.basicCharging;
+      
       if (!isOn) {
         timer = TimersCharging.fastCharging;
       } else if (isFastCharging) {

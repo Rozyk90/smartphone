@@ -3,7 +3,6 @@ import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 
 import { phoneTurnOff } from "../../redux/reducers/basicStates";
 import { batteryUpdate } from "../../redux/reducers/battery";
-import { screenTurnOff } from "../../redux/reducers/screenParts/screenGeneral";
 
 import { TimersUncharging } from "./timers";
 import useScreen from "../../customHooks/useScreen";
@@ -17,8 +16,8 @@ export default function Uncharging() {
   const { isOn } = useAppSelector((state) => state.basicStates);
   const { isScreenOn } = useAppSelector((state) => state.screen.general);
 
-  const {screenOff} = useScreen()
-  const {modalOff} = useModal()
+  const { screenOff } = useScreen();
+  const { modalOff } = useModal();
 
   useEffect(() => {
     if (!isCharging && battery > 0) {
@@ -42,13 +41,12 @@ export default function Uncharging() {
       }
     }
 
-    if (battery === 0&&isOn) {
-      dispatch(phoneTurnOff())
-      screenOff()
-      modalOff()
-      dispatch(setCurrentScreen(enumCurrentScreen.screenTurnOffAnimation))
+    if (battery === 0 && isOn) {
+      dispatch(phoneTurnOff());
+      screenOff();
+      modalOff();
+      dispatch(setCurrentScreen(enumCurrentScreen.screenTurnOffAnimation));
     }
-
   }, [battery, isCharging, isOn]);
 
   return <></>;

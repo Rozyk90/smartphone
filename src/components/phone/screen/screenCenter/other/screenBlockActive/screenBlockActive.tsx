@@ -58,6 +58,7 @@ const StyledContainerLogin = styled.div`
   gap: 20px;
 `;
 
+
 export default function ScreenBlockActive() {
   const [showInputs, setShowInputs] = useState(false);
   const isLogged = useAppSelector((state) => state.user.isLogged);
@@ -98,7 +99,9 @@ export default function ScreenBlockActive() {
           {isLogged && <ActionBtn txt="Wyloguj się" fn={logout} />}
         </StyledBtnsContainer>
       ) : (
-        <StyledContainerLogin>{!isLogged && <Inputs />}</StyledContainerLogin>
+        <StyledContainerLogin>{!isLogged && <Inputs />}
+        
+        </StyledContainerLogin>
       )}
     </StyledBody>
   );

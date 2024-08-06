@@ -1,4 +1,4 @@
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
 
 import { useAppSelector } from "../../../redux/hooks";
 
@@ -59,7 +59,7 @@ const StyledBatterySign = styled.div`
 `;
 
 export default function ChargingSpiner() {
-  const battery = useAppSelector(state=>state.battery.battery)
+  const battery = useAppSelector((state) => state.battery.battery);
 
   return (
     <StyledChargingSpiner>
